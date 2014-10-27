@@ -17,6 +17,9 @@
 		8F083CD119F7A957004EA921 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F083CD019F7A957004EA921 /* DetailViewController.m */; };
 		8F083CD419F7AA4E004EA921 /* HNTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F083CD319F7AA4E004EA921 /* HNTableViewCell.m */; };
 		8F083CD719F7ADD8004EA921 /* HNObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F083CD619F7ADD8004EA921 /* HNObject.m */; };
+		8F3F81AF19FE613F00B666E1 /* news-1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8F3F81AD19FE613F00B666E1 /* news-1.json */; };
+		8F3F81B019FE613F00B666E1 /* news-2.json in Resources */ = {isa = PBXBuildFile; fileRef = 8F3F81AE19FE613F00B666E1 /* news-2.json */; };
+		8F3F81B319FE673400B666E1 /* icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8F3F81B219FE673400B666E1 /* icon.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		8F083CD319F7AA4E004EA921 /* HNTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNTableViewCell.m; sourceTree = "<group>"; };
 		8F083CD519F7ADD8004EA921 /* HNObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNObject.h; sourceTree = "<group>"; };
 		8F083CD619F7ADD8004EA921 /* HNObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNObject.m; sourceTree = "<group>"; };
+		8F3F81AD19FE613F00B666E1 /* news-1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "news-1.json"; path = "Resources/news-1.json"; sourceTree = "<group>"; };
+		8F3F81AE19FE613F00B666E1 /* news-2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "news-2.json"; path = "Resources/news-2.json"; sourceTree = "<group>"; };
+		8F3F81B219FE673400B666E1 /* icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = icon.jpg; path = Resources/icon.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +96,7 @@
 		8F083CA819F7A877004EA921 /* HIT Pinboard */ = {
 			isa = PBXGroup;
 			children = (
+				8F3F81AC19FE613400B666E1 /* Resources */,
 				8F083CAD19F7A877004EA921 /* AppDelegate.h */,
 				8F083CAE19F7A877004EA921 /* AppDelegate.m */,
 				8F083CB019F7A877004EA921 /* ViewController.h */,
@@ -132,6 +139,16 @@
 				8F083CC419F7A877004EA921 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8F3F81AC19FE613400B666E1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8F3F81B219FE673400B666E1 /* icon.jpg */,
+				8F3F81AD19FE613F00B666E1 /* news-1.json */,
+				8F3F81AE19FE613F00B666E1 /* news-2.json */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,8 +231,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F3F81B019FE613F00B666E1 /* news-2.json in Resources */,
 				8F083CB519F7A877004EA921 /* Main.storyboard in Resources */,
 				8F083CBA19F7A877004EA921 /* LaunchScreen.xib in Resources */,
+				8F3F81AF19FE613F00B666E1 /* news-1.json in Resources */,
+				8F3F81B319FE673400B666E1 /* icon.jpg in Resources */,
 				8F083CB719F7A877004EA921 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -432,6 +452,7 @@
 				8F083CCB19F7A877004EA921 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8F083CCC19F7A877004EA921 /* Build configuration list for PBXNativeTarget "HIT PinboardTests" */ = {
 			isa = XCConfigurationList;
@@ -440,6 +461,7 @@
 				8F083CCE19F7A877004EA921 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -12,4 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
+- (void)setContent:(NSString *)content;
+
 @end

@@ -10,13 +10,25 @@
 
 @interface DetailViewController ()
 
+@property (nonatomic, strong) NSString *content;
+
 @end
 
 @implementation DetailViewController
 
+@synthesize content = _content;
+
+- (instancetype)init {
+    self = [super init];
+    if (self)
+        NSLog(@"DetailVC has benn inited!");
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.textView.text = self.content;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,5 +45,10 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)setContent:(NSString *)content {
+    _content = [content stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+}
+
 
 @end

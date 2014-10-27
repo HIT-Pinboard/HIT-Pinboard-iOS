@@ -14,6 +14,8 @@
 @property (strong, nonatomic) NSString *urlString;
 @property (strong, nonatomic) NSString *content;
 @property (strong, nonatomic) NSDate *date;
+@property (strong, nonatomic) NSString *department;
+@property (strong, nonatomic) NSString *type;
 
 - (instancetype)initWithJSON:(NSString *)filePath;
 
