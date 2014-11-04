@@ -20,6 +20,7 @@
 		8F3F81AF19FE613F00B666E1 /* news-1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8F3F81AD19FE613F00B666E1 /* news-1.json */; };
 		8F3F81B019FE613F00B666E1 /* news-2.json in Resources */ = {isa = PBXBuildFile; fileRef = 8F3F81AE19FE613F00B666E1 /* news-2.json */; };
 		8F3F81B319FE673400B666E1 /* icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8F3F81B219FE673400B666E1 /* icon.jpg */; };
+		8F813A851A0918CD007ED189 /* style.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 8F813A841A0918CD007ED189 /* style.min.css */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		8F3F81AD19FE613F00B666E1 /* news-1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "news-1.json"; path = "Resources/news-1.json"; sourceTree = "<group>"; };
 		8F3F81AE19FE613F00B666E1 /* news-2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "news-2.json"; path = "Resources/news-2.json"; sourceTree = "<group>"; };
 		8F3F81B219FE673400B666E1 /* icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = icon.jpg; path = Resources/icon.jpg; sourceTree = "<group>"; };
+		8F813A841A0918CD007ED189 /* style.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = style.min.css; path = Resources/style.min.css; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +146,7 @@
 		8F3F81AC19FE613400B666E1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8F813A841A0918CD007ED189 /* style.min.css */,
 				8F3F81B219FE673400B666E1 /* icon.jpg */,
 				8F3F81AD19FE613F00B666E1 /* news-1.json */,
 				8F3F81AE19FE613F00B666E1 /* news-2.json */,
@@ -236,6 +239,7 @@
 				8F083CBA19F7A877004EA921 /* LaunchScreen.xib in Resources */,
 				8F3F81AF19FE613F00B666E1 /* news-1.json in Resources */,
 				8F3F81B319FE673400B666E1 /* icon.jpg in Resources */,
+				8F813A851A0918CD007ED189 /* style.min.css in Resources */,
 				8F083CB719F7A877004EA921 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -90,6 +90,8 @@
         HNObject *obj = [self.newsArray objectAtIndex:indexPath.row];
         target.imgs = obj.imgs;
         [target setContent:obj.content];
+        [target setNewsTitle:@""];
+        [target setNewsSubtitle:@""];
         target.title = @"内容详细";
     }
 }

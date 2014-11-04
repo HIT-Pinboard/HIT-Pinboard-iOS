@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.webView loadHTMLString:self.content baseURL:nil];
+    [self.webView loadHTMLString:[self HTMLString] baseURL:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,11 +62,20 @@
 }
 
 - (void)setNewsTitle:(NSString *)title {
-    _newsTitle = [NSString stringWithFormat:@"<h1>%@</h1>", title];
+//    _newsTitle = [NSString stringWithFormat:@"<h1>%@</h1>", title];
+    _newsTitle = @"<h1>Title</h1>";
 }
 
 - (void)setNewsSubtitle:(NSString *)subtitle {
-    _subtitle = [NSString stringWithFormat:@"<h3>%@</h3>", subtitle];
+//    _subtitle = [NSString stringWithFormat:@"<h3>%@</h3>", subtitle];
+    _subtitle = @"<h3>Subtitle Time:XXXXXXX</h3>";
+
+}
+
+- (NSString *)HTMLString
+{
+    NSString *style = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"style.min" ofType:@"css"] encoding:NSUTF8StringEncoding error:nil];
+    return [NSString stringWithFormat:@"<html><head></head><style>%@</style><body>%@<hr />%@%@</body></html>", style, _newsTitle, _subtitle, _content];
 }
 
 @end
