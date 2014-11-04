@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSDate *date;
 @property (strong, nonatomic) NSString *department;
 @property (strong, nonatomic) NSString *type;
+@property (strong, nonatomic) NSArray *imgs;
 
 - (instancetype)initWithJSON:(NSString *)filePath;
 

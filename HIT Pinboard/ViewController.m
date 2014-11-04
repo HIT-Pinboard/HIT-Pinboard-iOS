@@ -88,6 +88,7 @@
         DetailViewController *target = segue.destinationViewController;
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         HNObject *obj = [self.newsArray objectAtIndex:indexPath.row];
+        target.imgs = obj.imgs;
         [target setContent:obj.content];
         target.title = @"内容详细";
     }

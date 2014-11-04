@@ -11,24 +11,24 @@
 @interface DetailViewController ()
 
 @property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) NSString *newsTitle;
+@property (nonatomic, strong) NSString *subtitle;
 
 @end
 
 @implementation DetailViewController
 
-@synthesize content = _content;
+@synthesize content = _content, newsTitle = _newsTitle, subtitle = _subtitle, imgs = _imgs;
 
 - (instancetype)init {
     self = [super init];
-    if (self)
-        NSLog(@"DetailVC has benn inited!");
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.textView.text = self.content;
+    [self.webView loadHTMLString:self.content baseURL:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,8 +47,26 @@
 */
 
 - (void)setContent:(NSString *)content {
-    _content = [content stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+    NSMutableDictionary *dict = [@{} mutableCopy];
+    NSMutableString *tmp = [[content stringByReplacingOccurrencesOfString:@"\\n" withString:@"<br />"] mutableCopy];
+    NSRegularExpression *reg = [NSRegularExpression regularExpressionWithPattern:@"<!-- Images\\[\\d+\\] -->" options:NSRegularExpressionCaseInsensitive error:nil];
+    NSArray *matches = [reg matchesInString:tmp options:0 range:NSMakeRange(0, tmp.length)];
+    [matches enumerateObjectsUsingBlock:^(NSTextCheckingResult *result, NSUInteger index, BOOL *stop) {
+        NSString *imageURL = [NSString stringWithFormat:@"<img src=\"%@\">", [_imgs objectAtIndex:index]];
+        [dict setObject:imageURL forKey:[NSString stringWithFormat:@"<!-- Images[%lu] -->", index]];
+    }];
+    for (NSString *value in dict) {
+        tmp = [[tmp stringByReplacingOccurrencesOfString:value withString:[dict objectForKey:value]] mutableCopy];
+    }
+    _content = [NSString stringWithString:tmp];
 }
 
+- (void)setNewsTitle:(NSString *)title {
+    _newsTitle = [NSString stringWithFormat:@"<h1>%@</h1>", title];
+}
+
+- (void)setNewsSubtitle:(NSString *)subtitle {
+    _subtitle = [NSString stringWithFormat:@"<h3>%@</h3>", subtitle];
+}
 
 @end

@@ -10,8 +10,12 @@
 
 @interface DetailViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (strong, nonatomic) NSArray *imgs;
 
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+
+- (void)setNewsTitle:(NSString *)title;
+- (void)setNewsSubtitle:(NSString *)subtitle;
 - (void)setContent:(NSString *)content;
 
 @end
