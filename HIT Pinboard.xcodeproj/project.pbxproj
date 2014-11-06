@@ -9,11 +9,17 @@
 /* Begin PBXBuildFile section */
 		8F0AAA0E1A0BA18F0083497F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0AAA0D1A0BA18F0083497F /* main.m */; };
 		8F0AAA111A0BA18F0083497F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0AAA101A0BA18F0083497F /* AppDelegate.m */; };
-		8F0AAA141A0BA18F0083497F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0AAA131A0BA18F0083497F /* ViewController.m */; };
 		8F0AAA171A0BA18F0083497F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F0AAA151A0BA18F0083497F /* Main.storyboard */; };
 		8F0AAA191A0BA18F0083497F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F0AAA181A0BA18F0083497F /* Images.xcassets */; };
 		8F0AAA1C1A0BA18F0083497F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F0AAA1A1A0BA18F0083497F /* LaunchScreen.xib */; };
 		8F0AAA281A0BA18F0083497F /* HIT_PinboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0AAA271A0BA18F0083497F /* HIT_PinboardTests.m */; };
+		8F0AAA3A1A0BADC80083497F /* PBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0AAA381A0BADC80083497F /* PBTableViewCell.m */; };
+		8F0AAA3B1A0BADC80083497F /* PBTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F0AAA391A0BADC80083497F /* PBTableViewCell.xib */; };
+		8F0AAA3E1A0BAFCF0083497F /* PBFeatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0AAA3D1A0BAFCF0083497F /* PBFeatureViewController.m */; };
+		8F0AAA411A0BAFEF0083497F /* PBSubscribedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0AAA401A0BAFEF0083497F /* PBSubscribedViewController.m */; };
+		8F0AAA441A0BB0470083497F /* PBObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0AAA431A0BB0470083497F /* PBObject.m */; };
+		8F0AAA471A0BB0CA0083497F /* PBIndexObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0AAA461A0BB0CA0083497F /* PBIndexObject.m */; };
+		8F0AAA4D1A0BBA160083497F /* PBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0AAA4C1A0BBA160083497F /* PBManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,14 +38,26 @@
 		8F0AAA0D1A0BA18F0083497F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8F0AAA0F1A0BA18F0083497F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8F0AAA101A0BA18F0083497F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8F0AAA121A0BA18F0083497F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		8F0AAA131A0BA18F0083497F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		8F0AAA161A0BA18F0083497F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8F0AAA181A0BA18F0083497F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8F0AAA1B1A0BA18F0083497F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		8F0AAA211A0BA18F0083497F /* HIT PinboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HIT PinboardTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F0AAA261A0BA18F0083497F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8F0AAA271A0BA18F0083497F /* HIT_PinboardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HIT_PinboardTests.m; sourceTree = "<group>"; };
+		8F0AAA371A0BADC80083497F /* PBTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBTableViewCell.h; path = Controllers/PBTableViewCell.h; sourceTree = "<group>"; };
+		8F0AAA381A0BADC80083497F /* PBTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBTableViewCell.m; path = Controllers/PBTableViewCell.m; sourceTree = "<group>"; };
+		8F0AAA391A0BADC80083497F /* PBTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PBTableViewCell.xib; path = Controllers/PBTableViewCell.xib; sourceTree = "<group>"; };
+		8F0AAA3C1A0BAFCF0083497F /* PBFeatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBFeatureViewController.h; path = Controllers/PBFeatureViewController.h; sourceTree = "<group>"; };
+		8F0AAA3D1A0BAFCF0083497F /* PBFeatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBFeatureViewController.m; path = Controllers/PBFeatureViewController.m; sourceTree = "<group>"; };
+		8F0AAA3F1A0BAFEF0083497F /* PBSubscribedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBSubscribedViewController.h; path = Controllers/PBSubscribedViewController.h; sourceTree = "<group>"; };
+		8F0AAA401A0BAFEF0083497F /* PBSubscribedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBSubscribedViewController.m; path = Controllers/PBSubscribedViewController.m; sourceTree = "<group>"; };
+		8F0AAA421A0BB0470083497F /* PBObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBObject.h; path = Models/PBObject.h; sourceTree = "<group>"; };
+		8F0AAA431A0BB0470083497F /* PBObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBObject.m; path = Models/PBObject.m; sourceTree = "<group>"; };
+		8F0AAA451A0BB0CA0083497F /* PBIndexObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBIndexObject.h; path = Models/PBIndexObject.h; sourceTree = "<group>"; };
+		8F0AAA461A0BB0CA0083497F /* PBIndexObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBIndexObject.m; path = Models/PBIndexObject.m; sourceTree = "<group>"; };
+		8F0AAA4B1A0BBA160083497F /* PBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBManager.h; path = Models/PBManager.h; sourceTree = "<group>"; };
+		8F0AAA4C1A0BBA160083497F /* PBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBManager.m; path = Models/PBManager.m; sourceTree = "<group>"; };
+		8F0AAA4E1A0BBC2A0083497F /* PBConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBConstants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,10 +99,11 @@
 		8F0AAA0A1A0BA18F0083497F /* HIT Pinboard */ = {
 			isa = PBXGroup;
 			children = (
+				8F0AAA331A0BAD530083497F /* Controllers */,
+				8F0AAA321A0BAD4C0083497F /* Views */,
+				8F0AAA311A0BAD360083497F /* Models */,
 				8F0AAA0F1A0BA18F0083497F /* AppDelegate.h */,
 				8F0AAA101A0BA18F0083497F /* AppDelegate.m */,
-				8F0AAA121A0BA18F0083497F /* ViewController.h */,
-				8F0AAA131A0BA18F0083497F /* ViewController.m */,
 				8F0AAA151A0BA18F0083497F /* Main.storyboard */,
 				8F0AAA181A0BA18F0083497F /* Images.xcassets */,
 				8F0AAA1A1A0BA18F0083497F /* LaunchScreen.xib */,
@@ -117,6 +136,41 @@
 				8F0AAA261A0BA18F0083497F /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8F0AAA311A0BAD360083497F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8F0AAA421A0BB0470083497F /* PBObject.h */,
+				8F0AAA431A0BB0470083497F /* PBObject.m */,
+				8F0AAA451A0BB0CA0083497F /* PBIndexObject.h */,
+				8F0AAA461A0BB0CA0083497F /* PBIndexObject.m */,
+				8F0AAA4B1A0BBA160083497F /* PBManager.h */,
+				8F0AAA4C1A0BBA160083497F /* PBManager.m */,
+				8F0AAA4E1A0BBC2A0083497F /* PBConstants.h */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		8F0AAA321A0BAD4C0083497F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8F0AAA391A0BADC80083497F /* PBTableViewCell.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		8F0AAA331A0BAD530083497F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8F0AAA371A0BADC80083497F /* PBTableViewCell.h */,
+				8F0AAA381A0BADC80083497F /* PBTableViewCell.m */,
+				8F0AAA3C1A0BAFCF0083497F /* PBFeatureViewController.h */,
+				8F0AAA3D1A0BAFCF0083497F /* PBFeatureViewController.m */,
+				8F0AAA3F1A0BAFEF0083497F /* PBSubscribedViewController.h */,
+				8F0AAA401A0BAFEF0083497F /* PBSubscribedViewController.m */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F0AAA171A0BA18F0083497F /* Main.storyboard in Resources */,
+				8F0AAA3B1A0BADC80083497F /* PBTableViewCell.xib in Resources */,
 				8F0AAA1C1A0BA18F0083497F /* LaunchScreen.xib in Resources */,
 				8F0AAA191A0BA18F0083497F /* Images.xcassets in Resources */,
 			);
@@ -219,9 +274,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F0AAA141A0BA18F0083497F /* ViewController.m in Sources */,
+				8F0AAA4D1A0BBA160083497F /* PBManager.m in Sources */,
 				8F0AAA111A0BA18F0083497F /* AppDelegate.m in Sources */,
+				8F0AAA3E1A0BAFCF0083497F /* PBFeatureViewController.m in Sources */,
+				8F0AAA471A0BB0CA0083497F /* PBIndexObject.m in Sources */,
+				8F0AAA411A0BAFEF0083497F /* PBSubscribedViewController.m in Sources */,
 				8F0AAA0E1A0BA18F0083497F /* main.m in Sources */,
+				8F0AAA441A0BB0470083497F /* PBObject.m in Sources */,
+				8F0AAA3A1A0BADC80083497F /* PBTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +472,7 @@
 				8F0AAA2D1A0BA18F0083497F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8F0AAA2E1A0BA18F0083497F /* Build configuration list for PBXNativeTarget "HIT PinboardTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +481,7 @@
 				8F0AAA301A0BA18F0083497F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
