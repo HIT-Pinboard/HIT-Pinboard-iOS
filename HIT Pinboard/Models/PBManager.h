@@ -18,9 +18,13 @@
 
 + (id)sharedManager;
 
-- (BOOL)getFeatureList;
-- (BOOL)getSubscribedListFromIndex:(NSUInteger)startIndex
+- (NSArray *)getFeatureList;
+- (NSArray *)getSubscribedListFromIndex:(NSUInteger)startIndex
                              Count:(NSUInteger)count;
 
+- (NSArray *)requestFeatureList;
+- (NSArray *)requestSubscribedListFromIndex:(NSUInteger)startIndex
+                                 Count:(NSUInteger)count;
+- (PBObject *)requestSpecificObject:(NSURL *)url;
 
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PBIndexObject : NSObject
+@interface PBIndexObject : NSObject <NSCoding>
 
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *date;

@@ -7,6 +7,7 @@
 //
 
 #import "PBObject.h"
+#import "PBConstants.h"
 
 @interface PBObject ()
 
@@ -19,6 +20,10 @@
 @synthesize title = _title, date = _date, urlString = _urlString, tags = _tags,
             subtitle = _subtitle, content = _content, imgs = _imgs;
 
+/*
+ urlString in PBIndexObject indicates URL to JSON file
+ urlString in PBObject indicated URL to original webpage
+ */
 
 - (instancetype)initFromLocalJSON:(NSString *)filePath
 {
@@ -42,11 +47,49 @@
     return self;
 }
 
-- (instancetype)initFromRemoteJSON:(NSString *)urlString
+- (instancetype)initFromDict:(NSDictionary *)dict
 {
-    // to-do
-    return nil;
+    self = [super init];
+    if (self) {
+        _title = [dict objectForKey:@"title"];
+        _date = [dict objectForKey:@"date"];
+        _urlString = [dict objectForKey:@"link"];
+        _tags = [dict objectForKey:@"tags"];
+        _content = [dict objectForKey:@"content"];
+        _imgs = [dict objectForKey:@"imgs"];
+        
+        _subtitle = [NSString stringWithFormat:@"日期:%@ 标签:%@", _date, [[_imgs valueForKey:@"description"] componentsJoinedByString:@" "]];
+    }
+    return self;
 }
 
+#pragma mark -
+#pragma mark - NSCoding
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:_title forKey:kCodingTitleKey];
+    [aCoder encodeObject:_date forKey:kCodingDateKey];
+    [aCoder encodeObject:_urlString forKey:kCodingURLStringKey];
+    [aCoder encodeObject:_tags forKey:kCodingTagsKey];
+    [aCoder encodeObject:_subtitle forKey:kCodingSubtitleKey];
+    [aCoder encodeObject:_content forKey:kCodingContentKey];
+    [aCoder encodeObject:_imgs forKey:kCodingImagesKey];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self) {
+        _title = [aDecoder decodeObjectForKey:kCodingTitleKey];
+        _date = [aDecoder decodeObjectForKey:kCodingDateKey];
+        _urlString = [aDecoder decodeObjectForKey:kCodingURLStringKey];
+        _tags = [aDecoder decodeObjectForKey:kCodingTagsKey];
+        _subtitle = [aDecoder decodeObjectForKey:kCodingSubtitleKey];
+        _content = [aDecoder decodeObjectForKey:kCodingContentKey];
+        _imgs = [aDecoder decodeObjectForKey:kCodingImagesKey];
+    }
+    return self;
+}
 
 @end

@@ -12,6 +12,17 @@
 #define kHost       @"http://202.118.250.19"
 #define kWebRoot    @"/"
 
+
+#define kCodingTitleKey       @"Title"
+#define kCodingDateKey        @"Date"
+#define kCodingURLStringKey   @"URLString"
+#define kCodingTagsKey        @"Tags"
+#define kCodingSubtitleKey    @"Subtitle"
+#define kCodingContentKey     @"Content"
+#define kCodingImagesKey      @"Images"
+
+
+
 typedef enum : NSUInteger {
     PBDataSourceSME = 0,
     PBDataSourceCA

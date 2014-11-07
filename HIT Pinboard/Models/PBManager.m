@@ -6,12 +6,37 @@
 //  Copyright (c) 2014 Yifei Zhou. All rights reserved.
 //
 
+#import <CacheKit/CacheKit.h>
+#import <RestKit/RestKit.h>
+
 #import "PBManager.h"
 #import "PBConstants.h"
 #import "PBIndexObject.h"
 #import "PBObject.h"
 
+@interface PBManager ()
+
+@property (strong, nonatomic) CKSQLiteCache *cache;
+@property (strong, nonatomic) RKObjectMapping *indexObjectMapping;
+@property (strong, nonatomic) RKObjectMapping *objectMapping;
+
+@end
+
 @implementation PBManager
+
+@synthesize cache = _cache, indexObjectMapping = _indexMapping, objectMapping = _objectMapping;
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self configureRESTKit];
+        if (!_cache) {
+            _cache = [[CKSQLiteCache alloc] init];
+        }
+    }
+    return self;
+}
 
 + (id)sharedManager
 {
@@ -27,17 +52,59 @@
 }
 
 #pragma mark -
-#pragma mark - Instance Method
-- (BOOL)getFeatureList
+#pragma mark - Getter Method
+
+- (NSArray *)getFeatureList
 {
-    // to-do
-    return NO;
+    return _featureList;
 }
-- (BOOL)getSubscribedListFromIndex:(NSUInteger)startIndex
+
+- (NSArray *)getSubscribedListFromIndex:(NSUInteger)startIndex
                              Count:(NSUInteger)count
 {
-    // to-do
-    return NO;
+    return [_subscribedList objectsAtIndexes:
+            [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(startIndex, count)]];
+}
+
+#pragma mark -
+#pragma mark - Request Remote Objects
+
+- (NSArray *)requestFeatureList
+{
+    return nil;
+}
+
+- (NSArray *)requestSubscribedListFromIndex:(NSUInteger)startIndex
+                                      Count:(NSUInteger)count
+{
+    return nil;
+}
+
+- (PBObject *)requestSpecificObject:(NSURL *)url
+{
+    return nil;
+}
+
+#pragma mark -
+#pragma mark - Configure Method
+
+- (void)configureRESTKit
+{
+    _indexMapping = [RKObjectMapping mappingForClass:[PBIndexObject class]];
+    _objectMapping = [RKObjectMapping mappingForClass:[PBObject class]];
+    [_indexMapping addAttributeMappingsFromDictionary:@{@"title": @"title",
+                                                        @"date": @"date",
+                                                        @"link": @"urlString",
+                                                        @"tags": @"tags"
+                                                        }];
+    [_objectMapping addAttributeMappingsFromDictionary:@{@"title": @"title",
+                                                        @"date": @"date",
+                                                        @"link": @"urlString",
+                                                        @"tags": @"tags",
+                                                        @"content": @"content",
+                                                        @"imgs": @"imgs"
+                                                        }];
+    
 }
 
 #pragma mark - 

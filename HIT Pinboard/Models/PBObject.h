@@ -9,13 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "PBIndexObject.h"
 
-@interface PBObject : PBIndexObject
+@interface PBObject : PBIndexObject <NSCoding>
 
 @property (strong, nonatomic, readonly) NSString *subtitle;
 @property (strong, nonatomic) NSString *content;
 @property (strong, nonatomic) NSArray *imgs;
 
 - (instancetype)initFromLocalJSON:(NSString *)filePath;
-- (instancetype)initFromRemoteJSON:(NSString *)urlString;
+- (instancetype)initFromDict:(NSDictionary *)dict;
 
 @end
