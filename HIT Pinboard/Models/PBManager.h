@@ -15,12 +15,14 @@
 
 @property (strong, nonatomic) NSArray *featureList;
 @property (strong, nonatomic) NSArray *subscribedList;
+@property (strong, nonatomic) NSArray *tagsList;
 
 + (id)sharedManager;
 
 - (NSArray *)getFeatureList;
 - (NSArray *)getSubscribedListFromIndex:(NSUInteger)startIndex
                              Count:(NSUInteger)count;
+- (NSArray *)getTagsList;
 
 - (NSArray *)requestFeatureList;
 - (NSArray *)requestSubscribedListFromIndex:(NSUInteger)startIndex

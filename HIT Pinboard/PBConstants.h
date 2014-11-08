@@ -20,12 +20,15 @@
 #define kCodingSubtitleKey    @"Subtitle"
 #define kCodingContentKey     @"Content"
 #define kCodingImagesKey      @"Images"
+#define kCodingTagName        @"Name"
+#define kCodingTagValue       @"Value"
+#define kCodingTagChildren    @"Children"
 
 
 
-typedef enum : NSUInteger {
+enum {
     PBDataSourceSME = 0,
-    PBDataSourceCA
-} PBDataSourcesType;
+    PBDataSourceCA = 1
+};
 
 #endif

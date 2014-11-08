@@ -87,10 +87,10 @@
             </objects>
             <point key="canvasLocation" x="2435.5" y="763.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="2J9-Ka-A3l">
             <objects>
-                <viewController id="wP7-BS-JR4" sceneMemberID="viewController">
+                <viewController id="wP7-BS-JR4" customClass="PBDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aVu-df-Jhs"/>
                         <viewControllerLayoutGuide type="bottom" id="5yG-pB-77m"/>
@@ -106,6 +106,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="webView" destination="ewv-XD-XQy" id="0qc-hs-oGu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VdJ-p1-zBq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

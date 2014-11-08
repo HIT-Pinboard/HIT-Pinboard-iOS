@@ -24,7 +24,7 @@
 
 @implementation PBManager
 
-@synthesize cache = _cache, indexObjectMapping = _indexMapping, objectMapping = _objectMapping;
+@synthesize cache = _cache, indexObjectMapping = _indexMapping, objectMapping = _objectMapping, tagsList = _tagsList;
 
 - (instancetype)init
 {
@@ -64,6 +64,11 @@
 {
     return [_subscribedList objectsAtIndexes:
             [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(startIndex, count)]];
+}
+
+- (NSArray *)getTagsList
+{
+    return _tagsList;
 }
 
 #pragma mark -
