@@ -8,6 +8,7 @@
 
 #import "PBHTMLString.h"
 #import "NSString+HTML.h"
+#import "PBManager.h"
 
 @interface PBHTMLString ()
 
@@ -43,19 +44,18 @@
 
 - (void)replaceImageComments
 {
-    // still need modification. can't filter '<' in string
     NSMutableDictionary *dict = [@{} mutableCopy];
-    NSMutableString *tmp = [[self contentByReplacingNewLinesWithBRs] mutableCopy];
-    NSRegularExpression *reg = [NSRegularExpression regularExpressionWithPattern:@"<!-- Images\\[\\d+\\] -->" options:NSRegularExpressionCaseInsensitive error:nil];
+    NSMutableString *tmp = [[[self contentByReplacingNewLinesWithBRs] stringByEncodingHTMLEntities] mutableCopy];
+    NSRegularExpression *reg = [NSRegularExpression regularExpressionWithPattern:@"#!-- Images\\[\\d+\\] --!#" options:NSRegularExpressionCaseInsensitive error:nil];
     NSArray *matches = [reg matchesInString:_content options:0 range:NSMakeRange(0, _content.length)];
     [matches enumerateObjectsUsingBlock:^(NSTextCheckingResult *result, NSUInteger index, BOOL *stop) {
         NSString *imageURL = nil;
-        if (_shouldDisplayImages) {
+        if ([[PBManager sharedManager] shouldDisplayImages]) {
             imageURL = [NSString stringWithFormat:@"<img src=\"%@\">", [_images objectAtIndex:index]];
         } else {
             imageURL = @"";
         }
-        [dict setObject:imageURL forKey:[NSString stringWithFormat:@"<!-- Images[%lu] -->", index]];
+        [dict setObject:imageURL forKey:[NSString stringWithFormat:@"#!-- Images[%lu] --!#", index]];
     }];
     for (NSString *key in dict) {
         tmp = [[tmp stringByReplacingOccurrencesOfString:key withString:[dict objectForKey:key]] mutableCopy];

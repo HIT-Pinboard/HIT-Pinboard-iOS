@@ -10,4 +10,6 @@
 
 @interface PBSubscribedViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @end

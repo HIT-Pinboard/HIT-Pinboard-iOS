@@ -10,6 +10,11 @@
 
 @implementation PBTableViewCell
 
++ (UINib *)nib
+{
+    return [UINib nibWithNibName:@"PBTableViewCell" bundle:nil];
+}
+
 - (void)awakeFromNib {
     // Initialization code
 }

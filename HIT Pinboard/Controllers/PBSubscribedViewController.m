@@ -7,16 +7,28 @@
 //
 
 #import "PBSubscribedViewController.h"
+#import "PBTableViewCell.h"
+#import "PBIndexObject.h"
+#import "PBManager.h"
+#import "PBArrayDataSource.h"
 
-@interface PBSubscribedViewController ()
+static NSString * const cellIdentifier = @"PBIndexObjectCell";
+
+@interface PBSubscribedViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (strong, nonatomic) PBArrayDataSource *objectsArrayDataSource;
 
 @end
 
 @implementation PBSubscribedViewController
 
+@synthesize objectsArrayDataSource = _objectsArrayDataSource;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"Feature";
+    [self setupTableView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,4 +46,26 @@
 }
 */
 
+- (void)setupTableView
+{
+    TableViewCellConfigureBlock configureCell = ^(PBTableViewCell *cell, PBIndexObject *object) {
+        cell.titleLabel.text = object.title;
+        cell.subtitleLabel.text = @"Subtitle";
+    };
+    NSArray *objects = [[PBManager sharedManager] subscribedList];
+    _objectsArrayDataSource = [[PBArrayDataSource alloc] initWithItems:objects
+                                                        cellIdentifier:cellIdentifier
+                                                    configureCellBlock:configureCell];
+    self.tableView.dataSource = _objectsArrayDataSource;
+    [self.tableView registerNib:[PBTableViewCell nib] forCellReuseIdentifier:cellIdentifier];
+}
+
+#pragma mark UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 @end
+

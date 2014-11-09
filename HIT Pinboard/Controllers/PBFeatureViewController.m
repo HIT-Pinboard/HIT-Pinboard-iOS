@@ -7,16 +7,28 @@
 //
 
 #import "PBFeatureViewController.h"
+#import "PBTableViewCell.h"
+#import "PBIndexObject.h"
+#import "PBManager.h"
+#import "PBArrayDataSource.h"
 
-@interface PBFeatureViewController ()
+static NSString * const cellIdentifier = @"PBIndexObjectCell";
+
+@interface PBFeatureViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (strong, nonatomic) PBArrayDataSource *objectsArrayDataSource;
 
 @end
 
 @implementation PBFeatureViewController
 
+@synthesize objectsArrayDataSource = _objectsArrayDataSource;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"Feature";
+    [self setupTableView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,5 +45,26 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)setupTableView
+{
+    TableViewCellConfigureBlock configureCell = ^(PBTableViewCell *cell, PBIndexObject *object) {
+        cell.titleLabel.text = object.title;
+        cell.subtitleLabel.text = @"Subtitle";
+    };
+    NSArray *objects = [[PBManager sharedManager] featureList];
+    _objectsArrayDataSource = [[PBArrayDataSource alloc] initWithItems:objects
+                                                         cellIdentifier:cellIdentifier
+                                                     configureCellBlock:configureCell];
+    self.tableView.dataSource = _objectsArrayDataSource;
+    [self.tableView registerNib:[PBTableViewCell nib] forCellReuseIdentifier:cellIdentifier];
+}
+
+#pragma mark UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 @end
