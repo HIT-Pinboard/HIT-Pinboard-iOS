@@ -14,7 +14,7 @@
 
 static NSString * const cellIdentifier = @"PBIndexObjectCell";
 
-@interface PBFeatureViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface PBFeatureViewController () <UITableViewDelegate>
 
 @property (strong, nonatomic) PBArrayDataSource *objectsArrayDataSource;
 
