@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PBSubscribeTag : NSObject
+@interface PBSubscribeTag : NSObject <NSCoding>
 
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *value;

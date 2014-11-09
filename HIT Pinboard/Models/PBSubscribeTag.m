@@ -44,4 +44,14 @@
     return self;
 }
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    return [[PBSubscribeTag alloc] initFromDict:[aDecoder decodeObjectForKey:kCodingTagsKey]];
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:[self objectToDict] forKey:kCodingTagsKey];
+}
+
 @end

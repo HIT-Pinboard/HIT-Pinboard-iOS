@@ -24,7 +24,7 @@
 
 @implementation PBManager
 
-@synthesize cache = _cache, indexObjectMapping = _indexMapping, objectMapping = _objectMapping, tagsList = _tagsList;
+@synthesize featureList = _featureList, subscribedList = _subscribedList, tagsList = _tagsList, cache = _cache, indexObjectMapping = _indexMapping, objectMapping = _objectMapping;
 
 - (instancetype)init
 {
@@ -32,7 +32,23 @@
     if (self) {
         [self configureRESTKit];
         if (!_cache) {
-            _cache = [[CKSQLiteCache alloc] init];
+            _cache = [[CKSQLiteCache alloc] initWithName:@"PBCache"];
+            if ([_cache objectExistsForKey:kCachingFeatureList])
+                _featureList = [_cache objectForKey:kCachingFeatureList];
+            if ([_cache objectExistsForKey:kCachingSubscribeList])
+                _subscribedList = [_cache objectForKey:kCachingSubscribeList];
+            if ([_cache objectExistsForKey:kCachingTagsList]) {
+                _tagsList = [_cache objectForKey:kCachingTagsList];
+            }
+        }
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        _shouldEnableNotification = YES;
+        _shouldDisplayImages = YES;
+        if ([defaults objectForKey:kSettingDisplayImages]) {
+            _shouldDisplayImages = [(NSNumber *)[defaults objectForKey:kSettingDisplayImages] boolValue];
+        }
+        if ([defaults objectForKey:kSettingNotifications]) {
+            _shouldEnableNotification = [(NSNumber *)[defaults objectForKey:kSettingNotifications] boolValue];
         }
     }
     return self;
@@ -52,26 +68,6 @@
 }
 
 #pragma mark -
-#pragma mark - Getter Method
-
-- (NSArray *)getFeatureList
-{
-    return _featureList;
-}
-
-- (NSArray *)getSubscribedListFromIndex:(NSUInteger)startIndex
-                             Count:(NSUInteger)count
-{
-    return [_subscribedList objectsAtIndexes:
-            [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(startIndex, count)]];
-}
-
-- (NSArray *)getTagsList
-{
-    return _tagsList;
-}
-
-#pragma mark -
 #pragma mark - Request Remote Objects
 
 - (NSArray *)requestFeatureList
@@ -88,6 +84,28 @@
 - (PBObject *)requestSpecificObject:(NSURL *)url
 {
     return nil;
+}
+
+- (NSArray *)requestTagsList
+{
+    return nil;
+}
+
+#pragma mark -
+#pragma mark - Cache
+
+- (void)cacheAllObjects
+{
+    [_cache setObject:_featureList forKey:kCachingFeatureList];
+    [_cache setObject:_subscribedList forKey:kCachingSubscribeList];
+    [_cache setObject:_tagsList forKey:kCachingTagsList];
+}
+
+- (void)saveSettings
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSNumber numberWithBool:_shouldDisplayImages] forKey:kSettingDisplayImages];
+    [defaults setObject:[NSNumber numberWithBool:_shouldEnableNotification] forKey:kSettingNotifications];
 }
 
 #pragma mark -

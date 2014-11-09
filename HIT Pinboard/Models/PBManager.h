@@ -17,16 +17,18 @@
 @property (strong, nonatomic) NSArray *subscribedList;
 @property (strong, nonatomic) NSArray *tagsList;
 
-+ (id)sharedManager;
+@property (assign, nonatomic) BOOL shouldDisplayImages;
+@property (assign, nonatomic) BOOL shouldEnableNotification;
 
-- (NSArray *)getFeatureList;
-- (NSArray *)getSubscribedListFromIndex:(NSUInteger)startIndex
-                             Count:(NSUInteger)count;
-- (NSArray *)getTagsList;
++ (id)sharedManager;
 
 - (NSArray *)requestFeatureList;
 - (NSArray *)requestSubscribedListFromIndex:(NSUInteger)startIndex
                                  Count:(NSUInteger)count;
 - (PBObject *)requestSpecificObject:(NSURL *)url;
+- (NSArray *)requestTagsList;
+
+- (void)cacheAllObjects;
+- (void)saveSettings;
 
 @end

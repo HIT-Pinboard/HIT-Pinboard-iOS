@@ -26,6 +26,7 @@
 		8F10DF0D1A0D27EF003A9BAE /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F10DF0A1A0D27EF003A9BAE /* GTMNSString+HTML.m */; };
 		8F10DF0E1A0D27EF003A9BAE /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F10DF0C1A0D27EF003A9BAE /* NSString+HTML.m */; };
 		8FA27D6B1A0E5E6B00F996B7 /* PBHTMLString.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA27D6A1A0E5E6B00F996B7 /* PBHTMLString.m */; };
+		8FA879F91A0F5E0C006FAFBD /* PBSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA879F81A0F5E0C006FAFBD /* PBSettingsTableViewController.m */; };
 		CE41836FBDE3808E26FEF3EC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02048724735E3D2A0E82B42D /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,8 @@
 		8F10DF0C1A0D27EF003A9BAE /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+HTML.m"; path = "Models/3rd Party/NSString+HTML.m"; sourceTree = "<group>"; };
 		8FA27D691A0E5E6B00F996B7 /* PBHTMLString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBHTMLString.h; path = Models/PBHTMLString.h; sourceTree = "<group>"; };
 		8FA27D6A1A0E5E6B00F996B7 /* PBHTMLString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBHTMLString.m; path = Models/PBHTMLString.m; sourceTree = "<group>"; };
+		8FA879F71A0F5E0C006FAFBD /* PBSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBSettingsTableViewController.h; path = Controllers/PBSettingsTableViewController.h; sourceTree = "<group>"; };
+		8FA879F81A0F5E0C006FAFBD /* PBSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBSettingsTableViewController.m; path = Controllers/PBSettingsTableViewController.m; sourceTree = "<group>"; };
 		9E9858E500570470DB6AAD04 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -212,6 +215,8 @@
 				8F10DF031A0D1D6B003A9BAE /* PBDetailViewController.m */,
 				8F10DF051A0D24CA003A9BAE /* URLActivity.h */,
 				8F10DF061A0D24CA003A9BAE /* URLActivity.m */,
+				8FA879F71A0F5E0C006FAFBD /* PBSettingsTableViewController.h */,
+				8FA879F81A0F5E0C006FAFBD /* PBSettingsTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -375,6 +380,7 @@
 				8F10DF041A0D1D6B003A9BAE /* PBDetailViewController.m in Sources */,
 				8F0AAA111A0BA18F0083497F /* AppDelegate.m in Sources */,
 				8F0AAA3E1A0BAFCF0083497F /* PBFeatureViewController.m in Sources */,
+				8FA879F91A0F5E0C006FAFBD /* PBSettingsTableViewController.m in Sources */,
 				8F0AAA471A0BB0CA0083497F /* PBIndexObject.m in Sources */,
 				8F10DF0E1A0D27EF003A9BAE /* NSString+HTML.m in Sources */,
 				8F10DF0D1A0D27EF003A9BAE /* GTMNSString+HTML.m in Sources */,
