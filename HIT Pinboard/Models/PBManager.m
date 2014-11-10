@@ -13,18 +13,17 @@
 #import "PBConstants.h"
 #import "PBIndexObject.h"
 #import "PBObject.h"
+#import "PBSubscribeTag.h"
 
 @interface PBManager ()
 
 @property (strong, nonatomic) CKSQLiteCache *cache;
-@property (strong, nonatomic) RKObjectMapping *indexObjectMapping;
-@property (strong, nonatomic) RKObjectMapping *objectMapping;
 
 @end
 
 @implementation PBManager
 
-@synthesize featureList = _featureList, subscribedList = _subscribedList, tagsList = _tagsList, cache = _cache, indexObjectMapping = _indexMapping, objectMapping = _objectMapping;
+@synthesize featureList = _featureList, subscribedList = _subscribedList, tagsList = _tagsList, cache = _cache;
 
 - (instancetype)init
 {
@@ -70,15 +69,30 @@
 #pragma mark -
 #pragma mark - Request Remote Objects
 
-- (NSArray *)requestFeatureList
+- (void)requestFeatureList
 {
-    return nil;
+    [[RKObjectManager sharedManager] postObject:nil path:@"/newsList" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
+        _featureList = result.array;
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", [error localizedDescription]);
+    }];
 }
 
-- (NSArray *)requestSubscribedListFromIndex:(NSUInteger)startIndex
-                                      Count:(NSUInteger)count
+- (void)requestSubscribedListFromIndex:(NSUInteger)startIndex
+                                 Count:(NSUInteger)count
+                                  Tags:(NSArray *)tags
 {
-    return nil;
+    NSMutableDictionary *data = [@{} mutableCopy];
+    [data setObject:[NSNumber numberWithUnsignedInteger:startIndex] forKey:@"start_index"];
+    [data setObject:[NSNumber numberWithUnsignedInteger:count] forKey:@"count"];
+    [data setObject:tags forKey:@"tags"];
+    [[RKObjectManager sharedManager] postObject:nil path:@"/newsList" parameters:data success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
+        _subscribedList = result.array;
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", [error localizedDescription]);
+    }];
 }
 
 - (PBObject *)requestSpecificObject:(NSURL *)url
@@ -86,9 +100,13 @@
     return nil;
 }
 
-- (NSArray *)requestTagsList
+- (void)requestTagsList
 {
-    return nil;
+    [[RKObjectManager sharedManager] getObjectsAtPath:@"/tagsList" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
+        _tagsList = result.array;
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", [error localizedDescription]);
+    }];
 }
 
 #pragma mark -
@@ -113,21 +131,27 @@
 
 - (void)configureRESTKit
 {
-    _indexMapping = [RKObjectMapping mappingForClass:[PBIndexObject class]];
-    _objectMapping = [RKObjectMapping mappingForClass:[PBObject class]];
-    [_indexMapping addAttributeMappingsFromDictionary:@{@"title": @"title",
+    RKObjectMapping *indexMapping = [RKObjectMapping mappingForClass:[PBIndexObject class]];
+    RKObjectMapping *tagMapping = [RKObjectMapping mappingForClass:[PBSubscribeTag class]];
+    [indexMapping addAttributeMappingsFromDictionary:@{@"title": @"title",
                                                         @"date": @"date",
                                                         @"link": @"urlString",
                                                         @"tags": @"tags"
                                                         }];
-    [_objectMapping addAttributeMappingsFromDictionary:@{@"title": @"title",
-                                                        @"date": @"date",
-                                                        @"link": @"urlString",
-                                                        @"tags": @"tags",
-                                                        @"content": @"content",
-                                                        @"imgs": @"imgs"
-                                                        }];
+    [tagMapping addAttributeMappingsFromDictionary:@{@"name": @"name",
+                                                     @"value": @"value",
+                                                     @"children": @"children"
+                                                     }];
     
+    RKResponseDescriptor *indexDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:indexMapping method:RKRequestMethodPOST pathPattern:@"/newsList" keyPath:@"response" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    RKResponseDescriptor *tagDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:tagMapping method:RKRequestMethodGET pathPattern:@"/tagsList" keyPath:@"response" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    
+    AFHTTPClient *client = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kHost]];
+    RKObjectManager *objectManager = [[RKObjectManager alloc] initWithHTTPClient:client];
+    
+    [objectManager addResponseDescriptorsFromArray:@[indexDescriptor, tagDescriptor]];
+    
+    [RKObjectManager setSharedManager:objectManager];
 }
 
 #pragma mark - 

@@ -29,6 +29,16 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     // Do any additional setup after loading the view.
     self.title = @"Feature";
     [self setupTableView];
+    _tableView.rowHeight = 80.0f;
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserverForName:@"tableViewShouldReload" object:nil queue:nil usingBlock:^(NSNotification *note){
+        [_tableView reloadData];
+        // Still got error here. Incorrectly reloadingData
+        NSArray *feature = [[PBManager sharedManager] featureList];
+    }];
+    
+    UIBarButtonItem *refreshBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:[PBManager sharedManager] action:@selector(requestFeatureList)];
+    self.navigationItem.rightBarButtonItem = refreshBtn;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,8 +66,8 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     _objectsArrayDataSource = [[PBArrayDataSource alloc] initWithItems:objects
                                                          cellIdentifier:cellIdentifier
                                                      configureCellBlock:configureCell];
-    self.tableView.dataSource = _objectsArrayDataSource;
-    [self.tableView registerNib:[PBTableViewCell nib] forCellReuseIdentifier:cellIdentifier];
+    _tableView.dataSource = _objectsArrayDataSource;
+    [_tableView registerNib:[PBTableViewCell nib] forCellReuseIdentifier:cellIdentifier];
 }
 
 #pragma mark UITableViewDelegate

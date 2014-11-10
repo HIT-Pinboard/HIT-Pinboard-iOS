@@ -22,11 +22,13 @@
 
 + (id)sharedManager;
 
-- (NSArray *)requestFeatureList;
-- (NSArray *)requestSubscribedListFromIndex:(NSUInteger)startIndex
-                                 Count:(NSUInteger)count;
+- (void)requestFeatureList;
+- (void)requestSubscribedListFromIndex:(NSUInteger)startIndex
+                                 Count:(NSUInteger)count
+                                  Tags:(NSArray *)tags;
+- (void)requestTagsList;
+
 - (PBObject *)requestSpecificObject:(NSURL *)url;
-- (NSArray *)requestTagsList;
 
 - (void)cacheAllObjects;
 - (void)saveSettings;

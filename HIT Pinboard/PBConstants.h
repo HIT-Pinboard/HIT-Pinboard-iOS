@@ -9,8 +9,7 @@
 #ifndef HIT_Pinboard_PBConstants_h
 #define HIT_Pinboard_PBConstants_h
 
-#define kHost       @"http://202.118.250.19"
-#define kWebRoot    @"/"
+#define kHost       @"http://localhost:8080"
 
 
 #define kCodingTitleKey         @"Title"
