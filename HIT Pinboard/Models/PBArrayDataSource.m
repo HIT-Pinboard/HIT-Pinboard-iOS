@@ -7,10 +7,11 @@
 //
 
 #import "PBArrayDataSource.h"
+#import "PBManager.h"
 
 @interface PBArrayDataSource ()
 
-@property (nonatomic, strong) NSArray *items;
+@property (nonatomic, strong) PBManager *pbManager;
 @property (nonatomic, copy) NSString *cellIdentifier;
 @property (nonatomic, copy) TableViewCellConfigureBlock configureCellBlock;
 
@@ -23,13 +24,12 @@
     return nil;
 }
 
-- (id)initWithItems:(NSArray *)anItems
-     cellIdentifier:(NSString *)aCellIdentifier
- configureCellBlock:(TableViewCellConfigureBlock)aConfigureCellBlock
+- (id)initWithCellIdentifier:(NSString *)aCellIdentifier
+          configureCellBlock:(TableViewCellConfigureBlock)aConfigureCellBlock
 {
     self = [super init];
     if (self) {
-        self.items = anItems;
+        self.pbManager = [PBManager sharedManager];
         self.cellIdentifier = aCellIdentifier;
         self.configureCellBlock = [aConfigureCellBlock copy];
     }
@@ -38,7 +38,7 @@
 
 - (id)itemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self.items[(NSUInteger) indexPath.row];
+    return self.pbManager.featureList[(NSUInteger) indexPath.row];
 }
 
 
@@ -46,7 +46,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.items.count;
+    return self.pbManager.featureList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

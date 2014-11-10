@@ -63,9 +63,8 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
         cell.subtitleLabel.text = @"Subtitle";
     };
     NSArray *objects = [[PBManager sharedManager] featureList];
-    _objectsArrayDataSource = [[PBArrayDataSource alloc] initWithItems:objects
-                                                         cellIdentifier:cellIdentifier
-                                                     configureCellBlock:configureCell];
+    _objectsArrayDataSource = [[PBArrayDataSource alloc] initWithCellIdentifier:cellIdentifier
+                                                             configureCellBlock:configureCell];
     _tableView.dataSource = _objectsArrayDataSource;
     [_tableView registerNib:[PBTableViewCell nib] forCellReuseIdentifier:cellIdentifier];
 }
