@@ -33,8 +33,6 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserverForName:@"tableViewShouldReload" object:nil queue:nil usingBlock:^(NSNotification *note){
         [_tableView reloadData];
-        // Still got error here. Incorrectly reloadingData
-        NSArray *feature = [[PBManager sharedManager] featureList];
     }];
     
     UIBarButtonItem *refreshBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:[PBManager sharedManager] action:@selector(requestFeatureList)];

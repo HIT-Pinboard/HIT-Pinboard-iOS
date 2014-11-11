@@ -34,11 +34,18 @@
             _cache = [[CKSQLiteCache alloc] initWithName:@"PBCache"];
             if ([_cache objectExistsForKey:kCachingFeatureList])
                 _featureList = [_cache objectForKey:kCachingFeatureList];
+            else
+                _featureList = [@[] mutableCopy];
+            
             if ([_cache objectExistsForKey:kCachingSubscribeList])
                 _subscribedList = [_cache objectForKey:kCachingSubscribeList];
-            if ([_cache objectExistsForKey:kCachingTagsList]) {
+            else
+                _subscribedList = [@[] mutableCopy];
+            
+            if ([_cache objectExistsForKey:kCachingTagsList])
                 _tagsList = [_cache objectForKey:kCachingTagsList];
-            }
+            else
+                _tagsList = [@[] mutableCopy];
         }
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         _shouldEnableNotification = YES;
@@ -72,7 +79,8 @@
 - (void)requestFeatureList
 {
     [[RKObjectManager sharedManager] postObject:nil path:@"/newsList" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
-        _featureList = result.array;
+        [_featureList removeAllObjects];
+        [_featureList addObjectsFromArray:result.array];
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
@@ -89,7 +97,7 @@
     [data setObject:[NSNumber numberWithUnsignedInteger:count] forKey:@"count"];
     [data setObject:tags forKey:@"tags"];
     [[RKObjectManager sharedManager] postObject:nil path:@"/newsList" parameters:data success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
-        _subscribedList = result.array;
+        [_subscribedList insertObjects:result.array atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(startIndex, count)]];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"%@", [error localizedDescription]);
     }];
@@ -103,7 +111,8 @@
 - (void)requestTagsList
 {
     [[RKObjectManager sharedManager] getObjectsAtPath:@"/tagsList" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
-        _tagsList = result.array;
+        [_tagsList removeAllObjects];
+        [_tagsList addObjectsFromArray:result.array];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         NSLog(@"%@", [error localizedDescription]);
     }];

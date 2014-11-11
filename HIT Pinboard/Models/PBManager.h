@@ -13,9 +13,9 @@
 
 @interface PBManager : NSObject <UITableViewDataSource>
 
-@property (strong, nonatomic) NSArray *featureList;
-@property (strong, nonatomic) NSArray *subscribedList;
-@property (strong, nonatomic) NSArray *tagsList;
+@property (strong, nonatomic, readonly) NSMutableArray *featureList;
+@property (strong, nonatomic, readonly) NSMutableArray *subscribedList;
+@property (strong, nonatomic, readonly) NSMutableArray *tagsList;
 
 @property (assign, nonatomic) BOOL shouldDisplayImages;
 @property (assign, nonatomic) BOOL shouldEnableNotification;
