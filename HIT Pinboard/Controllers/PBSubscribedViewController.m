@@ -11,6 +11,7 @@
 #import "PBIndexObject.h"
 #import "PBManager.h"
 #import "PBArrayDataSource.h"
+#import "NSArray+PBSubscribeTag.h"
 
 static NSString * const cellIdentifier = @"PBIndexObjectCell";
 
@@ -29,6 +30,27 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     // Do any additional setup after loading the view.
     self.title = @"Feature";
     [self setupTableView];
+    _tableView.rowHeight = 80.0f;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"tableViewShouldReload" object:nil queue:nil usingBlock:^(NSNotification *note){
+        [_tableView reloadData];
+    }];
+#ifdef DEBUG
+    NSLog(@"tableViewShouldReload notification registered");
+#endif
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:nil name:@"tableViewShouldReload" object:nil];
+#ifdef DEBUG
+    NSLog(@"tableViewShouldReload notification removed");
+#endif
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,6 +79,7 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
                                                         cellIdentifier:cellIdentifier
                                                     configureCellBlock:configureCell];
     self.tableView.dataSource = _objectsArrayDataSource;
+    _tableView.delegate = self;
     [self.tableView registerNib:[PBTableViewCell nib] forCellReuseIdentifier:cellIdentifier];
 }
 

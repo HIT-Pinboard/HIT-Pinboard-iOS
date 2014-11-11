@@ -19,12 +19,12 @@ get '/tagsList' do
 				"name" => "SME",
 				"value" => "1",
 				"children" => [{
-					"name" => "ANNOUNCEMENT",
+					"name" => "SME - ANNO",
 					"value" => "1.1",
 					"children" => []
 				},
 				{
-					"name" => "NEWS",
+					"name" => "SME - NEWS",
 					"value" => "1.2",
 					"children" => []
 				}]
@@ -33,12 +33,12 @@ get '/tagsList' do
 				"name" => "JWC",
 				"value" => "2",
 				"children" => [{
-					"name" => "ANNOUNCEMENT",
+					"name" => "JWC - ANNO",
 					"value" => "2.1",
 					"children" => []
 				},
 				{
-					"name" => "NEWS",
+					"name" => "JWC - NEWS",
 					"value" => "2.2",
 					"children" => []
 				}]

@@ -20,6 +20,7 @@
 		8F0AAA441A0BB0470083497F /* PBObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0AAA431A0BB0470083497F /* PBObject.m */; };
 		8F0AAA471A0BB0CA0083497F /* PBIndexObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0AAA461A0BB0CA0083497F /* PBIndexObject.m */; };
 		8F0AAA4D1A0BBA160083497F /* PBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0AAA4C1A0BBA160083497F /* PBManager.m */; };
+		8F0C92161A11DFBE001AACF2 /* NSArray+PBSubscribeTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F0C92151A11DFBE001AACF2 /* NSArray+PBSubscribeTag.m */; };
 		8F10DF011A0D1311003A9BAE /* PBSubscribeTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F10DF001A0D1311003A9BAE /* PBSubscribeTag.m */; };
 		8F10DF041A0D1D6B003A9BAE /* PBDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F10DF031A0D1D6B003A9BAE /* PBDetailViewController.m */; };
 		8F10DF071A0D24CA003A9BAE /* URLActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F10DF061A0D24CA003A9BAE /* URLActivity.m */; };
@@ -69,6 +70,8 @@
 		8F0AAA4B1A0BBA160083497F /* PBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBManager.h; path = Models/PBManager.h; sourceTree = "<group>"; };
 		8F0AAA4C1A0BBA160083497F /* PBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBManager.m; path = Models/PBManager.m; sourceTree = "<group>"; };
 		8F0AAA4E1A0BBC2A0083497F /* PBConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBConstants.h; sourceTree = "<group>"; };
+		8F0C92141A11DFBE001AACF2 /* NSArray+PBSubscribeTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+PBSubscribeTag.h"; path = "Models/NSArray+PBSubscribeTag.h"; sourceTree = "<group>"; };
+		8F0C92151A11DFBE001AACF2 /* NSArray+PBSubscribeTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+PBSubscribeTag.m"; path = "Models/NSArray+PBSubscribeTag.m"; sourceTree = "<group>"; };
 		8F10DEFF1A0D1311003A9BAE /* PBSubscribeTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBSubscribeTag.h; path = Models/PBSubscribeTag.h; sourceTree = "<group>"; };
 		8F10DF001A0D1311003A9BAE /* PBSubscribeTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBSubscribeTag.m; path = Models/PBSubscribeTag.m; sourceTree = "<group>"; };
 		8F10DF021A0D1D6B003A9BAE /* PBDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBDetailViewController.h; path = Controllers/PBDetailViewController.h; sourceTree = "<group>"; };
@@ -194,6 +197,8 @@
 				8F10DF001A0D1311003A9BAE /* PBSubscribeTag.m */,
 				8FA27D691A0E5E6B00F996B7 /* PBHTMLString.h */,
 				8FA27D6A1A0E5E6B00F996B7 /* PBHTMLString.m */,
+				8F0C92141A11DFBE001AACF2 /* NSArray+PBSubscribeTag.h */,
+				8F0C92151A11DFBE001AACF2 /* NSArray+PBSubscribeTag.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -397,6 +402,7 @@
 				8F0AAA471A0BB0CA0083497F /* PBIndexObject.m in Sources */,
 				8F10DF0E1A0D27EF003A9BAE /* NSString+HTML.m in Sources */,
 				8F10DF0D1A0D27EF003A9BAE /* GTMNSString+HTML.m in Sources */,
+				8F0C92161A11DFBE001AACF2 /* NSArray+PBSubscribeTag.m in Sources */,
 				8F0AAA411A0BAFEF0083497F /* PBSubscribedViewController.m in Sources */,
 				8FCFA8A31A0FAA5400C8EAC8 /* PBArrayDataSource.m in Sources */,
 				8F0AAA0E1A0BA18F0083497F /* main.m in Sources */,

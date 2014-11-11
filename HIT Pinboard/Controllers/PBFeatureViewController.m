@@ -11,6 +11,7 @@
 #import "PBIndexObject.h"
 #import "PBManager.h"
 #import "PBArrayDataSource.h"
+#import "NSArray+PBSubscribeTag.h"
 
 static NSString * const cellIdentifier = @"PBIndexObjectCell";
 
@@ -30,13 +31,29 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     self.title = @"Feature";
     [self setupTableView];
     _tableView.rowHeight = 80.0f;
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserverForName:@"tableViewShouldReload" object:nil queue:nil usingBlock:^(NSNotification *note){
-        [_tableView reloadData];
-    }];
     
     UIBarButtonItem *refreshBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:[PBManager sharedManager] action:@selector(requestFeatureList)];
     self.navigationItem.rightBarButtonItem = refreshBtn;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"tableViewShouldReload" object:nil queue:nil usingBlock:^(NSNotification *note){
+        [_tableView reloadData];
+    }];
+#ifdef DEBUG
+    NSLog(@"tableViewShouldReload notification registered");
+#endif
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:nil name:@"tableViewShouldReload" object:nil];
+#ifdef DEBUG
+    NSLog(@"tableViewShouldReload notification removed");
+#endif
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,13 +75,18 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 {
     TableViewCellConfigureBlock configureCell = ^(PBTableViewCell *cell, PBIndexObject *object) {
         cell.titleLabel.text = object.title;
-        cell.subtitleLabel.text = @"Subtitle";
+        NSMutableArray *strArr = [@[] mutableCopy];
+        for (NSString *tagValue in object.tags) {
+            [strArr addObject:[[[PBManager sharedManager] tagsList] tagNameForValue:tagValue]];
+        }
+        cell.subtitleLabel.text = [[strArr valueForKey:@"description"] componentsJoinedByString:@" "];
     };
     NSArray *objects = [[PBManager sharedManager] featureList];
     _objectsArrayDataSource = [[PBArrayDataSource alloc] initWithItems:objects
                                                          cellIdentifier:cellIdentifier
                                                      configureCellBlock:configureCell];
     _tableView.dataSource = _objectsArrayDataSource;
+    _tableView.delegate = self;
     [_tableView registerNib:[PBTableViewCell nib] forCellReuseIdentifier:cellIdentifier];
 }
 

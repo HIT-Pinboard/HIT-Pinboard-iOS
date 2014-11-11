@@ -9,8 +9,11 @@
 #ifndef HIT_Pinboard_PBConstants_h
 #define HIT_Pinboard_PBConstants_h
 
+#ifdef DEBUG
 #define kHost       @"http://localhost:8080"
-
+#else
+#define kHost       @"http;//219.217.227.65"
+#endif
 
 #define kCodingTitleKey         @"Title"
 #define kCodingDateKey          @"Date"

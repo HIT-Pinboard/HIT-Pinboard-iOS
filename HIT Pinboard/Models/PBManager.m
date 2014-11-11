@@ -56,6 +56,8 @@
         if ([defaults objectForKey:kSettingNotifications]) {
             _shouldEnableNotification = [(NSNumber *)[defaults objectForKey:kSettingNotifications] boolValue];
         }
+        // improve this
+        [self requestTagsList];
     }
     return self;
 }
@@ -149,8 +151,9 @@
                                                         }];
     [tagMapping addAttributeMappingsFromDictionary:@{@"name": @"name",
                                                      @"value": @"value",
-                                                     @"children": @"children"
                                                      }];
+    
+    [tagMapping addRelationshipMappingWithSourceKeyPath:@"children" mapping:tagMapping];
     
     RKResponseDescriptor *indexDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:indexMapping method:RKRequestMethodPOST pathPattern:@"/newsList" keyPath:@"response" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     RKResponseDescriptor *tagDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:tagMapping method:RKRequestMethodGET pathPattern:@"/tagsList" keyPath:@"response" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
