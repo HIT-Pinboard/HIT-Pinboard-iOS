@@ -1,0 +1,5 @@
+language: objective-c
+xcode_sdk: iphonesimulator7.1
+xcode_workspace: HIT\ Pinboard.xcworkspace
+xcode_scheme: HIT\ Pinboard
+podfile: Podfile

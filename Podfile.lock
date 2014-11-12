@@ -25,11 +25,13 @@ PODS:
   - SOCKit (1.1)
   - SVProgressHUD (1.0)
   - TransitionKit (1.1.1)
+  - UIColor+FlatColors (0.0.2)
 
 DEPENDENCIES:
   - CacheKit
   - RestKit (~> 0.20.0)
   - SVProgressHUD
+  - UIColor+FlatColors
 
 SPEC CHECKSUMS:
   AFNetworking: 80c4e0652b08eb34e25b9c0ff3c82556fe5967b4
@@ -39,5 +41,6 @@ SPEC CHECKSUMS:
   SOCKit: d8d0dd3688ae1026c12367570da8fa8e1a6980fb
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
   TransitionKit: b573f93c422f6aedf7d40e93e7c2f202d1295063
+  UIColor+FlatColors: 15506ef6472e26a751033f2f2469283800bcb906
 
 COCOAPODS: 0.34.4
