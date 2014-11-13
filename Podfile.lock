@@ -7,6 +7,7 @@ PODS:
   - FMDB/common (2.4)
   - FMDB/standard (2.4):
     - FMDB/common
+  - PRRefreshControl (0.1.8)
   - RestKit (0.20.3):
     - RestKit/Core
   - RestKit/Core (0.20.3):
@@ -29,6 +30,7 @@ PODS:
 
 DEPENDENCIES:
   - CacheKit
+  - PRRefreshControl
   - RestKit (~> 0.20.0)
   - SVProgressHUD
   - UIColor+FlatColors
@@ -37,6 +39,7 @@ SPEC CHECKSUMS:
   AFNetworking: 80c4e0652b08eb34e25b9c0ff3c82556fe5967b4
   CacheKit: 39500151b4964a37b12d27d53483ee4ca17ef7bf
   FMDB: 0b2fa25e5264ef177973c0cb8c02c711107979aa
+  PRRefreshControl: 9eb6243a0e64ef0451aafe411c77bd79c0774425
   RestKit: 7f9490e709ee745e166c4d2aa7a8d132831275b0
   SOCKit: d8d0dd3688ae1026c12367570da8fa8e1a6980fb
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
