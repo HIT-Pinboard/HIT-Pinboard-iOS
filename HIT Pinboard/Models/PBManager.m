@@ -33,17 +33,17 @@
         if (!_cache) {
             _cache = [[CKSQLiteCache alloc] initWithName:@"PBCache"];
             if ([_cache objectExistsForKey:kCachingFeatureList])
-                _featureList = [_cache objectForKey:kCachingFeatureList];
+                _featureList = [[_cache objectForKey:kCachingFeatureList] mutableCopy];
             else
                 _featureList = [@[] mutableCopy];
             
             if ([_cache objectExistsForKey:kCachingSubscribeList])
-                _subscribedList = [_cache objectForKey:kCachingSubscribeList];
+                _subscribedList = [[_cache objectForKey:kCachingSubscribeList] mutableCopy];
             else
                 _subscribedList = [@[] mutableCopy];
             
             if ([_cache objectExistsForKey:kCachingTagsList])
-                _tagsList = [_cache objectForKey:kCachingTagsList];
+                _tagsList = [[_cache objectForKey:kCachingTagsList] mutableCopy];
             else
                 _tagsList = [@[] mutableCopy];
         }
@@ -83,10 +83,13 @@
     [[RKObjectManager sharedManager] postObject:nil path:@"/newsList" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
         [_featureList removeAllObjects];
         [_featureList addObjectsFromArray:result.array];
-        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-        [center postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        [self alertWithError:error];
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];
+#ifdef DEBUG
         NSLog(@"%@", [error localizedDescription]);
+#endif
     }];
 }
 
@@ -100,8 +103,13 @@
     [data setObject:tags forKey:@"tags"];
     [[RKObjectManager sharedManager] postObject:nil path:@"/newsList" parameters:data success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
         [_subscribedList insertObjects:result.array atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(startIndex, count)]];
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        [self alertWithError:error];
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];
+#ifdef DEBUG
         NSLog(@"%@", [error localizedDescription]);
+#endif
     }];
 }
 
@@ -116,7 +124,10 @@
         [_tagsList removeAllObjects];
         [_tagsList addObjectsFromArray:result.array];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        [self alertWithError:error];
+#ifdef DEBUG
         NSLog(@"%@", [error localizedDescription]);
+#endif
     }];
 }
 
@@ -179,6 +190,15 @@
 {
     // to-do
     return 0;
+}
+
+#pragma mark -
+#pragma mark - Error Alert
+
+- (void)alertWithError:(NSError *)error
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"遇到了一些问题" message:[error localizedDescription] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+    [alert show];
 }
 
 @end

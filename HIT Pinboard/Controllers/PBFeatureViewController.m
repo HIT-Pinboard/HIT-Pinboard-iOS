@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Yifei Zhou. All rights reserved.
 //
 
+#import <PRRefreshControl/PRRefreshControl.h>
 #import "PBFeatureViewController.h"
 #import "PBTableViewCell.h"
 #import "PBIndexObject.h"
@@ -19,6 +20,9 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 
 @property (strong, nonatomic) PBArrayDataSource *objectsArrayDataSource;
 
+@property (weak, nonatomic) PRRefreshControl *refreshControl;
+@property (assign, nonatomic) BOOL shouldRefreshData;
+
 @end
 
 @implementation PBFeatureViewController
@@ -30,10 +34,8 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     // Do any additional setup after loading the view.
     self.title = @"Feature";
     [self setupTableView];
-    _tableView.rowHeight = 80.0f;
+    [self setupRefreshControl];
     
-    UIBarButtonItem *refreshBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:[PBManager sharedManager] action:@selector(requestFeatureList)];
-    self.navigationItem.rightBarButtonItem = refreshBtn;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -41,6 +43,7 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserverForName:@"tableViewShouldReload" object:nil queue:nil usingBlock:^(NSNotification *note){
         [_tableView reloadData];
+        [self dataDidRefresh];
     }];
 #ifdef DEBUG
     NSLog(@"tableViewShouldReload notification registered");
@@ -61,15 +64,18 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - 
+#pragma mark - ViewController Setup
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)setupRefreshControl
+{
+    PRRefreshControl *refreshControl = [[PRRefreshControl alloc] init];
+    [refreshControl addTarget:self
+                       action:@selector(refreshControlTriggered:)
+             forControlEvents:UIControlEventValueChanged];
+    _refreshControl = refreshControl;
+    [_tableView addSubview:refreshControl];
 }
-*/
 
 - (void)setupTableView
 {
@@ -83,12 +89,59 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     };
     NSArray *objects = [[PBManager sharedManager] featureList];
     _objectsArrayDataSource = [[PBArrayDataSource alloc] initWithItems:objects
-                                                         cellIdentifier:cellIdentifier
-                                                     configureCellBlock:configureCell];
+                                                        cellIdentifier:cellIdentifier
+                                                    configureCellBlock:configureCell];
     _tableView.dataSource = _objectsArrayDataSource;
     _tableView.delegate = self;
+    _tableView.rowHeight = 80.0f;
+    _tableView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     [_tableView registerNib:[PBTableViewCell nib] forCellReuseIdentifier:cellIdentifier];
 }
+
+#pragma mark - 
+#pragma mark - PRRefreshController
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.refreshControl scrollViewDidScroll];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    [self.refreshControl scrollViewDidEndDragging];
+    if (self.shouldRefreshData) {
+        [self dataDidRefresh];
+        self.shouldRefreshData = NO;
+    }
+}
+
+- (void)dataDidRefresh
+{
+    [self.refreshControl endRefreshing];
+}
+
+- (void)refreshControlTriggered:(PRRefreshControl *)sender
+{
+    [sender beginRefreshing];
+    if (_tableView.isDragging) {
+        self.shouldRefreshData = YES;
+    } else {
+        [[PBManager sharedManager] requestFeatureList];
+    }
+}
+
+
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+
+
+
 
 #pragma mark UITableViewDelegate
 
