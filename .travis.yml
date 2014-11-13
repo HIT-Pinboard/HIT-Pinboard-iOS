@@ -1,5 +1,6 @@
 language: objective-c
-xcode_sdk: iphonesimulator7.1
-xcode_workspace: HIT\ Pinboard.xcworkspace
-xcode_scheme: HIT\ Pinboard
-podfile: Podfile
+before_install:
+  - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
+  - pod install
+script:
+  - xctool -workspace HIT\ Pinboard.xcworkspace -scheme HIT\ Pinboard -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
