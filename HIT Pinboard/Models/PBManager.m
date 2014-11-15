@@ -207,6 +207,7 @@
     [objectMapping addAttributeMappingsFromDictionary:@{@"title": @"title",
                                                         @"url": @"urlString",
                                                         @"date": @"date",
+                                                        @"tags": @"tags",
                                                         @"content": @"content",
                                                         @"imgs": @"imgs"
                                                         }];

@@ -8,6 +8,8 @@
 
 #import "PBObject.h"
 #import "PBConstants.h"
+#import "PBManager.h"
+#import "NSArray+PBSubscribeTag.h"
 
 @interface PBObject ()
 
@@ -40,8 +42,6 @@
             _tags = [json objectForKey:@"tags"];
             _content = [json objectForKey:@"content"];
             _imgs = [json objectForKey:@"imgs"];
-            
-            _subtitle = [NSString stringWithFormat:@"日期:%@ 标签:%@", _date, [[_imgs valueForKey:@"description"] componentsJoinedByString:@" "]];
         }
     }
     return self;
@@ -63,7 +63,12 @@
 
 - (NSString *)subtitle
 {
-    return [NSString stringWithFormat:@"日期:%@ 标签:%@", _date, [[_imgs valueForKey:@"description"] componentsJoinedByString:@" "]];
+    NSMutableArray *strArr = [@[] mutableCopy];
+    for (NSString *tagValue in _tags) {
+        [strArr addObject:[[[PBManager sharedManager] tagsList] tagNameForValue:tagValue]];
+    }
+    NSString *tagDescription = [[strArr valueForKey:@"description"] componentsJoinedByString:@" "];
+    return [NSString stringWithFormat:@"日期:%@ 标签:%@", _date, tagDescription];
 }
 
 #pragma mark -
