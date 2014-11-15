@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PBHTMLString : NSString
+@interface PBHTMLString : NSObject
 
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *subtitle;

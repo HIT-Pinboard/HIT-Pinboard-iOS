@@ -35,8 +35,8 @@
 
 - (NSString *)toHTMLString
 {
-    NSString *titleHTMLString = [[_title stringByEncodingHTMLEntities] stringByAddingHTMLMarkup:@"h1"];
-    NSString *subtitleHTMLString = [[_subtitle stringByEncodingHTMLEntities] stringByAddingHTMLMarkup:@"h3"];
+    NSString *titleHTMLString = [_title stringByAddingHTMLMarkup:@"h1"];
+    NSString *subtitleHTMLString = [_subtitle stringByAddingHTMLMarkup:@"h3"];
     [self replaceImageComments];
     NSString *contentHTMLString = [_content stringByAddingHTMLMarkup:@"p"];
     return [NSString stringWithFormat:@"<html><head></head><style>%@</style><body>%@<hr />%@%@</body></html>", _css, titleHTMLString, subtitleHTMLString, contentHTMLString];
@@ -45,7 +45,7 @@
 - (void)replaceImageComments
 {
     NSMutableDictionary *dict = [@{} mutableCopy];
-    NSMutableString *tmp = [[[self contentByReplacingNewLinesWithBRs] stringByEncodingHTMLEntities] mutableCopy];
+    NSMutableString *tmp = [[self contentByReplacingNewLinesWithBRs] mutableCopy];
     NSRegularExpression *reg = [NSRegularExpression regularExpressionWithPattern:@"#!-- Images\\[\\d+\\] --!#" options:NSRegularExpressionCaseInsensitive error:nil];
     NSArray *matches = [reg matchesInString:_content options:0 range:NSMakeRange(0, _content.length)];
     [matches enumerateObjectsUsingBlock:^(NSTextCheckingResult *result, NSUInteger index, BOOL *stop) {

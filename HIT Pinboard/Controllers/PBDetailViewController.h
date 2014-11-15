@@ -13,6 +13,7 @@
 @interface PBDetailViewController : UIViewController
 
 @property (strong, nonatomic) PBObject *object;
+@property (strong, nonatomic) NSString *requestURL;
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 

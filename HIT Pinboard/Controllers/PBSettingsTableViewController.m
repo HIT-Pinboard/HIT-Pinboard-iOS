@@ -68,6 +68,39 @@
     return count;
 }
 
+#pragma mark - Table view delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.section) {
+        case 0:
+            switch (indexPath.row) {
+                case 0:
+                    [self rateThisApp];
+                    break;
+                case 1:
+                    [self composeEmail];
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 1:
+            if (indexPath.row == 0) {
+                [[PBManager sharedManager] clearCache];
+            }
+        case 2:
+            if (indexPath.row == 0) {
+//                [self performSegueWithIdentifier:@"" sender:self];
+            }
+        default:
+            break;
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - 
+#pragma mark - Actions
+
 - (IBAction)noPicSwitchChanged:(UISwitch *)sender
 {
     PBManager *mgr = [PBManager sharedManager];
@@ -82,4 +115,18 @@
     [mgr saveSettings];
     // to-do
 }
+
+#pragma mark -
+#pragma mark - Select method
+
+- (void)rateThisApp
+{
+    
+}
+
+- (void)composeEmail
+{
+    
+}
+
 @end

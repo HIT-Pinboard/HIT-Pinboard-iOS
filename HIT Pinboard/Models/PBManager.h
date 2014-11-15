@@ -11,11 +11,12 @@
 
 @class PBIndexObject, PBObject;
 
-@interface PBManager : NSObject <UITableViewDataSource>
+@interface PBManager : NSObject
 
 @property (strong, nonatomic, readonly) NSMutableArray *featureList;
 @property (strong, nonatomic, readonly) NSMutableArray *subscribedList;
 @property (strong, nonatomic, readonly) NSMutableArray *tagsList;
+@property (strong, nonatomic, readonly) PBObject *requestedObject;
 
 @property (assign, nonatomic) BOOL shouldDisplayImages;
 @property (assign, nonatomic) BOOL shouldEnableNotification;
@@ -28,9 +29,10 @@
                                   Tags:(NSArray *)tags;
 - (void)requestTagsList;
 
-- (PBObject *)requestSpecificObject:(NSURL *)url;
+- (void)requestSpecificObject:(NSString *)urlString;
 
 - (void)cacheAllObjects;
+- (void)clearCache;
 - (void)saveSettings;
 
 @end

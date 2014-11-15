@@ -23,7 +23,7 @@
 
 @implementation PBManager
 
-@synthesize featureList = _featureList, subscribedList = _subscribedList, tagsList = _tagsList, cache = _cache;
+@synthesize featureList = _featureList, subscribedList = _subscribedList, tagsList = _tagsList, cache = _cache, requestedObject = _requestedObject;
 
 - (instancetype)init
 {
@@ -113,9 +113,28 @@
     }];
 }
 
-- (PBObject *)requestSpecificObject:(NSURL *)url
+- (void)requestSpecificObject:(NSString *)urlString
 {
-    return nil;
+    if ([_cache objectExistsForKey:urlString]) {
+        _requestedObject = [_cache objectForKey:urlString];
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"requestedObjectLoaded" object:nil]];
+    } else {
+        [[RKObjectManager sharedManager] getObjectsAtPath:urlString parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
+            _requestedObject = result.array.firstObject;
+            [_cache setObject:_requestedObject forKey:urlString];
+            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"requestedObjectLoaded" object:nil]];
+        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"requestObjectFailed" object:nil]];
+            _requestedObject = nil;
+//            [self alertWithError:error];
+#ifdef DEBUG
+            NSLog(@"%@", [error localizedDescription]);
+#endif
+        }];
+    }
+#ifdef DEBUG
+    NSLog(@"requestSpecificObject method invoked!");
+#endif
 }
 
 - (void)requestTagsList
@@ -141,6 +160,11 @@
     [_cache setObject:_tagsList forKey:kCachingTagsList];
 }
 
+- (void)clearCache
+{
+    [_cache removeAllObjects];
+}
+
 - (void)saveSettings
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -155,41 +179,36 @@
 {
     RKObjectMapping *indexMapping = [RKObjectMapping mappingForClass:[PBIndexObject class]];
     RKObjectMapping *tagMapping = [RKObjectMapping mappingForClass:[PBSubscribeTag class]];
+    RKObjectMapping *objectMapping = [RKObjectMapping mappingForClass:[PBObject class]];
+
     [indexMapping addAttributeMappingsFromDictionary:@{@"title": @"title",
                                                         @"date": @"date",
                                                         @"link": @"urlString",
                                                         @"tags": @"tags"
                                                         }];
     [tagMapping addAttributeMappingsFromDictionary:@{@"name": @"name",
-                                                     @"value": @"value",
+                                                     @"value": @"value"
                                                      }];
     
     [tagMapping addRelationshipMappingWithSourceKeyPath:@"children" mapping:tagMapping];
     
+    [objectMapping addAttributeMappingsFromDictionary:@{@"title": @"title",
+                                                        @"url": @"urlString",
+                                                        @"date": @"date",
+                                                        @"content": @"content",
+                                                        @"imgs": @"imgs"
+                                                        }];
+    
     RKResponseDescriptor *indexDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:indexMapping method:RKRequestMethodPOST pathPattern:@"/newsList" keyPath:@"response" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     RKResponseDescriptor *tagDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:tagMapping method:RKRequestMethodGET pathPattern:@"/tagsList" keyPath:@"response" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+    RKResponseDescriptor *objectDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:objectMapping method:RKRequestMethodGET pathPattern:@"/:catalogue/:objectID.json" keyPath:@"response" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     
     AFHTTPClient *client = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kHost]];
     RKObjectManager *objectManager = [[RKObjectManager alloc] initWithHTTPClient:client];
     
-    [objectManager addResponseDescriptorsFromArray:@[indexDescriptor, tagDescriptor]];
+    [objectManager addResponseDescriptorsFromArray:@[indexDescriptor, tagDescriptor, objectDescriptor]];
     
     [RKObjectManager setSharedManager:objectManager];
-}
-
-#pragma mark - 
-#pragma mark UITableViewDataSource
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // to-do
-    return nil;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // to-do
-    return 0;
 }
 
 #pragma mark -

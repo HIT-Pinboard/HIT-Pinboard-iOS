@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PBIndexObject.h"
 
-@interface PBObject : PBIndexObject <NSCoding>
+@interface PBObject : PBIndexObject <NSCoding, NSCopying>
 
 @property (strong, nonatomic, readonly) NSString *subtitle;
 @property (strong, nonatomic) NSString *content;

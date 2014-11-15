@@ -13,6 +13,7 @@
 #import "PBManager.h"
 #import "PBArrayDataSource.h"
 #import "NSArray+PBSubscribeTag.h"
+#import "PBDetailViewController.h"
 
 static NSString * const cellIdentifier = @"PBIndexObjectCell";
 
@@ -136,17 +137,19 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"showDetail"]) {
+        NSIndexPath *indexPath = [_tableView indexPathForSelectedRow];
+        PBDetailViewController *destVC = [segue destinationViewController];
+        PBIndexObject *indexObject = [[[PBManager sharedManager] featureList] objectAtIndex:indexPath.row];
+        destVC.requestURL = indexObject.urlString;
+    }
 }
-
-
-
 
 #pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self performSegueWithIdentifier:@"showDetail" sender:self];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

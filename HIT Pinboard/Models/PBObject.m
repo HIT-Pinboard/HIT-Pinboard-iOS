@@ -57,10 +57,13 @@
         _tags = [dict objectForKey:@"tags"];
         _content = [dict objectForKey:@"content"];
         _imgs = [dict objectForKey:@"imgs"];
-        
-        _subtitle = [NSString stringWithFormat:@"日期:%@ 标签:%@", _date, [[_imgs valueForKey:@"description"] componentsJoinedByString:@" "]];
     }
     return self;
+}
+
+- (NSString *)subtitle
+{
+    return [NSString stringWithFormat:@"日期:%@ 标签:%@", _date, [[_imgs valueForKey:@"description"] componentsJoinedByString:@" "]];
 }
 
 #pragma mark -
@@ -90,6 +93,21 @@
         _imgs = [aDecoder decodeObjectForKey:kCodingImagesKey];
     }
     return self;
+}
+
+#pragma mark -
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    PBObject *newObject = [[PBObject alloc] init];
+    newObject.title = [_title copyWithZone:zone];
+    newObject.date = [_date copyWithZone:zone];
+    newObject.urlString = [_urlString copyWithZone:zone];
+    newObject.tags = [_tags copyWithZone:zone];
+    newObject.content = [_content copyWithZone:zone];
+    newObject.imgs = [_imgs copyWithZone:zone];
+    return newObject;
 }
 
 @end

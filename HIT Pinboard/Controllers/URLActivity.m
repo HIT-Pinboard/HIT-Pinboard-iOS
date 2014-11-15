@@ -32,7 +32,7 @@
 
 - (void)prepareWithActivityItems:(NSArray *)activityItems
 {
-    [[UIApplication sharedApplication] openURL:activityItems.firstObject];
+    [[UIApplication sharedApplication] openURL:[activityItems objectAtIndex:1]];
 }
 
 + (UIActivityCategory)activityCategory
