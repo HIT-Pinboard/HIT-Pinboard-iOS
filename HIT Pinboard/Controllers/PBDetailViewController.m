@@ -26,6 +26,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.title = @"详细内容";
+    
     [SVProgressHUD show];
     
     UIBarButtonItem *shareBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAction)];
@@ -38,25 +40,9 @@
     NSLog(@"viewWillAppear");
 #endif
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserverForName:@"requestedObjectLoaded" object:nil queue:nil usingBlock:^(NSNotification *note){
-        NSLog(@"INVOKED!!!!!");
-        _object = [[PBManager sharedManager] requestedObject];
-        PBHTMLString *htmlString = [[PBHTMLString alloc] init];
-        htmlString.title = _object.title;
-        htmlString.subtitle = _object.subtitle;
-        htmlString.content = _object.content;
-        htmlString.images = _object.imgs;
-        htmlString.shouldDisplayImages = [[PBManager sharedManager] shouldDisplayImages];
-        [htmlString setHTMLCSSWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"style.min" ofType:@"css"] encoding:NSUTF8StringEncoding error:nil];
-        [_webView loadHTMLString:[htmlString toHTMLString] baseURL:nil];
-        [SVProgressHUD dismiss];
-    }];
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:@"requestObjectFailed" object:nil queue:nil usingBlock:^(NSNotification *note){
-        [SVProgressHUD showErrorWithStatus:@"加载失败"];
-        [SVProgressHUD dismiss];
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedSuccess) name:@"requestedObjectLoaded" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedFailed) name:@"requestObjectFailed" object:nil];
     
     [[PBManager sharedManager] requestSpecificObject:_requestURL];
 }
@@ -67,13 +53,36 @@
     NSLog(@"viewWillDisappear");
 #endif
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:nil name:@"requestedObjectLoaded" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:nil name:@"requestObjectFailed" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"requestedObjectLoaded" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"requestObjectFailed" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark -
+#pragma mark - Notifications
+- (void)receivedSuccess
+{
+    _object = [[PBManager sharedManager] requestedObject];
+    PBHTMLString *htmlString = [[PBHTMLString alloc] init];
+    htmlString.title = _object.title;
+    htmlString.subtitle = _object.subtitle;
+    htmlString.content = _object.content;
+    htmlString.images = _object.imgs;
+    htmlString.shouldDisplayImages = [[PBManager sharedManager] shouldDisplayImages];
+    [htmlString setHTMLCSSWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"style.min" ofType:@"css"] encoding:NSUTF8StringEncoding error:nil];
+    [_webView loadHTMLString:[htmlString toHTMLString] baseURL:nil];
+    [SVProgressHUD dismiss];
+}
+
+- (void)receivedFailed
+{
+    [SVProgressHUD showErrorWithStatus:@"加载失败"];
+    [SVProgressHUD dismiss];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)shareAction

@@ -6,10 +6,12 @@
 //  Copyright (c) 2014 Yifei Zhou. All rights reserved.
 //
 
+#import <MessageUI/MessageUI.h>
 #import "PBSettingsTableViewController.h"
+#import "PBConstants.h"
 #import "PBManager.h"
 
-@interface PBSettingsTableViewController ()
+@interface PBSettingsTableViewController () <MFMailComposeViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *icons;
 @property (weak, nonatomic) IBOutlet UISwitch *noPicSwitch;
@@ -121,12 +123,33 @@
 
 - (void)rateThisApp
 {
-    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kAppStoreURL]];
 }
 
 - (void)composeEmail
 {
+    NSString *title = @"意见反馈";
+    NSString *body = @"请在下面写下您对本App的意见和反馈。";
+    NSArray *recipient = @[@"admin@cs.hit.edu.cn"];
     
+    MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
+    composer.mailComposeDelegate = self;
+    [composer setSubject:title];
+    [composer setMessageBody:body isHTML:NO];
+    [composer setToRecipients:recipient];
+    
+    [self presentViewController:composer animated:YES completion:nil];
 }
 
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+#ifdef DEBUG
+    NSLog(@"%u", result);
+#endif
+    [self dismissViewControllerAnimated:YES completion:nil];
+    if (result == MFMailComposeResultSent) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"感谢您的反馈" message:@"我们可能无法一一回复所有的邮件，但是我们一定会听到您的声音。" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        [alert show];
+    }
+}
 @end

@@ -31,9 +31,12 @@
 #define kSettingDisplayImages   @"shouldDisplayImages"
 #define kSettingNotifications   @"shouldEnableNotifications"
 
-enum {
-    PBDataSourceSME = 0,
-    PBDataSourceCA = 1
-};
+#define kAppStoreURL            @"https://itunes.apple.com/us/app/apple-store/id375380948?mt=8"
+
+
+typedef enum : NSUInteger {
+    PBDataSourceSME,
+    PBDataSourceJWC,
+} PBDataSource;
 
 #endif

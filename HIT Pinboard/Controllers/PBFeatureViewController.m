@@ -36,16 +36,12 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     self.title = @"Feature";
     [self setupTableView];
     [self setupRefreshControl];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserverForName:@"tableViewShouldReload" object:nil queue:nil usingBlock:^(NSNotification *note){
-        [_tableView reloadData];
-        [self dataDidRefresh];
-    }];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedSuccess) name:@"tableViewShouldReload" object:nil];
 #ifdef DEBUG
     NSLog(@"tableViewShouldReload notification registered");
 #endif
@@ -54,7 +50,7 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:nil name:@"tableViewShouldReload" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"tableViewShouldReload" object:nil];
 #ifdef DEBUG
     NSLog(@"tableViewShouldReload notification removed");
 #endif
@@ -63,6 +59,14 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - 
+#pragma mark - Notifications
+- (void)receivedSuccess
+{
+    [_tableView reloadData];
+    [self dataDidRefresh];
 }
 
 #pragma mark - 
