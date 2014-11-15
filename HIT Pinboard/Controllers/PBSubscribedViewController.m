@@ -23,12 +23,14 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 
 @property (weak, nonatomic) PRRefreshControl *refreshControl;
 @property (assign, nonatomic) BOOL shouldRefreshData;
+@property (assign, nonatomic) BOOL firstScroll;
+@property (assign, nonatomic) BOOL shouldRequest;
 
 @end
 
 @implementation PBSubscribedViewController
 
-@synthesize objectsArrayDataSource = _objectsArrayDataSource;
+@synthesize objectsArrayDataSource = _objectsArrayDataSource, firstScroll = _firstScroll, shouldRequest = _shouldRequest;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,12 +38,14 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     self.title = @"Feature";
     [self setupTableView];
     [self setupRefreshControl];
+    _firstScroll = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedSuccess) name:@"tableViewShouldReload" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedReload) name:@"tableViewShouldReload" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedUpdate) name:@"tableViewShouldUpdate" object:nil];
 #ifdef DEBUG
     NSLog(@"tableViewShouldReload notification registered");
 #endif
@@ -63,12 +67,17 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 
 #pragma mark -
 #pragma mark - Notifications
-- (void)receivedSuccess
+- (void)receivedReload
 {
     [_tableView reloadData];
     [self dataDidRefresh];
 }
 
+- (void)receivedUpdate
+{
+    [_tableView reloadData];
+    [self dataDidRefresh];
+}
 
 #pragma mark -
 #pragma mark - ViewController Setup
@@ -112,6 +121,14 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     [self.refreshControl scrollViewDidScroll];
 }
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (_shouldRequest) {
+        [[PBManager sharedManager] requestSubscribedListFromIndex:[[PBManager sharedManager] subscribedList].count Count:10 Tags:@[] shouldClear:NO];
+        _shouldRequest = NO;
+    }
+}
+
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     [self.refreshControl scrollViewDidEndDragging];
@@ -119,6 +136,16 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
         [self dataDidRefresh];
         self.shouldRefreshData = NO;
     }
+    if (!_firstScroll) {
+        CGFloat actualPosition = scrollView.contentOffset.y;
+        CGFloat contentHeight = scrollView.contentSize.height;
+        CGFloat deviceHeight = [UIScreen mainScreen].bounds.size.height;
+        //        CGFloat barHeight = 88.0f;
+        if (actualPosition + deviceHeight >= contentHeight) {
+            _shouldRequest = YES;
+        }
+    }
+    _firstScroll = NO;
 }
 
 - (void)dataDidRefresh
@@ -132,7 +159,7 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     if (_tableView.isDragging) {
         self.shouldRefreshData = YES;
     } else {
-        [[PBManager sharedManager] requestSubscribedListFromIndex:0 Count:3 Tags:@[]];
+        [[PBManager sharedManager] requestSubscribedListFromIndex:0 Count:10 Tags:@[] shouldClear:YES];
     }
 }
 

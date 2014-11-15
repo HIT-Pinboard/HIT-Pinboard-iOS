@@ -80,7 +80,11 @@
 
 - (void)requestFeatureList
 {
-    [[RKObjectManager sharedManager] postObject:nil path:@"/newsList" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
+    NSMutableDictionary *data = [@{} mutableCopy];
+    [data setObject:@0 forKey:@"start_index"];
+    [data setObject:@25 forKey:@"count"];
+    [data setObject:@[] forKey:@"tags"];
+    [[RKObjectManager sharedManager] postObject:nil path:@"/newsList" parameters:@{@"data": data} success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
         [_featureList removeAllObjects];
         [_featureList addObjectsFromArray:result.array];
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];
@@ -96,14 +100,22 @@
 - (void)requestSubscribedListFromIndex:(NSUInteger)startIndex
                                  Count:(NSUInteger)count
                                   Tags:(NSArray *)tags
+                           shouldClear:(BOOL)boolean
 {
     NSMutableDictionary *data = [@{} mutableCopy];
     [data setObject:[NSNumber numberWithUnsignedInteger:startIndex] forKey:@"start_index"];
     [data setObject:[NSNumber numberWithUnsignedInteger:count] forKey:@"count"];
     [data setObject:tags forKey:@"tags"];
-    [[RKObjectManager sharedManager] postObject:nil path:@"/newsList" parameters:data success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
-        [_subscribedList insertObjects:result.array atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(startIndex, count)]];
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];
+    [[RKObjectManager sharedManager] postObject:nil path:@"/newsList" parameters:@{@"data": data} success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
+        if (boolean) {
+            [_subscribedList removeAllObjects];
+        }
+        [_subscribedList insertObjects:result.array atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(startIndex, result.array.count)]];
+        if (boolean) {
+            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldUpdate" object:nil]];
+        }
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         [self alertWithError:error];
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];

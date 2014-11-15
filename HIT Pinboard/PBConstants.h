@@ -10,7 +10,7 @@
 #define HIT_Pinboard_PBConstants_h
 
 #ifdef DEBUG
-#define kHost       @"http://localhost:8080"
+#define kHost       @"http://172.16.128.132:8080"
 #else
 #define kHost       @"http;//219.217.227.65"
 #endif
