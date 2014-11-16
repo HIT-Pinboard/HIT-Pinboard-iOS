@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface NSArray (PBSubscribeTag)
 
 - (NSString *)tagNameForValue:(NSString *)value;
+- (UIImage *)tagImageForValue:(NSString *)value;
 
 @end

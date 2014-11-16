@@ -28,4 +28,11 @@
     }
 }
 
+- (UIImage *)tagImageForValue:(NSString *)value
+{
+    NSString *tagName = [self tagNameForValue:value];
+    NSString *prefix = [tagName componentsSeparatedByString:@" "].firstObject;
+    NSLog(@"%@", prefix);
+    return [UIImage imageNamed:@"default_icon"];
+}
 @end

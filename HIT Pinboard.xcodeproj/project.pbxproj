@@ -149,9 +149,7 @@
 				8F0AAA311A0BAD360083497F /* Models */,
 				8F0AAA0F1A0BA18F0083497F /* AppDelegate.h */,
 				8F0AAA101A0BA18F0083497F /* AppDelegate.m */,
-				8F0AAA151A0BA18F0083497F /* Main.storyboard */,
 				8F0AAA181A0BA18F0083497F /* Images.xcassets */,
-				8F0AAA1A1A0BA18F0083497F /* LaunchScreen.xib */,
 				8F0AAA0B1A0BA18F0083497F /* Supporting Files */,
 			);
 			path = "HIT Pinboard";
@@ -209,6 +207,8 @@
 		8F0AAA321A0BAD4C0083497F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8F0AAA1A1A0BA18F0083497F /* LaunchScreen.xib */,
+				8F0AAA151A0BA18F0083497F /* Main.storyboard */,
 				8F0AAA391A0BADC80083497F /* PBTableViewCell.xib */,
 			);
 			name = Views;

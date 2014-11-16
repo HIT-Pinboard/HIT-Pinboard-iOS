@@ -22,7 +22,7 @@
 
 - (UIImage *)activityImage
 {
-    return [UIImage imageNamed:@""];
+    return [UIImage imageNamed:@"safari"];
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems

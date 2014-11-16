@@ -110,11 +110,13 @@
         if (boolean) {
             [_subscribedList removeAllObjects];
         }
-        [_subscribedList insertObjects:result.array atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(startIndex, result.array.count)]];
+        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(startIndex, result.array.count)];
+        [_subscribedList insertObjects:result.array atIndexes:indexSet];
         if (boolean) {
             [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];
         } else {
-            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldUpdate" object:nil]];
+//            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldUpdate" object:nil]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"tableViewShouldUpdate" object:nil userInfo:@{@"updateLocation": indexSet}];
         }
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         [self alertWithError:error];

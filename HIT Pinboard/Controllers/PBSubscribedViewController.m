@@ -45,7 +45,7 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedReload) name:@"tableViewShouldReload" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedUpdate) name:@"tableViewShouldUpdate" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedUpdate:) name:@"tableViewShouldUpdate" object:nil];
 #ifdef DEBUG
     NSLog(@"tableViewShouldReload notification registered");
 #endif
@@ -73,10 +73,17 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     [self dataDidRefresh];
 }
 
-- (void)receivedUpdate
+- (void)receivedUpdate:(NSNotification *)notification
 {
-    [_tableView reloadData];
-    [self dataDidRefresh];
+    NSDictionary *userInfo = notification.userInfo;
+    NSIndexSet *indexSet = userInfo[@"updateLocation"];
+    NSMutableArray *indexPaths = [NSMutableArray array];
+    [indexSet enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
+        [indexPaths addObject:[NSIndexPath indexPathForRow:index inSection:0]];
+    }];
+    [_tableView beginUpdates];
+    [_tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationRight];
+    [_tableView endUpdates];
 }
 
 #pragma mark -
