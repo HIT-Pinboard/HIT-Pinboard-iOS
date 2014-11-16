@@ -104,10 +104,12 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     TableViewCellConfigureBlock configureCell = ^(PBTableViewCell *cell, PBIndexObject *object) {
         cell.titleLabel.text = object.title;
         NSMutableArray *strArr = [@[] mutableCopy];
+        NSArray *tagsList = [[PBManager sharedManager] tagsList];
         for (NSString *tagValue in object.tags) {
-            [strArr addObject:[[[PBManager sharedManager] tagsList] tagNameForValue:tagValue]];
+            [strArr addObject:[tagsList tagNameForValue:tagValue]];
         }
         cell.subtitleLabel.text = [[strArr valueForKey:@"description"] componentsJoinedByString:@" "];
+        cell.imageView.image = [tagsList tagImageForValue:object.tags.firstObject];
     };
     NSArray *objects = [[PBManager sharedManager] subscribedList];
     _objectsArrayDataSource = [[PBArrayDataSource alloc] initWithItems:objects

@@ -26,6 +26,9 @@
 		8F10DF071A0D24CA003A9BAE /* URLActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F10DF061A0D24CA003A9BAE /* URLActivity.m */; };
 		8F10DF0D1A0D27EF003A9BAE /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F10DF0A1A0D27EF003A9BAE /* GTMNSString+HTML.m */; };
 		8F10DF0E1A0D27EF003A9BAE /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F10DF0C1A0D27EF003A9BAE /* NSString+HTML.m */; };
+		8F310DBC1A186666003F3518 /* PBTagCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F310DBA1A186666003F3518 /* PBTagCollectionViewCell.m */; };
+		8F310DBD1A186666003F3518 /* PBTagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F310DBB1A186666003F3518 /* PBTagCollectionViewCell.xib */; };
+		8F310DC01A186805003F3518 /* PBTagsSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F310DBF1A186805003F3518 /* PBTagsSelectViewController.m */; };
 		8FA27D6B1A0E5E6B00F996B7 /* PBHTMLString.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA27D6A1A0E5E6B00F996B7 /* PBHTMLString.m */; };
 		8FA879F91A0F5E0C006FAFBD /* PBSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA879F81A0F5E0C006FAFBD /* PBSettingsTableViewController.m */; };
 		8FB2437E1A16F0F900EB83B4 /* style.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 8FB2437D1A16F0F900EB83B4 /* style.min.css */; };
@@ -83,6 +86,11 @@
 		8F10DF0A1A0D27EF003A9BAE /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMNSString+HTML.m"; path = "Models/3rd Party/GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		8F10DF0B1A0D27EF003A9BAE /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+HTML.h"; path = "Models/3rd Party/NSString+HTML.h"; sourceTree = "<group>"; };
 		8F10DF0C1A0D27EF003A9BAE /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+HTML.m"; path = "Models/3rd Party/NSString+HTML.m"; sourceTree = "<group>"; };
+		8F310DB91A186666003F3518 /* PBTagCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBTagCollectionViewCell.h; path = Controllers/PBTagCollectionViewCell.h; sourceTree = "<group>"; };
+		8F310DBA1A186666003F3518 /* PBTagCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBTagCollectionViewCell.m; path = Controllers/PBTagCollectionViewCell.m; sourceTree = "<group>"; };
+		8F310DBB1A186666003F3518 /* PBTagCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PBTagCollectionViewCell.xib; path = Controllers/PBTagCollectionViewCell.xib; sourceTree = "<group>"; };
+		8F310DBE1A186805003F3518 /* PBTagsSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBTagsSelectViewController.h; path = Controllers/PBTagsSelectViewController.h; sourceTree = "<group>"; };
+		8F310DBF1A186805003F3518 /* PBTagsSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBTagsSelectViewController.m; path = Controllers/PBTagsSelectViewController.m; sourceTree = "<group>"; };
 		8FA27D691A0E5E6B00F996B7 /* PBHTMLString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBHTMLString.h; path = Models/PBHTMLString.h; sourceTree = "<group>"; };
 		8FA27D6A1A0E5E6B00F996B7 /* PBHTMLString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBHTMLString.m; path = Models/PBHTMLString.m; sourceTree = "<group>"; };
 		8FA879F71A0F5E0C006FAFBD /* PBSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBSettingsTableViewController.h; path = Controllers/PBSettingsTableViewController.h; sourceTree = "<group>"; };
@@ -207,6 +215,7 @@
 		8F0AAA321A0BAD4C0083497F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8F310DBB1A186666003F3518 /* PBTagCollectionViewCell.xib */,
 				8F0AAA1A1A0BA18F0083497F /* LaunchScreen.xib */,
 				8F0AAA151A0BA18F0083497F /* Main.storyboard */,
 				8F0AAA391A0BADC80083497F /* PBTableViewCell.xib */,
@@ -229,6 +238,10 @@
 				8F10DF061A0D24CA003A9BAE /* URLActivity.m */,
 				8FA879F71A0F5E0C006FAFBD /* PBSettingsTableViewController.h */,
 				8FA879F81A0F5E0C006FAFBD /* PBSettingsTableViewController.m */,
+				8F310DB91A186666003F3518 /* PBTagCollectionViewCell.h */,
+				8F310DBA1A186666003F3518 /* PBTagCollectionViewCell.m */,
+				8F310DBE1A186805003F3518 /* PBTagsSelectViewController.h */,
+				8F310DBF1A186805003F3518 /* PBTagsSelectViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -346,6 +359,7 @@
 				8F0AAA171A0BA18F0083497F /* Main.storyboard in Resources */,
 				8F0AAA3B1A0BADC80083497F /* PBTableViewCell.xib in Resources */,
 				8F0AAA1C1A0BA18F0083497F /* LaunchScreen.xib in Resources */,
+				8F310DBD1A186666003F3518 /* PBTagCollectionViewCell.xib in Resources */,
 				8FB2437E1A16F0F900EB83B4 /* style.min.css in Resources */,
 				8F0AAA191A0BA18F0083497F /* Images.xcassets in Resources */,
 			);
@@ -413,7 +427,9 @@
 				8F0AAA441A0BB0470083497F /* PBObject.m in Sources */,
 				8F10DF011A0D1311003A9BAE /* PBSubscribeTag.m in Sources */,
 				8F0AAA3A1A0BADC80083497F /* PBTableViewCell.m in Sources */,
+				8F310DBC1A186666003F3518 /* PBTagCollectionViewCell.m in Sources */,
 				8F10DF071A0D24CA003A9BAE /* URLActivity.m in Sources */,
+				8F310DC01A186805003F3518 /* PBTagsSelectViewController.m in Sources */,
 				8FA27D6B1A0E5E6B00F996B7 /* PBHTMLString.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

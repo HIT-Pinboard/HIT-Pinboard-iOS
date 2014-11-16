@@ -81,7 +81,7 @@
                     <navigationItem key="navigationItem" id="dBf-a4-nb9">
                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="8cm-7p-ZGj">
                             <connections>
-                                <segue destination="des-ae-Bb3" kind="presentation" modalTransitionStyle="flipHorizontal" id="ugu-tX-LHa"/>
+                                <segue destination="des-ae-Bb3" kind="showDetail" id="ugu-tX-LHa"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -302,32 +302,52 @@
             </objects>
             <point key="canvasLocation" x="2435.5" y="1490.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Tags Select View Controller-->
         <scene sceneID="ogJ-UI-KoF">
             <objects>
-                <viewController id="des-ae-Bb3" sceneMemberID="viewController">
+                <viewController id="des-ae-Bb3" customClass="PBTagsSelectViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XaP-Bb-tTc"/>
                         <viewControllerLayoutGuide type="bottom" id="lBO-xo-gWa"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="exN-ij-M3Z">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iQR-aw-7Xq">
-                                <rect key="frame" x="137" y="269" width="46" height="30"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uPP-KG-Swg">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Cw6-X1-cDU">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="DBw-zV-dEF">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="120" height="70"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <size key="customSize" width="120" height="70"/>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="K36-zy-gSK"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="collectionView" destination="uPP-KG-Swg" id="rDl-Wr-ht6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mTG-ME-dNG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3074.5" y="1197.5"/>
+            <point key="canvasLocation" x="3074" y="1197"/>
         </scene>
         <!--Item-->
         <scene sceneID="PkC-pg-hbG">

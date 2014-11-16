@@ -80,15 +80,18 @@
 
 - (void)requestFeatureList
 {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSMutableDictionary *data = [@{} mutableCopy];
     [data setObject:@0 forKey:@"start_index"];
     [data setObject:@25 forKey:@"count"];
     [data setObject:@[] forKey:@"tags"];
     [[RKObjectManager sharedManager] postObject:nil path:@"/newsList" parameters:@{@"data": data} success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [_featureList removeAllObjects];
         [_featureList addObjectsFromArray:result.array];
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [self alertWithError:error];
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];
 #ifdef DEBUG
@@ -102,11 +105,13 @@
                                   Tags:(NSArray *)tags
                            shouldClear:(BOOL)boolean
 {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSMutableDictionary *data = [@{} mutableCopy];
     [data setObject:[NSNumber numberWithUnsignedInteger:startIndex] forKey:@"start_index"];
     [data setObject:[NSNumber numberWithUnsignedInteger:count] forKey:@"count"];
     [data setObject:tags forKey:@"tags"];
     [[RKObjectManager sharedManager] postObject:nil path:@"/newsList" parameters:@{@"data": data} success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         if (boolean) {
             [_subscribedList removeAllObjects];
         }
@@ -119,6 +124,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"tableViewShouldUpdate" object:nil userInfo:@{@"updateLocation": indexSet}];
         }
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [self alertWithError:error];
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];
 #ifdef DEBUG
@@ -133,11 +139,14 @@
         _requestedObject = [_cache objectForKey:urlString];
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"requestedObjectLoaded" object:nil]];
     } else {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         [[RKObjectManager sharedManager] getObjectsAtPath:urlString parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
             _requestedObject = result.array.firstObject;
             [_cache setObject:_requestedObject forKey:urlString];
             [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"requestedObjectLoaded" object:nil]];
         } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
             [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"requestObjectFailed" object:nil]];
             _requestedObject = nil;
 //            [self alertWithError:error];
@@ -153,10 +162,13 @@
 
 - (void)requestTagsList
 {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [[RKObjectManager sharedManager] getObjectsAtPath:@"/tagsList" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [_tagsList removeAllObjects];
         [_tagsList addObjectsFromArray:result.array];
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [self alertWithError:error];
 #ifdef DEBUG
         NSLog(@"%@", [error localizedDescription]);
