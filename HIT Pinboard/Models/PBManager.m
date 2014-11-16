@@ -203,6 +203,19 @@
 
 - (void)configureRESTKit
 {
+    /*
+     * Time parse issue https://github.com/RestKit/RestKit/issues/1715
+     * Before we set up mappings, add a String <--> Date transformer that interprets string dates
+     *  lacking timezone info to be in the user's local time zone
+     */
+    [RKObjectMapping class];    // Message the RKObjectMapping class (+ subclasses) so +initialize is
+    [RKEntityMapping class];    //  called to work around RK bug, see GH issue #1631
+    NSDateFormatter *localOffsetDateFormatter = [[NSDateFormatter alloc] init];
+    [localOffsetDateFormatter setLocale:[NSLocale currentLocale]];
+    [localOffsetDateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [localOffsetDateFormatter setTimeZone:[NSTimeZone localTimeZone]];
+    [[RKValueTransformer defaultValueTransformer] insertValueTransformer:localOffsetDateFormatter atIndex:0];
+    
     RKObjectMapping *indexMapping = [RKObjectMapping mappingForClass:[PBIndexObject class]];
     RKObjectMapping *tagMapping = [RKObjectMapping mappingForClass:[PBSubscribeTag class]];
     RKObjectMapping *objectMapping = [RKObjectMapping mappingForClass:[PBObject class]];
@@ -230,8 +243,6 @@
     RKResponseDescriptor *tagDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:tagMapping method:RKRequestMethodGET pathPattern:@"/tagsList" keyPath:@"response" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     RKResponseDescriptor *objectDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:objectMapping method:RKRequestMethodGET pathPattern:@"/:catalogue/:objectID.json" keyPath:@"response" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
     
-    [RKObjectMapping addDefaultDateFormatterForString:@"yyyy-MM-dd HH:mm:ss" inTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"CST"]];
-
     AFHTTPClient *client = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kHost]];
     RKObjectManager *objectManager = [[RKObjectManager alloc] initWithHTTPClient:client];
     
