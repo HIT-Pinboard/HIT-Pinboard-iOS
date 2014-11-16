@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PBTagsSelectViewController : UIViewController
+@interface PBTagSelectViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
+- (IBAction)doneButtonClicked:(id)sender;
 
 @end

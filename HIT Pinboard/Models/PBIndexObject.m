@@ -14,14 +14,14 @@
 @synthesize title = _title, date = _date, urlString = _urlString, tags = _tags;
 
 - (instancetype)initWithTitle:(NSString *)aTitle
-                         Date:(NSString *)dateString
+                         Date:(NSDate *)date
                     URLString:(NSString *)urlString
                          Tags:(NSArray *)aTags
 {
     self = [super init];
     if (self) {
         _title = aTitle;
-        _date = dateString;
+        _date = date;
         _urlString = urlString;
         _tags = aTags;
     }

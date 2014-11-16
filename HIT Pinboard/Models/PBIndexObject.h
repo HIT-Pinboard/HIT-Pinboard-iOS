@@ -11,7 +11,7 @@
 @interface PBIndexObject : NSObject <NSCoding>
 
 @property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSString *date;
+@property (strong, nonatomic) NSDate *date;
 @property (strong, nonatomic) NSString *urlString;
 @property (strong, nonatomic) NSArray *tags;
 

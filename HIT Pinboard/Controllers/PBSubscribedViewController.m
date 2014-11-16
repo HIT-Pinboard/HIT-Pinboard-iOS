@@ -55,6 +55,7 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"tableViewShouldReload" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"tableViewShouldUpdate" object:nil];
 #ifdef DEBUG
     NSLog(@"tableViewShouldReload notification removed");
 #endif
@@ -169,6 +170,7 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
         self.shouldRefreshData = YES;
     } else {
         [[PBManager sharedManager] requestSubscribedListFromIndex:0 Count:10 Tags:@[] shouldClear:YES];
+        _firstScroll = YES;
     }
 }
 

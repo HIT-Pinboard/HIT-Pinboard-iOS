@@ -7,6 +7,7 @@
 //
 
 #import "PBArrayDataSource.h"
+#import "PBIndexObject.h"
 
 @interface PBArrayDataSource ()
 
@@ -58,6 +59,30 @@
     return cell;
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    NSMutableSet *daySet = [NSMutableSet new];
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    for (id item in self.items) {
+        if ([item isKindOfClass:[PBIndexObject class]]) {
+            [daySet addObject:[dateFormatter stringFromDate:((PBIndexObject *)item).date]];
+        }
+    }
+    return daySet.count;
+}
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSMutableSet *daySet = [NSMutableSet new];
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    for (id item in self.items) {
+        if ([item isKindOfClass:[PBIndexObject class]]) {
+            [daySet addObject:[dateFormatter stringFromDate:((PBIndexObject *)item).date]];
+        }
+    }
+    return [[daySet allObjects] objectAtIndex:section];
+}
 
 @end

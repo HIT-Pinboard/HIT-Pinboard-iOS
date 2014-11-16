@@ -6,32 +6,34 @@
 //  Copyright (c) 2014 Yifei Zhou. All rights reserved.
 //
 
-#import "PBTagsSelectViewController.h"
+#import "PBTagSelectViewController.h"
 #import "PBTagCollectionViewCell.h"
 #import "PBManager.h"
 #import "PBSubscribeTag.h"
 #import "NSArray+PBSubscribeTag.h"
+#import "PBTagSearchViewController.h"
 
 static NSString * const cellIdentifier = @"PBTagCollectionCell";
 
-@interface PBTagsSelectViewController () <UICollectionViewDataSource>
+@interface PBTagSelectViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) NSMutableArray *selectedTags;
+@property (strong, nonatomic) NSIndexPath *selectedIndexPath;
 
 @end
 
-@implementation PBTagsSelectViewController
+@implementation PBTagSelectViewController
 
-@synthesize collectionView = _collectionView, selectedTags = _selectedTags;
+@synthesize collectionView = _collectionView, selectedTags = _selectedTags, selectedIndexPath = _selectedIndexPath;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    UINavigationBar *naviBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.view.frame), 44.0f)];
-    [self.view addSubview:naviBar];
-    _selectedTags = [@[@"1.1", @"3"] mutableCopy];
+    _selectedTags = [@[@"1.1", @"3", @"1.2", @"1.2"] mutableCopy];
     [_collectionView registerNib:[PBTagCollectionViewCell nib] forCellWithReuseIdentifier:cellIdentifier];
+    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"PBTagAddCell"];
     _collectionView.dataSource = self;
+    _collectionView.delegate = self;
     _collectionView.backgroundColor = [UIColor whiteColor];
 }
 
@@ -39,7 +41,6 @@ static NSString * const cellIdentifier = @"PBTagCollectionCell";
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 /*
 #pragma mark - Navigation
@@ -68,14 +69,13 @@ static NSString * const cellIdentifier = @"PBTagCollectionCell";
         NSString *value = [_selectedTags objectAtIndex:indexPath.row];
         NSString *name = [[[PBManager sharedManager] tagsList] tagNameForValue:value];
         cell.tagTitleLabel.text = [name componentsSeparatedByString:@" "].firstObject;
-        cell.tagSubtitleLabel.text = [name componentsSeparatedByString:@""].lastObject;
+        cell.tagSubtitleLabel.text = [name componentsSeparatedByString:@" "].lastObject;
         cell.tagImageView.image = [[[PBManager sharedManager] tagsList] tagImageForValue:value];
-        // invoked but not displaying
-        cell.backgroundColor = [UIColor redColor];
+        cell.tagImageView.alpha = 0.1f;
         return cell;
     } else {
-        UICollectionViewCell *cell = [_collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-        cell.frame = CGRectMake(0.0f, 0.0f, 120.0f, 70.0f);
+        UICollectionViewCell *cell = [_collectionView dequeueReusableCellWithReuseIdentifier:@"PBTagAddCell" forIndexPath:indexPath];
+        [cell setFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, 120.0f, 70.0f)];
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 120.0f, 70.0f)];
         imageView.image = [UIImage imageNamed:@"safari"];
         [cell addSubview:imageView];
@@ -83,4 +83,38 @@ static NSString * const cellIdentifier = @"PBTagCollectionCell";
     }
 }
 
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView
+                        layout:(UICollectionViewLayout *)collectionViewLayout
+        insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(10.0f, 25.0f, 10.0f, 25.0f);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row < _selectedTags.count) {
+        _selectedIndexPath = indexPath;
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"确认删除此订阅" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:nil];
+        [actionSheet showInView:self.view];
+    } else {
+
+    }
+}
+
+#pragma mark -
+#pragma mark - UIActionSheet delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet
+clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [_selectedTags removeObjectAtIndex:_selectedIndexPath.row];
+        [_collectionView deleteItemsAtIndexPaths:@[_selectedIndexPath]];
+    }
+}
+
+- (IBAction)doneButtonClicked:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

@@ -68,7 +68,9 @@
         [strArr addObject:[[[PBManager sharedManager] tagsList] tagNameForValue:tagValue]];
     }
     NSString *tagDescription = [[strArr valueForKey:@"description"] componentsJoinedByString:@" "];
-    return [NSString stringWithFormat:@"日期:%@ 标签:%@", _date, tagDescription];
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    return [NSString stringWithFormat:@"日期:%@ 标签:%@", [dateFormatter stringFromDate:_date], tagDescription];
 }
 
 #pragma mark -
