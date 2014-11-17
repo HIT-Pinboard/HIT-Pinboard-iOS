@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Yifei Zhou. All rights reserved.
 //
 
+#import <RWBlurPopover/RWBlurPopover.h>
 #import "PBTagSelectViewController.h"
 #import "PBTagCollectionViewCell.h"
 #import "PBManager.h"
@@ -97,7 +98,7 @@ static NSString * const cellIdentifier = @"PBTagCollectionCell";
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"确认删除此订阅" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:nil];
         [actionSheet showInView:self.view];
     } else {
-
+        [self showTagSearchPopover];
     }
 }
 
@@ -116,5 +117,12 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 - (IBAction)doneButtonClicked:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)showTagSearchPopover
+{
+    PBTagSearchViewController *vc = [[PBTagSearchViewController alloc] initWithNibName:[PBTagSearchViewController nibName] bundle:nil];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [RWBlurPopover showContentViewController:nav insideViewController:self];
 }
 @end

@@ -29,7 +29,8 @@
 		8F310DBC1A186666003F3518 /* PBTagCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F310DBA1A186666003F3518 /* PBTagCollectionViewCell.m */; };
 		8F310DBD1A186666003F3518 /* PBTagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F310DBB1A186666003F3518 /* PBTagCollectionViewCell.xib */; };
 		8F310DC01A186805003F3518 /* PBTagSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F310DBF1A186805003F3518 /* PBTagSelectViewController.m */; };
-		8F6ABDBB1A1899250003FDE4 /* PBTagSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F6ABDBA1A1899250003FDE4 /* PBTagSearchViewController.m */; };
+		8F90010B1A1A0D3B00B52EDF /* PBTagSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F9001091A1A0D3B00B52EDF /* PBTagSearchViewController.m */; };
+		8F90010C1A1A0D3B00B52EDF /* PBTagSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F90010A1A1A0D3B00B52EDF /* PBTagSearchViewController.xib */; };
 		8FA27D6B1A0E5E6B00F996B7 /* PBHTMLString.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA27D6A1A0E5E6B00F996B7 /* PBHTMLString.m */; };
 		8FA879F91A0F5E0C006FAFBD /* PBSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA879F81A0F5E0C006FAFBD /* PBSettingsTableViewController.m */; };
 		8FB2437E1A16F0F900EB83B4 /* style.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 8FB2437D1A16F0F900EB83B4 /* style.min.css */; };
@@ -92,8 +93,9 @@
 		8F310DBB1A186666003F3518 /* PBTagCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PBTagCollectionViewCell.xib; path = Controllers/PBTagCollectionViewCell.xib; sourceTree = "<group>"; };
 		8F310DBE1A186805003F3518 /* PBTagSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBTagSelectViewController.h; path = Controllers/PBTagSelectViewController.h; sourceTree = "<group>"; };
 		8F310DBF1A186805003F3518 /* PBTagSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBTagSelectViewController.m; path = Controllers/PBTagSelectViewController.m; sourceTree = "<group>"; };
-		8F6ABDB91A1899250003FDE4 /* PBTagSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBTagSearchViewController.h; path = Controllers/PBTagSearchViewController.h; sourceTree = "<group>"; };
-		8F6ABDBA1A1899250003FDE4 /* PBTagSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBTagSearchViewController.m; path = Controllers/PBTagSearchViewController.m; sourceTree = "<group>"; };
+		8F9001081A1A0D3B00B52EDF /* PBTagSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBTagSearchViewController.h; path = Controllers/PBTagSearchViewController.h; sourceTree = "<group>"; };
+		8F9001091A1A0D3B00B52EDF /* PBTagSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBTagSearchViewController.m; path = Controllers/PBTagSearchViewController.m; sourceTree = "<group>"; };
+		8F90010A1A1A0D3B00B52EDF /* PBTagSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PBTagSearchViewController.xib; path = Controllers/PBTagSearchViewController.xib; sourceTree = "<group>"; };
 		8FA27D691A0E5E6B00F996B7 /* PBHTMLString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBHTMLString.h; path = Models/PBHTMLString.h; sourceTree = "<group>"; };
 		8FA27D6A1A0E5E6B00F996B7 /* PBHTMLString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBHTMLString.m; path = Models/PBHTMLString.m; sourceTree = "<group>"; };
 		8FA879F71A0F5E0C006FAFBD /* PBSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBSettingsTableViewController.h; path = Controllers/PBSettingsTableViewController.h; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 		8F0AAA321A0BAD4C0083497F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8F90010A1A1A0D3B00B52EDF /* PBTagSearchViewController.xib */,
 				8F310DBB1A186666003F3518 /* PBTagCollectionViewCell.xib */,
 				8F0AAA1A1A0BA18F0083497F /* LaunchScreen.xib */,
 				8F0AAA151A0BA18F0083497F /* Main.storyboard */,
@@ -245,8 +248,8 @@
 				8F310DBA1A186666003F3518 /* PBTagCollectionViewCell.m */,
 				8F310DBE1A186805003F3518 /* PBTagSelectViewController.h */,
 				8F310DBF1A186805003F3518 /* PBTagSelectViewController.m */,
-				8F6ABDB91A1899250003FDE4 /* PBTagSearchViewController.h */,
-				8F6ABDBA1A1899250003FDE4 /* PBTagSearchViewController.m */,
+				8F9001081A1A0D3B00B52EDF /* PBTagSearchViewController.h */,
+				8F9001091A1A0D3B00B52EDF /* PBTagSearchViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				8F0AAA3B1A0BADC80083497F /* PBTableViewCell.xib in Resources */,
 				8F0AAA1C1A0BA18F0083497F /* LaunchScreen.xib in Resources */,
 				8F310DBD1A186666003F3518 /* PBTagCollectionViewCell.xib in Resources */,
+				8F90010C1A1A0D3B00B52EDF /* PBTagSearchViewController.xib in Resources */,
 				8FB2437E1A16F0F900EB83B4 /* style.min.css in Resources */,
 				8F0AAA191A0BA18F0083497F /* Images.xcassets in Resources */,
 			);
@@ -434,7 +438,7 @@
 				8F0AAA3A1A0BADC80083497F /* PBTableViewCell.m in Sources */,
 				8F310DBC1A186666003F3518 /* PBTagCollectionViewCell.m in Sources */,
 				8F10DF071A0D24CA003A9BAE /* URLActivity.m in Sources */,
-				8F6ABDBB1A1899250003FDE4 /* PBTagSearchViewController.m in Sources */,
+				8F90010B1A1A0D3B00B52EDF /* PBTagSearchViewController.m in Sources */,
 				8F310DC01A186805003F3518 /* PBTagSelectViewController.m in Sources */,
 				8FA27D6B1A0E5E6B00F996B7 /* PBHTMLString.m in Sources */,
 			);
