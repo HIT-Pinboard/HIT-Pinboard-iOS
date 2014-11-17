@@ -39,7 +39,8 @@
 
 - (id)itemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self.items[(NSUInteger) indexPath.row];
+    NSArray *rowArray = [self.items objectAtIndex:indexPath.section];
+    return rowArray[(NSUInteger) indexPath.row];
 }
 
 
@@ -47,7 +48,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.items.count;
+    NSArray *rowArray = [self.items objectAtIndex:section];
+    return rowArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -59,30 +61,18 @@
     return cell;
 }
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//    NSMutableSet *daySet = [NSMutableSet new];
-//    NSDateFormatter *dateFormatter = [NSDateFormatter new];
-//    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-//    for (id item in self.items) {
-//        if ([item isKindOfClass:[PBIndexObject class]]) {
-//            [daySet addObject:[dateFormatter stringFromDate:((PBIndexObject *)item).date]];
-//        }
-//    }
-//    return daySet.count;
-//}
-//
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    NSMutableSet *daySet = [NSMutableSet new];
-//    NSDateFormatter *dateFormatter = [NSDateFormatter new];
-//    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-//    for (id item in self.items) {
-//        if ([item isKindOfClass:[PBIndexObject class]]) {
-//            [daySet addObject:[dateFormatter stringFromDate:((PBIndexObject *)item).date]];
-//        }
-//    }
-//    return [[daySet allObjects] objectAtIndex:section];
-//}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.items.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSArray *rowArray = [self.items objectAtIndex:section];
+    PBIndexObject *index = [rowArray firstObject];
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    return [dateFormatter stringFromDate:index.date];
+}
 
 @end

@@ -77,12 +77,10 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 - (void)receivedUpdate:(NSNotification *)notification
 {
     NSDictionary *userInfo = notification.userInfo;
-    NSIndexSet *indexSet = userInfo[@"updateLocation"];
-    NSMutableArray *indexPaths = [NSMutableArray array];
-    [indexSet enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
-        [indexPaths addObject:[NSIndexPath indexPathForRow:index inSection:0]];
-    }];
+    NSMutableArray *indexPaths = userInfo[@"indexPaths"];
+    NSIndexSet *indexSet = userInfo[@"indexSet"];
     [_tableView beginUpdates];
+    [_tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationRight];
     [_tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationRight];
     [_tableView endUpdates];
 }
@@ -183,7 +181,7 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     if ([segue.identifier isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [_tableView indexPathForSelectedRow];
         PBDetailViewController *destVC = [segue destinationViewController];
-        PBIndexObject *indexObject = [[[PBManager sharedManager] subscribedList] objectAtIndex:indexPath.row];
+        PBIndexObject *indexObject = [_objectsArrayDataSource itemAtIndexPath:indexPath];
         destVC.requestURL = indexObject.urlString;
     }
 }

@@ -9,6 +9,7 @@ PODS:
     - FMDB/common
   - ISO8601DateFormatterValueTransformer (0.6.0):
     - RKValueTransformers (~> 1.1.0)
+  - JDStatusBarNotification (1.4.9)
   - PRRefreshControl (0.1.8)
   - RestKit (0.23.3):
     - RestKit/Core
@@ -37,6 +38,7 @@ PODS:
 
 DEPENDENCIES:
   - CacheKit
+  - JDStatusBarNotification
   - PRRefreshControl
   - RestKit
   - SVProgressHUD
@@ -47,6 +49,7 @@ SPEC CHECKSUMS:
   CacheKit: 39500151b4964a37b12d27d53483ee4ca17ef7bf
   FMDB: 0b2fa25e5264ef177973c0cb8c02c711107979aa
   ISO8601DateFormatterValueTransformer: a705384ea6531255258e25b6480ba1180db703a0
+  JDStatusBarNotification: 9d833032d343e9a7abe0ec219c415dc115ba67a8
   PRRefreshControl: 9eb6243a0e64ef0451aafe411c77bd79c0774425
   RestKit: 193a35cddae5198388977abaedad129f8acb978b
   RKValueTransformers: b705e7b4651b9206b94600408462b74554bba969

@@ -146,7 +146,7 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     if ([segue.identifier isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [_tableView indexPathForSelectedRow];
         PBDetailViewController *destVC = [segue destinationViewController];
-        PBIndexObject *indexObject = [[[PBManager sharedManager] featureList] objectAtIndex:indexPath.row];
+        PBIndexObject *indexObject = [_objectsArrayDataSource itemAtIndexPath:indexPath];
         destVC.requestURL = indexObject.urlString;
     }
 }

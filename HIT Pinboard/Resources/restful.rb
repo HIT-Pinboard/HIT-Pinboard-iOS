@@ -5,6 +5,8 @@ require 'JSON'
 set :port, 8080
 set :environment, :production
 
+set :request_count, 0
+
 get '/' do
 	"Hello RESTFul!"
 end
@@ -55,33 +57,108 @@ end
 
 post '/newsList' do
 	content_type :json
-	# data in this example is {"token"=>"eee", "data"=>["11", "22"]}
-	# In Client, use this to test
-	# response = RestClient.post 'http://localhost:8080/newsList', data, {:content_type => :json, :accept => :json}
-	puts params#["token"] # this will print eee in console
-	return_message = {
-		"status" => 200,
-		"response" => [
-			{
-				"title" => "假如明天我毕业――机电学院2012级年级大会成功举行",
-				"link" => "/sme.hit.edu.cn/2014-09-23-news-1.json",
-				"tags" => ["1.1", "3"],
-				"date" => "2014-9-23 10:44:58",
-			},
-			{
-				"title" => "机电学院2015级部分外校推免生面试成绩公告",
-				"link" => "/sme.hit.edu.cn/2014-09-23-news-2.json",
-				"tags" => ["1.2"],
-				"date" => "2014-9-23 09:44:58",
-			},
-			{
-				"title" => "机电工程学院召开班主任工作经验交流暨研讨会",
-				"link" => "/sme.hit.edu.cn/2014-09-23-news-3.json",
-				"tags" => ["1.2", "3"],
-				"date" => "2014-9-23 07:44:58",
-			}
-		]
-	}
+	case settings.request_count
+	when 0
+		return_message = {
+			"status" => 200,
+			"response" => [
+				{
+					"title" => "【I ROBOT】机电科协成功举办针对大一年度项目的讲座",
+					"link" => "/sme.hit.edu.cn/2014-09-23-news-1.json",
+					"tags" => ["1.1", "3"],
+					"date" => "2014-9-23 10:44:58",
+				},
+				{
+					"title" => "【研究生院三十年】机电学院“联盟杯”羽毛球赛成功举办",
+					"link" => "/sme.hit.edu.cn/2014-09-23-news-2.json",
+					"tags" => ["1.2"],
+					"date" => "2014-9-22 09:44:58",
+				},
+				{
+					"title" => "机电学院14S0813党支部学习十八届四中全会报告交流会",
+					"link" => "/sme.hit.edu.cn/2014-09-23-news-3.json",
+					"tags" => ["1.2", "3"],
+					"date" => "2014-9-21 07:44:58",
+				}
+			]
+		}
+		settings.request_count += 1
+	when 1
+		return_message = {
+			"status" => 200,
+			"response" => [
+				{
+					"title" => "【机电青协】2014年暑期社会实践评比成功举行",
+					"link" => "/sme.hit.edu.cn/2014-09-23-news-1.json",
+					"tags" => ["1.1", "3"],
+					"date" => "2014-9-21 10:44:58",
+				},
+				{
+					"title" => "解决问题哪家强，【机电•一张图】来帮忙！ ",
+					"link" => "/sme.hit.edu.cn/2014-09-23-news-2.json",
+					"tags" => ["1.2"],
+					"date" => "2014-9-20 09:44:58",
+				},
+				{
+					"title" => "【相伴成长第二课堂】“翩翩秋日，相伴有你”主题舞会成功举办",
+					"link" => "/sme.hit.edu.cn/2014-09-23-news-3.json",
+					"tags" => ["1.2", "3"],
+					"date" => "2014-9-19 07:44:58",
+				}
+			]
+		}
+		settings.request_count += 1
+	when 2
+		return_message = {
+			"status" => 200,
+			"response" => [
+				{
+					"title" => "【相伴成长第二课堂】消防知识进寝室，平安生活你我他",
+					"link" => "/sme.hit.edu.cn/2014-09-23-news-1.json",
+					"tags" => ["1.1", "3"],
+					"date" => "2014-9-17 10:44:58",
+				},
+				{
+					"title" => "【研究生院三十年】“敲开名企之门”系列讲座——汽车专场预告",
+					"link" => "/sme.hit.edu.cn/2014-09-23-news-2.json",
+					"tags" => ["1.2"],
+					"date" => "2014-9-12 09:44:58",
+				},
+				{
+					"title" => "研究生院三十年】第六届“非你不爱”系列活动之“八分钟约会”举行在即",
+					"link" => "/sme.hit.edu.cn/2014-09-23-news-3.json",
+					"tags" => ["1.2", "3"],
+					"date" => "2014-9-10 07:44:58",
+				}
+			]
+		}
+		settings.request_count += 1
+	else
+		return_message = {
+			"status" => 200,
+			"response" => [
+				{
+					"title" => "假如明天我毕业――机电学院2012级年级大会成功举行",
+					"link" => "/sme.hit.edu.cn/2014-09-23-news-1.json",
+					"tags" => ["1.1", "3"],
+					"date" => "2014-9-9 10:44:58",
+				},
+				{
+					"title" => "机电学院2015级部分外校推免生面试成绩公告",
+					"link" => "/sme.hit.edu.cn/2014-09-23-news-2.json",
+					"tags" => ["1.2"],
+					"date" => "2014-9-8 09:44:58",
+				},
+				{
+					"title" => "机电工程学院召开班主任工作经验交流暨研讨会",
+					"link" => "/sme.hit.edu.cn/2014-09-23-news-3.json",
+					"tags" => ["1.2", "3"],
+					"date" => "2014-9-7 07:44:58",
+				}
+			]
+		}
+		settings.request_count += 1
+	end
 	return_message.to_json
 end
 

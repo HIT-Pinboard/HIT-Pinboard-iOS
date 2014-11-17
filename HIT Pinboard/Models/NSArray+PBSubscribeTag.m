@@ -32,9 +32,6 @@
 {
     NSString *tagName = [self tagNameForValue:value];
     NSString *prefix = [tagName componentsSeparatedByString:@" "].firstObject;
-#ifdef DEBUG
-    NSLog(@"%@", prefix);
-#endif
     return [UIImage imageNamed:@"default_icon"];
 }
 @end

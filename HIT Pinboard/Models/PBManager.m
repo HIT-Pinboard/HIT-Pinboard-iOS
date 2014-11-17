@@ -87,9 +87,30 @@
     [data setObject:@[] forKey:@"tags"];
     [[RKObjectManager sharedManager] postObject:nil path:@"/newsList" parameters:@{@"data": data} success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
         [_featureList removeAllObjects];
-        [_featureList addObjectsFromArray:result.array];
+        
+        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        __block BOOL findDate;
+        for (PBIndexObject *obj in result.array) {
+            findDate = NO;
+            [_featureList enumerateObjectsUsingBlock:^(NSMutableArray *eachDay, NSUInteger index, BOOL *stop){
+                if ([[dateFormatter stringFromDate:obj.date] isEqualToString:[dateFormatter stringFromDate:((PBIndexObject *)eachDay.firstObject).date]]) {
+                    [eachDay addObject:obj];
+                    findDate = YES;
+                    *stop = YES;
+                }
+            }];
+            if (findDate == NO) {
+                NSMutableArray *newDay = [@[] mutableCopy];
+                [newDay addObject:obj];
+                [_featureList addObject:newDay];
+            }
+        }
+        
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];
+        
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [self alertWithError:error];
@@ -112,17 +133,51 @@
     [data setObject:tags forKey:@"tags"];
     [[RKObjectManager sharedManager] postObject:nil path:@"/newsList" parameters:@{@"data": data} success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
         if (boolean) {
             [_subscribedList removeAllObjects];
         }
-        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(startIndex, result.array.count)];
-        [_subscribedList insertObjects:result.array atIndexes:indexSet];
+        
+        NSUInteger beginLoc = _subscribedList.count;
+        
+        NSMutableArray *indexPaths = [@[] mutableCopy];
+        
+        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        __block BOOL findDate;
+        for (PBIndexObject *obj in result.array) {
+            findDate = NO;
+            [_subscribedList enumerateObjectsUsingBlock:^(NSMutableArray *eachDay, NSUInteger index, BOOL *stop){
+                if ([[dateFormatter stringFromDate:obj.date] isEqualToString:[dateFormatter stringFromDate:((PBIndexObject *)eachDay.firstObject).date]]) {
+                    NSUInteger row = eachDay.count;
+                    [eachDay addObject:obj];
+                    // record index path
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:index];
+                    [indexPaths addObject:indexPath];
+                    findDate = YES;
+                    *stop = YES;
+                }
+            }];
+            if (findDate == NO) {
+                NSUInteger section = _subscribedList.count;
+                NSMutableArray *newDay = [@[] mutableCopy];
+                [newDay addObject:obj];
+                [_subscribedList addObject:newDay];
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
+                [indexPaths addObject:indexPath];
+            }
+        }
+        
+        NSUInteger endLoc = _subscribedList.count;
+
+        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(beginLoc, endLoc - beginLoc)];
+        
         if (boolean) {
             [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];
         } else {
-//            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldUpdate" object:nil]];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"tableViewShouldUpdate" object:nil userInfo:@{@"updateLocation": indexSet}];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"tableViewShouldUpdate" object:nil userInfo:@{@"indexPaths": indexPaths, @"indexSet": indexSet}];
         }
+        
     } failure:^(RKObjectRequestOperation *operation, NSError *error) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [self alertWithError:error];
