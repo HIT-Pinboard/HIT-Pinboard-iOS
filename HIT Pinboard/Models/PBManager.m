@@ -8,7 +8,6 @@
 
 #import <CacheKit/CacheKit.h>
 #import <RestKit/RestKit.h>
-
 #import "PBManager.h"
 #import "PBConstants.h"
 #import "PBIndexObject.h"
@@ -244,6 +243,7 @@
 - (void)clearCache
 {
     [_cache removeAllObjects];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"userActionSuccess" object:nil userInfo:@{@"success": @"缓存已清空"}];
 }
 
 - (void)saveSettings
@@ -251,6 +251,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[NSNumber numberWithBool:_shouldDisplayImages] forKey:kSettingDisplayImages];
     [defaults setObject:[NSNumber numberWithBool:_shouldEnableNotification] forKey:kSettingNotifications];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"userActionSuccess" object:nil userInfo:@{@"success": @"设置已保存"}];
 }
 
 #pragma mark -
@@ -311,8 +312,7 @@
 
 - (void)alertWithError:(NSError *)error
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"遇到了一些问题" message:[error localizedDescription] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-    [alert show];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"requestFailedWithError" object:nil userInfo:@{@"error": [error localizedDescription]}];
 }
 
 @end

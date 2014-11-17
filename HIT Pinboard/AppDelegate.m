@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "PBManager.h"
 #import <UIColor+FlatColors.h>
+#import <JDStatusBarNotification/JDStatusBarNotification.h>
 
 @interface AppDelegate ()
 
@@ -26,6 +27,8 @@
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor],
 //                                                           NSFontAttributeName: [UIFont fontWithName:@"" size:20.0f],
                                                            }];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedError:) name:@"requestFailedWithError" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedSuccess:) name:@"userActionSuccess" object:nil];
     return YES;
 }
 
@@ -52,4 +55,17 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark - Notifications
+
+- (void)receivedError:(NSNotification *)notification
+{
+    NSDictionary *userInfo = notification.userInfo;
+    [JDStatusBarNotification showWithStatus:userInfo[@"error"] dismissAfter:3.0f styleName:JDStatusBarStyleError];
+}
+
+- (void)receivedSuccess:(NSNotification *)notification
+{
+    NSDictionary *userInfo = notification.userInfo;
+    [JDStatusBarNotification showWithStatus:userInfo[@"success"] dismissAfter:2.0f styleName:JDStatusBarStyleSuccess];
+}
 @end
