@@ -132,7 +132,11 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     if (_shouldRequest) {
-        [[PBManager sharedManager] requestSubscribedListFromIndex:[[PBManager sharedManager] subscribedList].count Count:10 Tags:@[] shouldClear:NO];
+        NSUInteger count = 0;
+        for (NSArray *eachDay in [[PBManager sharedManager] subscribedList]) {
+            count += eachDay.count;
+        }
+        [[PBManager sharedManager] requestSubscribedListFromIndex:count Count:10 Tags:@[] shouldClear:NO];
         _shouldRequest = NO;
     }
 }
