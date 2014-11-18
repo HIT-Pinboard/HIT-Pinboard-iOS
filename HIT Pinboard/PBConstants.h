@@ -10,7 +10,7 @@
 #define HIT_Pinboard_PBConstants_h
 
 #ifdef DEBUG
-#define kHost       @"http://localhost:8080"
+#define kHost       @"http://172.16.128.132:8080"
 #else
 #define kHost       @"http;//219.217.227.65"
 #endif
@@ -28,8 +28,9 @@
 #define kCachingSubscribeList   @"SubscribeList"
 #define kCachingTagsList        @"TagsList"
 
-#define kSettingDisplayImages   @"shouldDisplayImages"
-#define kSettingNotifications   @"shouldEnableNotifications"
+#define kSettingsDisplayImages  @"shouldDisplayImages"
+#define kSettingsNotifications  @"shouldEnableNotifications"
+#define kSettingsSubscribed     @"userSubscribedTags"
 
 #define kAppStoreURL            @"https://itunes.apple.com/us/app/apple-store/id375380948?mt=8"
 

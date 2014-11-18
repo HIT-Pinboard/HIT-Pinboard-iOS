@@ -16,6 +16,7 @@
 @property (strong, nonatomic, readonly) NSMutableArray *subscribedList;
 @property (strong, nonatomic, readonly) NSMutableArray *tagsList;
 @property (strong, nonatomic, readonly) PBObject *requestedObject;
+@property (strong, nonatomic, readonly) NSMutableSet *subscribedTags;
 
 @property (assign, nonatomic) BOOL shouldDisplayImages;
 @property (assign, nonatomic) BOOL shouldEnableNotification;
@@ -28,8 +29,9 @@
                                   Tags:(NSArray *)tags
                            shouldClear:(BOOL)boolean;
 - (void)requestTagsList;
-
 - (void)requestSpecificObject:(NSString *)urlString;
+
+- (void)addSubscribedTag:(NSString *)value;
 
 - (void)cacheAllObjects;
 - (void)clearCache;

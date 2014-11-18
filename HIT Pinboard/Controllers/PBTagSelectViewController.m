@@ -18,7 +18,7 @@ static NSString * const cellIdentifier = @"PBTagCollectionCell";
 
 @interface PBTagSelectViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIActionSheetDelegate>
 
-@property (strong, nonatomic) NSMutableArray *selectedTags;
+@property (strong, nonatomic) NSArray *selectedTags;
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath;
 
 @end
@@ -30,7 +30,7 @@ static NSString * const cellIdentifier = @"PBTagCollectionCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _selectedTags = [@[@"1.1", @"3", @"1.2", @"1.2"] mutableCopy];
+    _selectedTags = [[[PBManager sharedManager] subscribedTags] allObjects];
     [_collectionView registerNib:[PBTagCollectionViewCell nib] forCellWithReuseIdentifier:cellIdentifier];
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"PBTagAddCell"];
     _collectionView.dataSource = self;
@@ -41,6 +41,33 @@ static NSString * const cellIdentifier = @"PBTagCollectionCell";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedReload) name:@"collectionViewShouldReload" object:nil];
+#ifdef DEBUG
+    NSLog(@"collectionViewShouldReload notification registered");
+#endif
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"collectionViewShouldReload" object:nil];
+#ifdef DEBUG
+    NSLog(@"collectionViewShouldReload notification removed");
+#endif
+}
+
+#pragma mark - 
+#pragma mark - Notification
+
+- (void)receivedReload
+{
+    _selectedTags = [[[PBManager sharedManager] subscribedTags] allObjects];
+    [_collectionView reloadData];
 }
 
 /*
@@ -78,7 +105,7 @@ static NSString * const cellIdentifier = @"PBTagCollectionCell";
         UICollectionViewCell *cell = [_collectionView dequeueReusableCellWithReuseIdentifier:@"PBTagAddCell" forIndexPath:indexPath];
         [cell setFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, 120.0f, 70.0f)];
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 120.0f, 70.0f)];
-        imageView.image = [UIImage imageNamed:@"safari"];
+        imageView.image = [UIImage imageNamed:@"add"];
         [cell addSubview:imageView];
         return cell;
     }
@@ -109,7 +136,10 @@ static NSString * const cellIdentifier = @"PBTagCollectionCell";
 clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        [_selectedTags removeObjectAtIndex:_selectedIndexPath.row];
+        PBSubscribeTag *tag = [_selectedTags objectAtIndex:_selectedIndexPath.row];
+        [[[PBManager sharedManager] subscribedTags] removeObject:tag];
+        _selectedTags = [[[PBManager sharedManager] subscribedTags] allObjects];
+        [[PBManager sharedManager] saveSettings];
         [_collectionView deleteItemsAtIndexPaths:@[_selectedIndexPath]];
     }
 }

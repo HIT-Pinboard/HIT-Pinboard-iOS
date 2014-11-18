@@ -49,11 +49,15 @@
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         _shouldEnableNotification = YES;
         _shouldDisplayImages = YES;
-        if ([defaults objectForKey:kSettingDisplayImages]) {
-            _shouldDisplayImages = [(NSNumber *)[defaults objectForKey:kSettingDisplayImages] boolValue];
+        _subscribedTags = [NSMutableSet set];
+        if ([defaults objectForKey:kSettingsDisplayImages]) {
+            _shouldDisplayImages = [(NSNumber *)[defaults objectForKey:kSettingsDisplayImages] boolValue];
         }
-        if ([defaults objectForKey:kSettingNotifications]) {
-            _shouldEnableNotification = [(NSNumber *)[defaults objectForKey:kSettingNotifications] boolValue];
+        if ([defaults objectForKey:kSettingsNotifications]) {
+            _shouldEnableNotification = [(NSNumber *)[defaults objectForKey:kSettingsNotifications] boolValue];
+        }
+        if ([defaults objectForKey:kSettingsSubscribed]) {
+            _subscribedTags = [defaults objectForKey:kSettingsSubscribed];
         }
         // improve this
         [self requestTagsList];
@@ -231,6 +235,12 @@
 }
 
 #pragma mark -
+- (void)addSubscribedTag:(NSString *)value
+{
+    [_subscribedTags addObject:value];
+}
+
+#pragma mark -
 #pragma mark - Cache
 
 - (void)cacheAllObjects
@@ -243,14 +253,20 @@
 - (void)clearCache
 {
     [_cache removeAllObjects];
+    [_featureList removeAllObjects];
+    [_subscribedList removeAllObjects];
+    [_tagsList removeAllObjects];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"userActionSuccess" object:nil userInfo:@{@"success": @"缓存已清空"}];
+    // should improve this
+    [self requestTagsList];
 }
 
 - (void)saveSettings
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSNumber numberWithBool:_shouldDisplayImages] forKey:kSettingDisplayImages];
-    [defaults setObject:[NSNumber numberWithBool:_shouldEnableNotification] forKey:kSettingNotifications];
+    [defaults setObject:[NSNumber numberWithBool:_shouldDisplayImages] forKey:kSettingsDisplayImages];
+    [defaults setObject:[NSNumber numberWithBool:_shouldEnableNotification] forKey:kSettingsNotifications];
+    [defaults setObject:_subscribedTags forKey:kSettingsSubscribed];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"userActionSuccess" object:nil userInfo:@{@"success": @"设置已保存"}];
 }
 
