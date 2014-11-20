@@ -22,8 +22,6 @@
 
 @implementation PBManager
 
-@synthesize featureList = _featureList, subscribedList = _subscribedList, tagsList = _tagsList, cache = _cache, requestedObject = _requestedObject;
-
 - (instancetype)init
 {
     self = [super init];
@@ -57,7 +55,7 @@
             _shouldEnableNotification = [(NSNumber *)[defaults objectForKey:kSettingsNotifications] boolValue];
         }
         if ([defaults objectForKey:kSettingsSubscribed]) {
-            _subscribedTags = [defaults objectForKey:kSettingsSubscribed];
+            [_subscribedTags addObjectsFromArray:[defaults objectForKey:kSettingsSubscribed]];
         }
         // improve this
         [self requestTagsList];
@@ -87,7 +85,7 @@
     NSMutableDictionary *data = [@{} mutableCopy];
     [data setObject:@0 forKey:@"start_index"];
     [data setObject:@25 forKey:@"count"];
-    [data setObject:@[] forKey:@"tags"];
+    [data setObject:@[@"0"] forKey:@"tags"];
     [[RKObjectManager sharedManager] postObject:nil path:@"/newsList" parameters:@{@"data": data} success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         
@@ -126,14 +124,13 @@
 
 - (void)requestSubscribedListFromIndex:(NSUInteger)startIndex
                                  Count:(NSUInteger)count
-                                  Tags:(NSArray *)tags
                            shouldClear:(BOOL)boolean
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSMutableDictionary *data = [@{} mutableCopy];
     [data setObject:[NSNumber numberWithUnsignedInteger:startIndex] forKey:@"start_index"];
     [data setObject:[NSNumber numberWithUnsignedInteger:count] forKey:@"count"];
-    [data setObject:tags forKey:@"tags"];
+    [data setObject:[_subscribedTags allObjects] forKey:@"tags"];
     [[RKObjectManager sharedManager] postObject:nil path:@"/newsList" parameters:@{@"data": data} success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         
@@ -259,6 +256,9 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"userActionSuccess" object:nil userInfo:@{@"success": @"缓存已清空"}];
     // should improve this
     [self requestTagsList];
+#ifdef DEBUG
+    [_subscribedTags removeAllObjects];
+#endif
 }
 
 - (void)saveSettings
@@ -266,7 +266,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[NSNumber numberWithBool:_shouldDisplayImages] forKey:kSettingsDisplayImages];
     [defaults setObject:[NSNumber numberWithBool:_shouldEnableNotification] forKey:kSettingsNotifications];
-    [defaults setObject:_subscribedTags forKey:kSettingsSubscribed];
+    [defaults setObject:[_subscribedTags allObjects] forKey:kSettingsSubscribed];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"userActionSuccess" object:nil userInfo:@{@"success": @"设置已保存"}];
 }
 

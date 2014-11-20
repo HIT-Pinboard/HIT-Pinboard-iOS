@@ -26,7 +26,6 @@
 - (void)requestFeatureList;
 - (void)requestSubscribedListFromIndex:(NSUInteger)startIndex
                                  Count:(NSUInteger)count
-                                  Tags:(NSArray *)tags
                            shouldClear:(BOOL)boolean;
 - (void)requestTagsList;
 - (void)requestSpecificObject:(NSString *)urlString;

@@ -125,14 +125,14 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.searchDisplayController setActive:NO animated:YES];
 
-    [self.segmentControl insertSegmentWithTitle:[NSString stringWithFormat:@"%@ - 所有", _selectedTag.name] atIndex:0 animated:YES];
+    [self.segmentControl insertSegmentWithTitle:@"所有" atIndex:0 animated:YES];
     [_selectedTag.children enumerateObjectsUsingBlock:^(PBSubscribeTag *child, NSUInteger idx, BOOL *stop){
-        [self.segmentControl insertSegmentWithTitle:child.name atIndex:idx+1 animated:YES];
+        [self.segmentControl insertSegmentWithTitle:[child.name componentsSeparatedByString:@" "].lastObject atIndex:idx+1 animated:YES];
     }];
     self.segmentControl.selectedSegmentIndex = 0;
     self.segmentControl.enabled = YES;
     self.saveButton.enabled = YES;
-    self.describeLabel.text = [NSString stringWithFormat:@"您选择订阅%@的所有新闻，我们将提供给您关于%@的所有信息。", _selectedTag.name, _selectedTag.name];
+    self.describeLabel.text = [NSString stringWithFormat:@"您选择订阅关于%@的所有新闻，我们将提供给您关于%@的所有信息。", _selectedTag.name, _selectedTag.name];
 }
 
 #pragma mark - Content Filtering
@@ -171,6 +171,6 @@
         PBSubscribeTag *tag = [_selectedTag.children objectAtIndex:(seg-1)];
         tagDetail = [tag.name componentsSeparatedByString:@" "].lastObject;
     }
-    self.describeLabel.text = [NSString stringWithFormat:@"您选择订阅%@的所有新闻，我们将提供给您关于%@的%@。", tagName, tagName, tagDetail];
+    self.describeLabel.text = [NSString stringWithFormat:@"您选择订阅关于%@的所有新闻，我们将提供给您关于%@的%@。", tagName, tagName, tagDetail];
 }
 @end

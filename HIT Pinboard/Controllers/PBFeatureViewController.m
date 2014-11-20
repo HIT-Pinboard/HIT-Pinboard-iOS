@@ -33,7 +33,7 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"Feature";
+    self.title = @"最新新闻";
     [self setupTableView];
     [self setupRefreshControl];
 }

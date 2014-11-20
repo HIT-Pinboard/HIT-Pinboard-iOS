@@ -35,7 +35,7 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"Feature";
+    self.title = @"我的订阅";
     [self setupTableView];
     [self setupRefreshControl];
     _firstScroll = YES;
@@ -136,7 +136,7 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
         for (NSArray *eachDay in [[PBManager sharedManager] subscribedList]) {
             count += eachDay.count;
         }
-        [[PBManager sharedManager] requestSubscribedListFromIndex:count Count:10 Tags:@[] shouldClear:NO];
+        [[PBManager sharedManager] requestSubscribedListFromIndex:count Count:10 shouldClear:NO];
         _shouldRequest = NO;
     }
 }
@@ -171,7 +171,7 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     if (_tableView.isDragging) {
         self.shouldRefreshData = YES;
     } else {
-        [[PBManager sharedManager] requestSubscribedListFromIndex:0 Count:10 Tags:@[] shouldClear:YES];
+        [[PBManager sharedManager] requestSubscribedListFromIndex:0 Count:10 shouldClear:YES];
         _firstScroll = YES;
     }
 }

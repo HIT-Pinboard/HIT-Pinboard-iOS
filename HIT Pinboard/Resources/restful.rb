@@ -57,6 +57,7 @@ end
 
 post '/newsList' do
 	content_type :json
+	puts params
 	case settings.request_count
 	when 0
 		return_message = {

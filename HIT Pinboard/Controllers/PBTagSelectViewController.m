@@ -18,7 +18,7 @@ static NSString * const cellIdentifier = @"PBTagCollectionCell";
 
 @interface PBTagSelectViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UIActionSheetDelegate>
 
-@property (strong, nonatomic) NSArray *selectedTags;
+@property (strong, nonatomic) NSMutableArray *selectedTags;
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath;
 
 @end
@@ -30,7 +30,7 @@ static NSString * const cellIdentifier = @"PBTagCollectionCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _selectedTags = [[[PBManager sharedManager] subscribedTags] allObjects];
+    _selectedTags = [[[[PBManager sharedManager] subscribedTags] allObjects] mutableCopy];
     [_collectionView registerNib:[PBTagCollectionViewCell nib] forCellWithReuseIdentifier:cellIdentifier];
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"PBTagAddCell"];
     _collectionView.dataSource = self;
@@ -66,7 +66,9 @@ static NSString * const cellIdentifier = @"PBTagCollectionCell";
 
 - (void)receivedReload
 {
-    _selectedTags = [[[PBManager sharedManager] subscribedTags] allObjects];
+    [_selectedTags removeAllObjects];
+    [_selectedTags addObjectsFromArray:[[[PBManager sharedManager] subscribedTags] allObjects]];
+//    _selectedTags = [[[PBManager sharedManager] subscribedTags] allObjects];
     [_collectionView reloadData];
 }
 
@@ -136,11 +138,13 @@ static NSString * const cellIdentifier = @"PBTagCollectionCell";
 clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        PBSubscribeTag *tag = [_selectedTags objectAtIndex:_selectedIndexPath.row];
-        [[[PBManager sharedManager] subscribedTags] removeObject:tag];
-        _selectedTags = [[[PBManager sharedManager] subscribedTags] allObjects];
+        NSString *tagValue = [_selectedTags objectAtIndex:_selectedIndexPath.row];
+        [[[PBManager sharedManager] subscribedTags] removeObject:tagValue];
+        [_selectedTags removeObjectAtIndex:_selectedIndexPath.row];
+//        _selectedTags = [[[PBManager sharedManager] subscribedTags] allObjects];
         [[PBManager sharedManager] saveSettings];
         [_collectionView deleteItemsAtIndexPaths:@[_selectedIndexPath]];
+        _selectedIndexPath = nil;
     }
 }
 
