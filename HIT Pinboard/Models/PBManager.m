@@ -231,6 +231,25 @@
     }];
 }
 
+- (void)updatePushSetting
+{
+    if ([[[UIApplication sharedApplication] currentUserNotificationSettings] types] == (UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge)) {
+        NSMutableDictionary *data = [@{} mutableCopy];
+        [data setObject:_deviceToken forKey:@"token"];
+        if (_shouldEnableNotification) {
+            data[@"action"] = @"register";
+        } else {
+            data[@"action"] = @"remove";
+        }
+        [data setObject:[_subscribedTags allObjects] forKey:@"tags"];
+        NSMutableURLRequest *request = [[RKObjectManager sharedManager] requestWithObject:nil method:RKRequestMethodPOST path:@"/push" parameters:@{@"data": data}];
+        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:nil failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            [self alertWithError:error];
+        }];
+        [operation start];
+    }
+}
+
 #pragma mark -
 - (void)addSubscribedTag:(NSString *)value
 {

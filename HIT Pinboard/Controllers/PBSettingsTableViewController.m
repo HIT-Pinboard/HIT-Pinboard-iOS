@@ -36,6 +36,26 @@
         else if ([obj1 frame].origin.y > [obj2 frame].origin.y) return NSOrderedDescending;
         else return NSOrderedSame;
     }];
+    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
+#ifdef DEBUG
+        NSLog(@"%lu", [[[UIApplication sharedApplication] currentUserNotificationSettings] types]);
+#endif
+        if ([[[UIApplication sharedApplication] currentUserNotificationSettings] types] == (UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge)) {
+            _pushNotificationSwitch.enabled = YES;
+        } else {
+            _pushNotificationSwitch.enabled = NO;
+        }
+    } else {
+        UIRemoteNotificationType enabledTypes = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+#ifdef DEBUG
+        NSLog(@"%lu", enabledTypes);
+#endif
+        if (enabledTypes == (UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge)) {
+            _pushNotificationSwitch.enabled = YES;
+        } else {
+            _pushNotificationSwitch.enabled = NO;
+        }
+    }
     _noPicSwitch.on = !mgr.shouldDisplayImages;
     _pushNotificationSwitch.on = mgr.shouldEnableNotification;
 }
@@ -116,7 +136,7 @@
     PBManager *mgr = [PBManager sharedManager];
     mgr.shouldEnableNotification = !mgr.shouldEnableNotification;
     [mgr saveSettings];
-    // to-do
+    [mgr updatePushSetting];
 }
 
 #pragma mark -

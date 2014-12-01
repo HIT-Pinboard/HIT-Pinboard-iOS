@@ -18,6 +18,8 @@
 @property (strong, nonatomic, readonly) PBObject *requestedObject;
 @property (strong, nonatomic, readonly) NSMutableSet *subscribedTags;
 
+@property (strong, nonatomic) NSString *deviceToken;
+
 @property (assign, nonatomic) BOOL shouldDisplayImages;
 @property (assign, nonatomic) BOOL shouldEnableNotification;
 
@@ -29,6 +31,8 @@
                            shouldClear:(BOOL)boolean;
 - (void)requestTagsList;
 - (void)requestSpecificObject:(NSString *)urlString;
+
+- (void)updatePushSetting;
 
 - (void)addSubscribedTag:(NSString *)value;
 

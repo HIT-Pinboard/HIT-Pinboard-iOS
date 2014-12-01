@@ -29,6 +29,12 @@
                                                            }];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedError:) name:@"requestFailedWithError" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedSuccess:) name:@"userActionSuccess" object:nil];
+    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    } else {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge)];
+    }
     return YES;
 }
 
@@ -67,5 +73,32 @@
 {
     NSDictionary *userInfo = notification.userInfo;
     [JDStatusBarNotification showWithStatus:userInfo[@"success"] dismissAfter:2.0f styleName:JDStatusBarStyleSuccess];
+}
+
+#pragma mark - Push Notifications
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    [application registerForRemoteNotifications];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    [[PBManager sharedManager] setDeviceToken:token];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+#ifdef DEBUG
+    NSLog(@"%@", error);
+#endif
+    [JDStatusBarNotification showWithStatus:[error localizedDescription] dismissAfter:2.0f styleName:JDStatusBarStyleError];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    [JDStatusBarNotification showWithStatus:@"您的订阅有更新啦" dismissAfter:2.0f styleName:JDStatusBarStyleSuccess];
 }
 @end

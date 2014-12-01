@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <objects>
@@ -12,24 +13,40 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="120" height="70"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="计算机学院" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3mT-My-w3l">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="计算机学院" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3mT-My-w3l">
                         <rect key="frame" x="8" y="8" width="104" height="35"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="所有新闻" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7eb-tc-Dck">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="所有新闻" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7eb-tc-Dck">
                         <rect key="frame" x="8" y="44" width="104" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IM1-VY-8On">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IM1-VY-8On">
                         <rect key="frame" x="25" y="0.0" width="70" height="70"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="T3K-aK-p9M"/>
+                            <constraint firstAttribute="height" constant="70" id="oqD-Zp-0zk"/>
+                        </constraints>
                     </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="IM1-VY-8On" secondAttribute="trailing" constant="25" id="0YB-Ra-bEJ"/>
+                <constraint firstAttribute="trailing" secondItem="3mT-My-w3l" secondAttribute="trailing" constant="8" id="58h-ae-dfK"/>
+                <constraint firstItem="3mT-My-w3l" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="5if-ZQ-3sB"/>
+                <constraint firstAttribute="bottom" secondItem="IM1-VY-8On" secondAttribute="bottom" id="DEX-LU-TnH"/>
+                <constraint firstAttribute="trailing" secondItem="7eb-tc-Dck" secondAttribute="trailing" constant="8" id="I3h-aY-JwX"/>
+                <constraint firstItem="IM1-VY-8On" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="25" id="bvs-3M-jf6"/>
+                <constraint firstAttribute="bottom" secondItem="7eb-tc-Dck" secondAttribute="bottom" constant="5" id="dbT-ft-zdi"/>
+                <constraint firstItem="IM1-VY-8On" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="sd7-Q9-JRs"/>
+                <constraint firstItem="3mT-My-w3l" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="uk7-jc-kVi"/>
+                <constraint firstItem="7eb-tc-Dck" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="vZn-tC-xtf"/>
+            </constraints>
             <connections>
                 <outlet property="tagImageView" destination="IM1-VY-8On" id="CuU-O1-3aT"/>
                 <outlet property="tagSubtitleLabel" destination="7eb-tc-Dck" id="wHv-RF-bq6"/>

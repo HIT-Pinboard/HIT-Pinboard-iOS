@@ -89,6 +89,7 @@
     }
     [[PBManager sharedManager] addSubscribedTag:value];
     [[PBManager sharedManager] saveSettings];
+    [[PBManager sharedManager] updatePushSetting];
 #ifdef DEBUG
     NSLog(@"content issued dismissal started");
 #endif

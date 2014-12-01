@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -18,17 +18,17 @@
             <rect key="frame" x="0.0" y="0.0" width="280" height="300"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lxg-Kf-Cfh">
+                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Lxg-Kf-Cfh">
                     <rect key="frame" x="0.0" y="0.0" width="280" height="44"/>
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="您选择订阅计算机学院的所有新闻，我们将提供给您关于计算机学院的所有信息。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjD-qW-jQc">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="您选择订阅计算机学院的所有新闻，我们将提供给您关于计算机学院的所有信息。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjD-qW-jQc">
                     <rect key="frame" x="8" y="179" width="264" height="80"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qae-3l-HRm">
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qae-3l-HRm">
                     <rect key="frame" x="8" y="95" width="264" height="29"/>
                     <segments>
                         <segment title="First"/>
@@ -40,6 +40,17 @@
                 </segmentedControl>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="FjD-qW-jQc" secondAttribute="trailing" constant="8" id="0di-2a-rH5"/>
+                <constraint firstItem="Lxg-Kf-Cfh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="C3V-ux-Z9z"/>
+                <constraint firstAttribute="trailing" secondItem="Lxg-Kf-Cfh" secondAttribute="trailing" id="JRl-Xt-HE4"/>
+                <constraint firstItem="FjD-qW-jQc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="SWs-k7-e5P"/>
+                <constraint firstAttribute="bottom" secondItem="FjD-qW-jQc" secondAttribute="bottom" constant="41" id="Snr-US-9Po"/>
+                <constraint firstItem="Lxg-Kf-Cfh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ecB-Rs-Ign"/>
+                <constraint firstAttribute="trailing" secondItem="qae-3l-HRm" secondAttribute="trailing" constant="8" id="rxl-6V-VFl"/>
+                <constraint firstItem="qae-3l-HRm" firstAttribute="top" secondItem="Lxg-Kf-Cfh" secondAttribute="bottom" constant="51" id="v5n-8Y-BbP"/>
+                <constraint firstItem="qae-3l-HRm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="vch-4n-yAL"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="565" y="221"/>

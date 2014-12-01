@@ -182,3 +182,12 @@ get '/*/*.json' do
 	}
 	return_message.to_json
 end
+
+post '/push' do
+	content_type :json
+	puts params
+	return_message = {
+		"status" => 200
+	}
+	return_message.to_json
+end
