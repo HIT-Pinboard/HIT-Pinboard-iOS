@@ -233,7 +233,15 @@
 
 - (void)updatePushSetting
 {
-    if ([[[UIApplication sharedApplication] currentUserNotificationSettings] types] == (UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge)) {
+    BOOL shouldUpdate = NO;
+    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
+        if ([[[UIApplication sharedApplication] currentUserNotificationSettings] types] == (UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge))
+            shouldUpdate = YES;
+    } else {
+        if ([[UIApplication sharedApplication] enabledRemoteNotificationTypes] == (UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge))
+            shouldUpdate = YES;
+    }
+    if (shouldUpdate) {
         NSMutableDictionary *data = [@{} mutableCopy];
         [data setObject:_deviceToken forKey:@"token"];
         if (_shouldEnableNotification) {

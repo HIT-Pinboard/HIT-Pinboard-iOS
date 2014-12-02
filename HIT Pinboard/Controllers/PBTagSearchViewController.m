@@ -39,6 +39,7 @@
     self.saveButton.enabled = NO;
     
     self.navigationItem.rightBarButtonItem = self.saveButton;
+    self.navigationController.navigationBar.translucent = NO;
     
     self.title = @"添加订阅";
     self.describeLabel.text = @"请选择订阅内容";

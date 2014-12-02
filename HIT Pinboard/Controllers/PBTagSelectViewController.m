@@ -150,7 +150,11 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 
 - (IBAction)doneButtonClicked:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)showTagSearchPopover

@@ -30,6 +30,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"设置";
+    self.tabBarController.tabBar.translucent = NO;
+    self.navigationController.navigationBar.translucent = NO;
     PBManager *mgr = [PBManager sharedManager];
     _iconsArray = [_icons sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2){
         if ([obj1 frame].origin.y < [obj2 frame].origin.y) return NSOrderedAscending;

@@ -36,6 +36,8 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"我的订阅";
+    self.tabBarController.tabBar.translucent = NO;
+    self.navigationController.navigationBar.translucent = NO;
     [self setupTableView];
     [self setupRefreshControl];
     _firstScroll = YES;
