@@ -30,6 +30,8 @@ static NSString * const cellIdentifier = @"PBTagCollectionCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"管理订阅";
+    self.navigationController.navigationBar.translucent = NO;
     _selectedTags = [[[[PBManager sharedManager] subscribedTags] allObjects] mutableCopy];
     [_collectionView registerNib:[PBTagCollectionViewCell nib] forCellWithReuseIdentifier:cellIdentifier];
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"PBTagAddCell"];
@@ -161,6 +163,8 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     PBTagSearchViewController *vc = [[PBTagSearchViewController alloc] initWithNibName:[PBTagSearchViewController nibName] bundle:nil];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    UITapGestureRecognizer *gestureRecongizer = [[UITapGestureRecognizer alloc] initWithTarget:nav action:nil];
+    [nav.view addGestureRecognizer:gestureRecongizer];
     [RWBlurPopover showContentViewController:nav insideViewController:self];
 }
 @end

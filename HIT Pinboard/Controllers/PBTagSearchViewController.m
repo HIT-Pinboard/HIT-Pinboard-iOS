@@ -10,7 +10,7 @@
 #import "PBSubscribeTag.h"
 #import "PBManager.h"
 
-@interface PBTagSearchViewController () <UISearchDisplayDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface PBTagSearchViewController () <UISearchDisplayDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *searchResults;
 @property (nonatomic, strong) PBSubscribeTag *selectedTag;
@@ -46,7 +46,7 @@
     UITapGestureRecognizer *gestureRecongizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [self.view addGestureRecognizer:gestureRecongizer];
     _searchResults = [[[PBManager sharedManager] tagsList] mutableCopy];
-    
+        
     [self.segmentControl removeAllSegments];
     self.segmentControl.enabled = NO;
 }
@@ -160,6 +160,39 @@
     self.describeLabel.text = @"请选择订阅内容";
     [self updateFilteredContentForTagName:searchString];
     return YES;
+}
+
+- (void)searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller
+{
+    /*
+     * hack this way: http://stackoverflow.com/a/19672698
+     */
+    CGRect testFrame = CGRectMake(0, controller.searchBar.frame.size.height, controller.searchBar.frame.size.width, self.view.frame.size.height - controller.searchBar.frame.size.height);
+    controller.searchResultsTableView.frame = testFrame;
+    [controller.searchBar.superview addSubview:controller.searchResultsTableView];
+    controller.searchResultsTableView.hidden = NO;
+    
+    [self.segmentControl removeAllSegments];
+    self.segmentControl.enabled = NO;
+}
+
+- (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView
+{
+    CGRect testFrame = CGRectMake(0, controller.searchBar.frame.size.height, controller.searchBar.frame.size.width, self.view.frame.size.height - controller.searchBar.frame.size.height);
+    controller.searchResultsTableView.frame = testFrame;
+    [controller.searchBar.superview addSubview:controller.searchResultsTableView];
+    controller.searchResultsTableView.hidden = NO;
+}
+
+- (void)searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller
+{
+    controller.searchResultsTableView.hidden = YES;
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    self.describeLabel.text = @"请选择订阅内容";
+    searchBar.text = @"";
 }
 
 #pragma mark - Action
