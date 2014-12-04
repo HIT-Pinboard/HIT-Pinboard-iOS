@@ -55,7 +55,7 @@
         } else {
             imageURL = @"";
         }
-        [dict setObject:imageURL forKey:[NSString stringWithFormat:@"#!-- Images[%lu] --!#", index]];
+        [dict setObject:imageURL forKey:[NSString stringWithFormat:@"#!-- Images[%lu] --!#", (unsigned long)index]];
     }];
     for (NSString *key in dict) {
         tmp = [[tmp stringByReplacingOccurrencesOfString:key withString:[dict objectForKey:key]] mutableCopy];

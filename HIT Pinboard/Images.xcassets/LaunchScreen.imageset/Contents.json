@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "idiom" : "universal",
+      "scale" : "1x",
+      "filename" : "iOS Simulator Screen Shot Dec 4, 2014, 9.16.47 PM.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x",
+      "filename" : "iOS Simulator Screen Shot Dec 4, 2014, 9.16.05 PM.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x",
+      "filename" : "iOS Simulator Screen Shot Dec 4, 2014, 9.15.38 PM.png"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}
