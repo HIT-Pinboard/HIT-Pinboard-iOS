@@ -82,8 +82,8 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     NSMutableArray *indexPaths = userInfo[@"indexPaths"];
     NSIndexSet *indexSet = userInfo[@"indexSet"];
     [_tableView beginUpdates];
-    [_tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationRight];
-    [_tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationRight];
+    [_tableView insertSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    [_tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
     [_tableView endUpdates];
 }
 

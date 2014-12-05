@@ -32,6 +32,10 @@
 {
     NSString *tagName = [self tagNameForValue:value];
     NSString *prefix = [tagName componentsSeparatedByString:@" "].firstObject;
-    return [UIImage imageNamed:@"default_icon"];
+    UIImage *iconImage = [UIImage imageNamed:prefix];
+    if (iconImage == nil) {
+        iconImage = [UIImage imageNamed:@"default_icon"];
+    }
+    return iconImage;
 }
 @end
