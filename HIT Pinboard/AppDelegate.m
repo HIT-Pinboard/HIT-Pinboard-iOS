@@ -101,6 +101,6 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    [JDStatusBarNotification showWithStatus:@"您的订阅有更新啦" dismissAfter:2.0f styleName:JDStatusBarStyleSuccess];
+    [JDStatusBarNotification showWithStatus:NSLocalizedString(@"Receive new subscription", @"Receive new subscription") dismissAfter:2.0f styleName:JDStatusBarStyleSuccess];
 }
 @end

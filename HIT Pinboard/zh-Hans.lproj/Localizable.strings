@@ -1,0 +1,75 @@
+/* Add Subscription */
+"Add" = "添加订阅";
+
+/* All */
+"All" = "所有";
+
+/* App Feedback */
+"App Feedback" = "提意见";
+
+/* Cache cleared */
+"Cache cleared" = "缓存已清空";
+
+/* Cancel */
+"Cancel" = "取消";
+
+/* Confirm deletion */
+"Confirm deletion" = "确认删除此订阅";
+
+/* Date:%@ Tags:%@ */
+"Date:%@ Tags:%@" = "时间:%1$@ 标签:%2$@";
+
+/* Delete */
+"Delete" = "删除";
+
+/* Displaying the detail news */
+"Detail" = "详细信息";
+
+/* Displaying the latest 25 news from HIT */
+"Featured" = "最新新闻";
+
+/* Fail loading the detail page */
+"Load failed" = "加载失败";
+
+/* Manage user's subscription */
+"Manage Subscription" = "管理订阅";
+
+/* Displaying the latest user subscribed news from HIT */
+"My News" = "我的订阅";
+
+/* Okay */
+"Okay" = "好的";
+
+/* Open source web page in Safari */
+"Open in Safari" = "在Safari中打开";
+
+/* Please select a tag to subscribe */
+"Please select a tag to subscribe" = "请选择要订阅的标签";
+
+/* Please write down your opinions or feedbacks */
+"Please write down your opinions or feedbacks" = "请写下您对我们App的意见或者建议";
+
+/* Display settings */
+"Settings" = "设置";
+
+/* Settings saved */
+"Settings saved" = "设置已保存";
+
+/* Thanks for the feedback */
+"Thank You" = "感谢您的反馈";
+
+/* Thanks for the feedback, we will receive your email but we may not reply to all of them */
+"Thanks for the feedback, we will receive your email but we may not reply to all of them" = "我们一定会听到您的声音，但请谅解，我们可能无法一一回复所有的邮件";
+
+/* You have selected %@, we will provide %@ news belonging to %@ */
+"You have selected %@, we will provide %@ news belonging to %@" = "您选择订阅关于%1$@的所有新闻，我们将提供给您关于%3$@的%2$@";
+
+/* You have selected %@, we will provide all news belonging to %@ */
+"You have selected %@, we will provide all news belonging to %@" = "您选择订阅关于%1$@的所有新闻，我们将提供给您关于%2$@的所有信息";
+
+/* all news */
+"all" = "所有信息";
+
+/* Receive new subscription */
+"Receive new subscription" = "收到新的订阅啦";
+

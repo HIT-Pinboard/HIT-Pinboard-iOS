@@ -33,7 +33,7 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"最新新闻";
+    self.title = NSLocalizedString(@"Featured", @"Displaying the latest 25 news from HIT");
     self.tabBarController.tabBar.translucent = NO;
     self.navigationController.navigationBar.translucent = NO;
     [self setupTableView];

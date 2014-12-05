@@ -30,7 +30,7 @@ static NSString * const cellIdentifier = @"PBTagCollectionCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"管理订阅";
+    self.title = NSLocalizedString(@"Manage Subscription", @"Manage user's subscription");
     self.navigationController.navigationBar.translucent = NO;
     _selectedTags = [[[[PBManager sharedManager] subscribedTags] allObjects] mutableCopy];
     [_collectionView registerNib:[PBTagCollectionViewCell nib] forCellWithReuseIdentifier:cellIdentifier];
@@ -126,7 +126,7 @@ static NSString * const cellIdentifier = @"PBTagCollectionCell";
 {
     if (indexPath.row < _selectedTags.count) {
         _selectedIndexPath = indexPath;
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"确认删除此订阅" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:nil];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Confirm deletion", @"Confirm deletion") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel") destructiveButtonTitle:NSLocalizedString(@"Delete", @"Delete") otherButtonTitles:nil];
         [actionSheet showInView:self.view];
     } else {
         [self showTagSearchPopover];

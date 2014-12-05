@@ -12,7 +12,7 @@
 
 - (NSString *)activityTitle
 {
-    return @"Open in Safari";
+    return NSLocalizedString(@"Open in Safari", @"Open source web page in Safari");
 }
 
 - (NSString *)activityType

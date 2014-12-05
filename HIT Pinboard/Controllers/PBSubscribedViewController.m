@@ -35,7 +35,7 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"我的订阅";
+    self.title = NSLocalizedString(@"My News", @"Displaying the latest user subscribed news from HIT");
     self.tabBarController.tabBar.translucent = NO;
     self.navigationController.navigationBar.translucent = NO;
     [self setupTableView];

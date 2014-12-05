@@ -235,10 +235,10 @@
 {
     BOOL shouldUpdate = NO;
     if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
-        if ([[[UIApplication sharedApplication] currentUserNotificationSettings] types] == (UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge))
+        if (_deviceToken && [[[UIApplication sharedApplication] currentUserNotificationSettings] types] == (UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge))
             shouldUpdate = YES;
     } else {
-        if ([[UIApplication sharedApplication] enabledRemoteNotificationTypes] == (UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge))
+        if (_deviceToken && [[UIApplication sharedApplication] enabledRemoteNotificationTypes] == (UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge))
             shouldUpdate = YES;
     }
     if (shouldUpdate) {
@@ -280,7 +280,7 @@
     [_featureList removeAllObjects];
     [_subscribedList removeAllObjects];
     [_tagsList removeAllObjects];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"userActionSuccess" object:nil userInfo:@{@"success": @"缓存已清空"}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"userActionSuccess" object:nil userInfo:@{@"success": NSLocalizedString(@"Cache cleared", @"Cache cleared")}];
     // should improve this
     [self requestTagsList];
 #ifdef DEBUG
@@ -294,7 +294,7 @@
     [defaults setObject:[NSNumber numberWithBool:_shouldDisplayImages] forKey:kSettingsDisplayImages];
     [defaults setObject:[NSNumber numberWithBool:_shouldEnableNotification] forKey:kSettingsNotifications];
     [defaults setObject:[_subscribedTags allObjects] forKey:kSettingsSubscribed];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"userActionSuccess" object:nil userInfo:@{@"success": @"设置已保存"}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"userActionSuccess" object:nil userInfo:@{@"success": NSLocalizedString(@"Settings saved", @"Settings saved")}];
 }
 
 #pragma mark -

@@ -41,8 +41,8 @@
     self.navigationItem.rightBarButtonItem = self.saveButton;
     self.navigationController.navigationBar.translucent = NO;
     
-    self.title = @"添加订阅";
-    self.describeLabel.text = @"请选择订阅内容";
+    self.title = NSLocalizedString(@"Add", @"Add Subscription");
+    self.describeLabel.text = NSLocalizedString(@"Please select a tag to subscribe", @"Please select a tag to subscribe");
     UITapGestureRecognizer *gestureRecongizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [self.view addGestureRecognizer:gestureRecongizer];
     _searchResults = [[[PBManager sharedManager] tagsList] mutableCopy];
@@ -127,14 +127,14 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.searchDisplayController setActive:NO animated:YES];
 
-    [self.segmentControl insertSegmentWithTitle:@"所有" atIndex:0 animated:YES];
+    [self.segmentControl insertSegmentWithTitle:NSLocalizedString(@"All", @"All") atIndex:0 animated:YES];
     [_selectedTag.children enumerateObjectsUsingBlock:^(PBSubscribeTag *child, NSUInteger idx, BOOL *stop){
         [self.segmentControl insertSegmentWithTitle:[child.name componentsSeparatedByString:@" "].lastObject atIndex:idx+1 animated:YES];
     }];
     self.segmentControl.selectedSegmentIndex = 0;
     self.segmentControl.enabled = YES;
     self.saveButton.enabled = YES;
-    self.describeLabel.text = [NSString stringWithFormat:@"您选择订阅关于%@的所有新闻，我们将提供给您关于%@的所有信息。", _selectedTag.name, _selectedTag.name];
+    self.describeLabel.text = [NSString stringWithFormat:NSLocalizedString(@"You have selected %@, we will provide all news belonging to %@", @"You have selected %@, we will provide all news belonging to %@"), _selectedTag.name, _selectedTag.name];
 }
 
 #pragma mark - Content Filtering
@@ -157,7 +157,7 @@
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
-    self.describeLabel.text = @"请选择订阅内容";
+    self.describeLabel.text = NSLocalizedString(@"Please select a tag to subscribe", @"Please select a tag to subscribe");
     [self updateFilteredContentForTagName:searchString];
     return YES;
 }
@@ -191,7 +191,7 @@
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
-    self.describeLabel.text = @"请选择订阅内容";
+    self.describeLabel.text = NSLocalizedString(@"Please select a tag to subscribe", @"Please select a tag to subscribe");
     searchBar.text = @"";
 }
 
@@ -201,11 +201,11 @@
 {
     NSInteger seg = sender.selectedSegmentIndex;
     NSString *tagName = _selectedTag.name;
-    NSString *tagDetail = @"所有信息";
+    NSString *tagDetail = NSLocalizedString(@"all", @"all news");
     if (seg > 0) {
         PBSubscribeTag *tag = [_selectedTag.children objectAtIndex:(seg-1)];
         tagDetail = [tag.name componentsSeparatedByString:@" "].lastObject;
     }
-    self.describeLabel.text = [NSString stringWithFormat:@"您选择订阅关于%@的所有新闻，我们将提供给您关于%@的%@。", tagName, tagName, tagDetail];
+    self.describeLabel.text = [NSString stringWithFormat:NSLocalizedString(@"You have selected %@, we will provide %@ news belonging to %@", @"You have selected %@, we will provide %@ news belonging to %@"), tagName, tagDetail, tagName];
 }
 @end

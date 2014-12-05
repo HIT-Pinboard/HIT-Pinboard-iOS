@@ -1,0 +1,27 @@
+/* Class = "IBUILabel"; text = "Clear Cache"; ObjectID = "9gJ-LL-zwp"; */
+"9gJ-LL-zwp.text" = "清空缓存";
+
+/* Class = "IBUILabel"; text = "Feedback"; ObjectID = "Ec3-HB-oRr"; */
+"Ec3-HB-oRr.text" = "联系我们";
+
+/* Class = "IBUITabBarItem"; title = "Featured"; ObjectID = "KZT-p4-C2A"; */
+"KZT-p4-C2A.title" = "最新新闻";
+
+/* Class = "IBUILabel"; text = "Rate this App"; ObjectID = "LZV-ou-36p"; */
+"LZV-ou-36p.text" = "评价我们";
+
+/* Class = "IBUITabBarItem"; title = "Settings"; ObjectID = "OAq-Rc-Ztv"; */
+"OAq-Rc-Ztv.title" = "设置";
+
+/* Class = "IBUILabel"; text = "No-Pic Mode"; ObjectID = "RPn-dj-YaC"; */
+"RPn-dj-YaC.text" = "无图模式";
+
+/* Class = "IBUILabel"; text = "About developers"; ObjectID = "ht6-GN-foW"; */
+"ht6-GN-foW.text" = "关于我们";
+
+/* Class = "IBUILabel"; text = "Push Notification"; ObjectID = "lXL-4q-a87"; */
+"lXL-4q-a87.text" = "推送通知";
+
+/* Class = "IBUITabBarItem"; title = "My News"; ObjectID = "maQ-hO-rA7"; */
+"maQ-hO-rA7.title" = "我的订阅";
+

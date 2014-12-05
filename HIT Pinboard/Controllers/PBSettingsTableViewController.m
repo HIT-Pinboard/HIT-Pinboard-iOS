@@ -29,7 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"设置";
+    self.title = NSLocalizedString(@"Settings", @"Display settings");
     self.tabBarController.tabBar.translucent = NO;
     self.navigationController.navigationBar.translucent = NO;
     PBManager *mgr = [PBManager sharedManager];
@@ -151,8 +151,8 @@
 
 - (void)composeEmail
 {
-    NSString *title = @"意见反馈";
-    NSString *body = @"请在下面写下您对本App的意见和反馈。";
+    NSString *title = NSLocalizedString(@"App Feedback", @"App Feedback");
+    NSString *body = NSLocalizedString(@"Please write down your opinions or feedbacks", @"Please write down your opinions or feedbacks");
     NSArray *recipient = @[@"admin@cs.hit.edu.cn"];
     
     MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
@@ -171,7 +171,7 @@
 #endif
     [self dismissViewControllerAnimated:YES completion:nil];
     if (result == MFMailComposeResultSent) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"感谢您的反馈" message:@"我们可能无法一一回复所有的邮件，但是我们一定会听到您的声音。" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Thank You", @"Thanks for the feedback") message:NSLocalizedString(@"Thanks for the feedback, we will receive your email but we may not reply to all of them", @"Thanks for the feedback, we will receive your email but we may not reply to all of them") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil];
         [alert show];
     }
 }

@@ -26,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"详细内容";
+    self.title = NSLocalizedString(@"Detail", @"Displaying the detail news");
     
     [SVProgressHUD show];
     
@@ -80,7 +80,7 @@
 
 - (void)receivedFailed
 {
-    [SVProgressHUD showErrorWithStatus:@"加载失败"];
+    [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Load failed", @"Fail loading the detail page")];
     [SVProgressHUD dismiss];
     [self.navigationController popViewControllerAnimated:YES];
 }

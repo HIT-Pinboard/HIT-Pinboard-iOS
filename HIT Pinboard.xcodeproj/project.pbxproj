@@ -109,6 +109,9 @@
 		8F90010B1A1A0D3B00B52EDF /* PBTagSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F9001091A1A0D3B00B52EDF /* PBTagSearchViewController.m */; };
 		8F90010C1A1A0D3B00B52EDF /* PBTagSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F90010A1A1A0D3B00B52EDF /* PBTagSearchViewController.xib */; };
 		8FA27D6B1A0E5E6B00F996B7 /* PBHTMLString.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA27D6A1A0E5E6B00F996B7 /* PBHTMLString.m */; };
+		8FA3F6EC1A317DB900439B0F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FA3F6EE1A317DB900439B0F /* Localizable.strings */; };
+		8FA3F6F11A317DBA00439B0F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FA3F6F31A317DBA00439B0F /* InfoPlist.strings */; };
+		8FA3F6F61A317DBA00439B0F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8FA3F6F81A317DBA00439B0F /* InfoPlist.strings */; };
 		8FA879F91A0F5E0C006FAFBD /* PBSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FA879F81A0F5E0C006FAFBD /* PBSettingsTableViewController.m */; };
 		8FB2437E1A16F0F900EB83B4 /* style.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 8FB2437D1A16F0F900EB83B4 /* style.min.css */; };
 		8FCFA8A31A0FAA5400C8EAC8 /* PBArrayDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FCFA8A21A0FAA5400C8EAC8 /* PBArrayDataSource.m */; };
@@ -329,6 +332,11 @@
 		8F90010A1A1A0D3B00B52EDF /* PBTagSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PBTagSearchViewController.xib; path = Controllers/PBTagSearchViewController.xib; sourceTree = "<group>"; };
 		8FA27D691A0E5E6B00F996B7 /* PBHTMLString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBHTMLString.h; path = Models/PBHTMLString.h; sourceTree = "<group>"; };
 		8FA27D6A1A0E5E6B00F996B7 /* PBHTMLString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBHTMLString.m; path = Models/PBHTMLString.m; sourceTree = "<group>"; };
+		8FA3F6E81A316C7500439B0F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		8FA3F6E91A316C7500439B0F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		8FA3F6ED1A317DB900439B0F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		8FA3F6F21A317DBA00439B0F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		8FA3F6F71A317DBA00439B0F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		8FA879F71A0F5E0C006FAFBD /* PBSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBSettingsTableViewController.h; path = Controllers/PBSettingsTableViewController.h; sourceTree = "<group>"; };
 		8FA879F81A0F5E0C006FAFBD /* PBSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBSettingsTableViewController.m; path = Controllers/PBSettingsTableViewController.m; sourceTree = "<group>"; };
 		8FB2437D1A16F0F900EB83B4 /* style.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = style.min.css; path = Resources/style.min.css; sourceTree = "<group>"; };
@@ -480,6 +488,8 @@
 		8F0AAA0B1A0BA18F0083497F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8FA3F6F81A317DBA00439B0F /* InfoPlist.strings */,
+				8FA3F6EE1A317DB900439B0F /* Localizable.strings */,
 				8FB2437D1A16F0F900EB83B4 /* style.min.css */,
 				8F0AAA0C1A0BA18F0083497F /* Info.plist */,
 				8F0AAA0D1A0BA18F0083497F /* main.m */,
@@ -499,6 +509,7 @@
 		8F0AAA251A0BA18F0083497F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8FA3F6F31A317DBA00439B0F /* InfoPlist.strings */,
 				8F0AAA261A0BA18F0083497F /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -896,6 +907,7 @@
 				8FE979031A305DF600DBFACD /* arrow-back@2x.png in Resources */,
 				8F7A58311A2D59550006B529 /* phone.png in Resources */,
 				8F0AAA1C1A0BA18F0083497F /* LaunchScreen.xib in Resources */,
+				8FA3F6F61A317DBA00439B0F /* InfoPlist.strings in Resources */,
 				8F7A581A1A2D59550006B529 /* glasses.png in Resources */,
 				8F7A57FD1A2D59550006B529 /* arrow-combo.png in Resources */,
 				8F7A580E1A2D59550006B529 /* cloud.png in Resources */,
@@ -920,6 +932,7 @@
 				8F7A58401A2D59550006B529 /* trophy.png in Resources */,
 				8FE9792F1A305DF600DBFACD /* map-pin@2x.png in Resources */,
 				8F7A58241A2D59550006B529 /* location.png in Resources */,
+				8FA3F6EC1A317DB900439B0F /* Localizable.strings in Resources */,
 				8F7A582B1A2D59550006B529 /* minus.png in Resources */,
 				8FE9794B1A305DF600DBFACD /* windows@2x.png in Resources */,
 				8FE9792B1A305DF600DBFACD /* location@2x.png in Resources */,
@@ -1003,6 +1016,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FA3F6F11A317DBA00439B0F /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1092,6 +1106,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				8F0AAA161A0BA18F0083497F /* Base */,
+				8FA3F6E91A316C7500439B0F /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1100,8 +1115,33 @@
 			isa = PBXVariantGroup;
 			children = (
 				8F0AAA1B1A0BA18F0083497F /* Base */,
+				8FA3F6E81A316C7500439B0F /* zh-Hans */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		8FA3F6EE1A317DB900439B0F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8FA3F6ED1A317DB900439B0F /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		8FA3F6F31A317DBA00439B0F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8FA3F6F21A317DBA00439B0F /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		8FA3F6F81A317DBA00439B0F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8FA3F6F71A317DBA00439B0F /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

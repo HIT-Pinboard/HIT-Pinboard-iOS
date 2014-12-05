@@ -70,7 +70,7 @@
     NSString *tagDescription = [[strArr valueForKey:@"description"] componentsJoinedByString:@" "];
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    return [NSString stringWithFormat:@"日期:%@ 标签:%@", [dateFormatter stringFromDate:_date], tagDescription];
+    return [NSString stringWithFormat:NSLocalizedString(@"Date:%@ Tags:%@", @"Date:%@ Tags:%@"), [dateFormatter stringFromDate:_date], tagDescription];
 }
 
 #pragma mark -
