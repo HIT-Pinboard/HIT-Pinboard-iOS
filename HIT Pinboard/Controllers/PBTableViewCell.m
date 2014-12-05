@@ -10,6 +10,12 @@
 
 @implementation PBTableViewCell
 
+
+/*
+ * freak issue here: http://stackoverflow.com/questions/11681273/uitableviewcell-imageview-changing-on-select
+ */
+@synthesize imageView;
+
 + (UINib *)nib
 {
     return [UINib nibWithNibName:@"PBTableViewCell" bundle:nil];
