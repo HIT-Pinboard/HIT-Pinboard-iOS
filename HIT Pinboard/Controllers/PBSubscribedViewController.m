@@ -30,8 +30,6 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 
 @implementation PBSubscribedViewController
 
-@synthesize objectsArrayDataSource = _objectsArrayDataSource, firstScroll = _firstScroll, shouldRequest = _shouldRequest;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

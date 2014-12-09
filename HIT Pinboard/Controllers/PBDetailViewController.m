@@ -20,8 +20,6 @@
 
 @implementation PBDetailViewController
 
-@synthesize object = _object, webView = _webView, requestURL = _requestURL;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

@@ -25,8 +25,6 @@
 
 @implementation PBTagSearchViewController
 
-@synthesize searchResults = _searchResults, selectedTag = _selectedTag;
-
 + (NSString *)nibName
 {
     return @"PBTagSearchViewController";

@@ -25,8 +25,6 @@ static NSString * const cellIdentifier = @"PBTagCollectionCell";
 
 @implementation PBTagSelectViewController
 
-@synthesize collectionView = _collectionView, selectedTags = _selectedTags, selectedIndexPath = _selectedIndexPath;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

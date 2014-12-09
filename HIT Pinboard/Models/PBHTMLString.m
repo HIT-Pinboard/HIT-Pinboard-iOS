@@ -18,9 +18,6 @@
 
 @implementation PBHTMLString
 
-@synthesize title = _title, subtitle = _subtitle, content = _content, css = _css, images = _images,
-            shouldDisplayImages = _shouldDisplayImages;
-
 - (void)setHTMLCSSWithContentsOfFile:(NSString *)path
                             encoding:(NSStringEncoding)enc
                                error:(NSError **)error

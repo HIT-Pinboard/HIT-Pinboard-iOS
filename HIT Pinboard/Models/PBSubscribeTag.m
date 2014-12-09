@@ -11,8 +11,6 @@
 
 @implementation PBSubscribeTag
 
-@synthesize name = _name, value = _value, children = _children;
-
 - (NSDictionary *)objectToDict
 {
     NSMutableDictionary *dict = [@{} mutableCopy];

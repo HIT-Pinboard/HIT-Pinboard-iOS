@@ -13,7 +13,6 @@
 
 @interface PBSettingsTableViewController () <MFMailComposeViewControllerDelegate>
 
-@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *icons;
 @property (weak, nonatomic) IBOutlet UISwitch *noPicSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *pushNotificationSwitch;
 @property (strong, nonatomic) NSArray *iconsArray;
@@ -24,20 +23,17 @@
 
 @implementation PBSettingsTableViewController
 
-@synthesize icons = _icons, noPicSwitch = _noPicSwitch, pushNotificationSwitch = _pushNotificationSwitch,
-            iconsArray = _iconsArray;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = NSLocalizedString(@"Settings", @"Display settings");
     self.tabBarController.tabBar.translucent = NO;
     self.navigationController.navigationBar.translucent = NO;
     PBManager *mgr = [PBManager sharedManager];
-    _iconsArray = [_icons sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2){
-        if ([obj1 frame].origin.y < [obj2 frame].origin.y) return NSOrderedAscending;
-        else if ([obj1 frame].origin.y > [obj2 frame].origin.y) return NSOrderedDescending;
-        else return NSOrderedSame;
-    }];
+//    _iconsArray = [_icons sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2){
+//        if ([obj1 frame].origin.y < [obj2 frame].origin.y) return NSOrderedAscending;
+//        else if ([obj1 frame].origin.y > [obj2 frame].origin.y) return NSOrderedDescending;
+//        else return NSOrderedSame;
+//    }];
     if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
 #ifdef DEBUG
         NSLog(@"%lu", [[[UIApplication sharedApplication] currentUserNotificationSettings] types]);

@@ -28,8 +28,6 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 
 @implementation PBFeatureViewController
 
-@synthesize objectsArrayDataSource = _objectsArrayDataSource;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
