@@ -331,7 +331,7 @@
     [tagMapping addRelationshipMappingWithSourceKeyPath:@"children" mapping:tagMapping];
     
     [objectMapping addAttributeMappingsFromDictionary:@{@"title": @"title",
-                                                        @"url": @"urlString",
+                                                        @"link": @"urlString",
                                                         @"date": @"date",
                                                         @"tags": @"tags",
                                                         @"content": @"content",

@@ -687,7 +687,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="credits.png" translatesAutoresizingMaskIntoConstraints="NO" id="fYZ-nd-4SW">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="credits" translatesAutoresizingMaskIntoConstraints="NO" id="fYZ-nd-4SW">
                                 <rect key="frame" x="140" y="140" width="320" height="320"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="320" id="WrK-nI-ZjM"/>
@@ -708,7 +708,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="credits.png" width="20" height="20"/>
+        <image name="credits" width="25" height="25"/>
         <image name="heart.png" width="25" height="25"/>
         <image name="home.png" width="25" height="25"/>
         <image name="mail.png" width="25" height="25"/>

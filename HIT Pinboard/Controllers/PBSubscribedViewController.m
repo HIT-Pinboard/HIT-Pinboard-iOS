@@ -46,6 +46,7 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedReload) name:@"tableViewShouldReload" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedUpdate:) name:@"tableViewShouldUpdate" object:nil];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 #ifdef DEBUG
     NSLog(@"tableViewShouldReload notification registered");
 #endif

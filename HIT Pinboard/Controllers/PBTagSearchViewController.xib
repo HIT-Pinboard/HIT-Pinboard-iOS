@@ -25,8 +25,11 @@
                         <outlet property="delegate" destination="-1" id="B3y-NB-KZm"/>
                     </connections>
                 </searchBar>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="您选择订阅计算机学院的所有新闻，我们将提供给您关于计算机学院的所有信息。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjD-qW-jQc">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您选择订阅计算机学院的所有新闻，我们将提供给您关于计算机学院的所有信息。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjD-qW-jQc">
                     <rect key="frame" x="8" y="179" width="264" height="80"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="80" id="BCi-oa-J4z"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
