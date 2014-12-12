@@ -116,10 +116,6 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     [self.refreshControl scrollViewDidEndDragging];
-    if (self.shouldRefreshData) {
-        [self dataDidRefresh];
-        self.shouldRefreshData = NO;
-    }
 }
 
 - (void)dataDidRefresh
@@ -129,12 +125,7 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 
 - (void)refreshControlTriggered:(PRRefreshControl *)sender
 {
-    [sender beginRefreshing];
-    if (_tableView.isDragging) {
-        self.shouldRefreshData = YES;
-    } else {
-        [[PBManager sharedManager] requestFeatureList];
-    }
+    [[PBManager sharedManager] requestFeatureList];
 }
 
 

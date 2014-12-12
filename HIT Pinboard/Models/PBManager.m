@@ -58,7 +58,7 @@
             [_subscribedTags addObjectsFromArray:[defaults objectForKey:kSettingsSubscribed]];
         }
         // improve this
-        [self requestTagsList];
+//        [self requestTagsList];
     }
     return self;
 }
@@ -283,9 +283,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"userActionSuccess" object:nil userInfo:@{@"success": NSLocalizedString(@"Cache cleared", @"Cache cleared")}];
     // should improve this
     [self requestTagsList];
-#ifdef DEBUG
-    [_subscribedTags removeAllObjects];
-#endif
 }
 
 - (void)saveSettings

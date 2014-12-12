@@ -36,6 +36,9 @@
     } else {
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeBadge)];
     }
+    
+    [[PBManager sharedManager] requestTagsList];
+    
     return YES;
 }
 
@@ -99,8 +102,13 @@
     [JDStatusBarNotification showWithStatus:[error localizedDescription] dismissAfter:2.0f styleName:JDStatusBarStyleError];
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
+    UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
+    UITabBar *tabBar = tabBarController.tabBar;
+    UITabBarItem *tabBarItem2 = [tabBar.items objectAtIndex:1];
+    NSNumber *badgeValue = [[userInfo objectForKey:@"aps"] objectForKey:@"badge"];
+    [tabBarItem2 setBadgeValue:[NSString stringWithFormat:@"%i", [badgeValue intValue]]];
     [JDStatusBarNotification showWithStatus:NSLocalizedString(@"Receive new subscription", @"Receive new subscription") dismissAfter:2.0f styleName:JDStatusBarStyleSuccess];
 }
 @end

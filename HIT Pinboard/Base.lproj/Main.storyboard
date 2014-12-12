@@ -708,7 +708,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="credits" width="25" height="25"/>
+        <image name="credits" width="320" height="320"/>
         <image name="heart.png" width="25" height="25"/>
         <image name="home.png" width="25" height="25"/>
         <image name="mail.png" width="25" height="25"/>

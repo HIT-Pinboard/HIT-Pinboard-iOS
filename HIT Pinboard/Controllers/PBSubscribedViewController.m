@@ -46,7 +46,6 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedReload) name:@"tableViewShouldReload" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedUpdate:) name:@"tableViewShouldUpdate" object:nil];
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 #ifdef DEBUG
     NSLog(@"tableViewShouldReload notification registered");
 #endif
@@ -145,36 +144,32 @@ static NSString * const cellIdentifier = @"PBIndexObjectCell";
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     [self.refreshControl scrollViewDidEndDragging];
-    if (self.shouldRefreshData) {
-        [self dataDidRefresh];
-        self.shouldRefreshData = NO;
-    }
+
     if (!_firstScroll) {
         CGFloat actualPosition = scrollView.contentOffset.y;
         CGFloat contentHeight = scrollView.contentSize.height;
         CGFloat deviceHeight = [UIScreen mainScreen].bounds.size.height;
-        //        CGFloat barHeight = 88.0f;
-        if (actualPosition + deviceHeight >= contentHeight) {
+        CGFloat delta = 240.0f;
+        if (actualPosition + deviceHeight + delta >= contentHeight) {
             _shouldRequest = YES;
         }
     }
-    _firstScroll = NO;
 }
 
 - (void)dataDidRefresh
 {
     [self.refreshControl endRefreshing];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    UITabBar *tabBar = self.tabBarController.tabBar;
+    UITabBarItem *tabBarItem2 = [tabBar.items objectAtIndex:1];
+    [tabBarItem2 setBadgeValue:nil];
+    _firstScroll = NO;
 }
 
 - (void)refreshControlTriggered:(PRRefreshControl *)sender
 {
-    [sender beginRefreshing];
-    if (_tableView.isDragging) {
-        self.shouldRefreshData = YES;
-    } else {
-        [[PBManager sharedManager] requestSubscribedListFromIndex:0 Count:10 shouldClear:YES];
-        _firstScroll = YES;
-    }
+    [[PBManager sharedManager] requestSubscribedListFromIndex:0 Count:10 shouldClear:YES];
+    _firstScroll = YES;
 }
 
 
