@@ -30,6 +30,8 @@
     
     UIBarButtonItem *shareBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAction)];
     self.navigationItem.rightBarButtonItem = shareBtn;
+    
+    shareBtn.enabled = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -51,6 +53,7 @@
     NSLog(@"viewWillDisappear");
 #endif
     [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"requestedObjectLoaded" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"requestObjectFailed" object:nil];
 }
@@ -74,13 +77,15 @@
     [htmlString setHTMLCSSWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"style.min" ofType:@"css"] encoding:NSUTF8StringEncoding error:nil];
     [_webView loadHTMLString:[htmlString toHTMLString] baseURL:nil];
     [SVProgressHUD dismiss];
+    self.navigationItem.rightBarButtonItem.enabled = YES;
 }
 
 - (void)receivedFailed
 {
     [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Load failed", @"Fail loading the detail page")];
-    [SVProgressHUD dismiss];
-    [self.navigationController popViewControllerAnimated:YES];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.navigationController popViewControllerAnimated:YES];
+    });
 }
 
 - (void)shareAction
