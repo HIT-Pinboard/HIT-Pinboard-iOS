@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4cf-im-bHQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4cf-im-bHQ">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -487,7 +487,7 @@
                                                         </mask>
                                                     </variation>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About developers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ht6-GN-foW">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Developers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ht6-GN-foW">
                                                     <rect key="frame" x="72" y="11" width="230" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="230" id="X4x-Cu-DLe"/>
@@ -687,18 +687,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="credits" translatesAutoresizingMaskIntoConstraints="NO" id="fYZ-nd-4SW">
-                                <rect key="frame" x="140" y="140" width="320" height="320"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Torii 2014-2015 Release under MIT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QE8-nB-3ln">
+                                <rect key="frame" x="150" y="440" width="300" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="320" id="WrK-nI-ZjM"/>
-                                    <constraint firstAttribute="width" constant="320" id="hdb-56-Fl4"/>
+                                    <constraint firstAttribute="width" constant="300" id="TWa-D3-QTx"/>
+                                    <constraint firstAttribute="height" constant="21" id="Yck-ty-AFd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="credits" translatesAutoresizingMaskIntoConstraints="NO" id="fYZ-nd-4SW">
+                                <rect key="frame" x="240" y="240" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="WrK-nI-ZjM"/>
+                                    <constraint firstAttribute="width" constant="120" id="hdb-56-Fl4"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="fYZ-nd-4SW" secondAttribute="centerX" id="PZi-Dk-X4p"/>
+                            <constraint firstAttribute="centerX" secondItem="QE8-nB-3ln" secondAttribute="centerX" id="ah9-2Z-SZC"/>
                             <constraint firstAttribute="centerY" secondItem="fYZ-nd-4SW" secondAttribute="centerY" id="jVh-5I-nW8"/>
+                            <constraint firstItem="QE8-nB-3ln" firstAttribute="top" secondItem="fYZ-nd-4SW" secondAttribute="bottom" constant="80" id="x8L-oU-uHU"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -708,7 +720,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="credits" width="320" height="320"/>
+        <image name="credits" width="574" height="520"/>
         <image name="heart.png" width="25" height="25"/>
         <image name="home.png" width="25" height="25"/>
         <image name="mail.png" width="25" height="25"/>

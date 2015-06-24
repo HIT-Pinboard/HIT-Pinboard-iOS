@@ -7,7 +7,8 @@
 //
 
 #import <CacheKit/CacheKit.h>
-#import <RestKit/RestKit.h>
+#import <UIKit/UIKit.h>
+#import "PBNetworkRequest.h"
 #import "PBManager.h"
 #import "PBConstants.h"
 #import "PBIndexObject.h"
@@ -26,7 +27,6 @@
 {
     self = [super init];
     if (self) {
-        [self configureRESTKit];
         if (!_cache) {
             _cache = [[CKSQLiteCache alloc] initWithName:@"PBCache"];
             if ([_cache objectExistsForKey:kCachingFeatureList])
@@ -86,15 +86,18 @@
     [data setObject:@0 forKey:@"start_index"];
     [data setObject:@25 forKey:@"count"];
     [data setObject:@[@"0"] forKey:@"tags"];
-    [[RKObjectManager sharedManager] postObject:nil path:@"/newsList" parameters:@{@"data": data} success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
+    [PBNetworkRequest postDictionary:@{@"data": data} path:@"/newsList" success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
         
         [_featureList removeAllObjects];
         
         NSDateFormatter *dateFormatter = [NSDateFormatter new];
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        [dateFormatter setLocale:[NSLocale currentLocale]];
         __block BOOL findDate;
-        for (PBIndexObject *obj in result.array) {
+        for (NSDictionary *dict in (NSArray *)(responseObject[@"response"])) {
+            PBIndexObject *obj = [PBIndexObject objectFromDict:dict];
             findDate = NO;
             [_featureList enumerateObjectsUsingBlock:^(NSMutableArray *eachDay, NSUInteger index, BOOL *stop){
                 if ([[dateFormatter stringFromDate:obj.date] isEqualToString:[dateFormatter stringFromDate:((PBIndexObject *)eachDay.firstObject).date]]) {
@@ -111,8 +114,9 @@
         }
         
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];
-        
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [self alertWithError:error];
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];
@@ -131,7 +135,7 @@
     [data setObject:[NSNumber numberWithUnsignedInteger:startIndex] forKey:@"start_index"];
     [data setObject:[NSNumber numberWithUnsignedInteger:count] forKey:@"count"];
     [data setObject:[_subscribedTags allObjects] forKey:@"tags"];
-    [[RKObjectManager sharedManager] postObject:nil path:@"/newsList" parameters:@{@"data": data} success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
+    [PBNetworkRequest postDictionary:@{@"data": data} path:@"/newsList" success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         
         if (boolean) {
@@ -145,7 +149,8 @@
         NSDateFormatter *dateFormatter = [NSDateFormatter new];
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];
         __block BOOL findDate;
-        for (PBIndexObject *obj in result.array) {
+        for (NSDictionary *dict in (NSArray *)(responseObject[@"response"])) {
+            PBIndexObject *obj = [PBIndexObject objectFromDict:dict];
             findDate = NO;
             [_subscribedList enumerateObjectsUsingBlock:^(NSMutableArray *eachDay, NSUInteger index, BOOL *stop){
                 if ([[dateFormatter stringFromDate:obj.date] isEqualToString:[dateFormatter stringFromDate:((PBIndexObject *)eachDay.firstObject).date]]) {
@@ -178,7 +183,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"tableViewShouldUpdate" object:nil userInfo:@{@"indexPaths": indexPaths, @"indexSet": indexSet}];
         }
         
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [self alertWithError:error];
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"tableViewShouldReload" object:nil]];
@@ -195,16 +200,16 @@
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"requestedObjectLoaded" object:nil]];
     } else {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        [[RKObjectManager sharedManager] getObjectsAtPath:urlString parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
+        [PBNetworkRequest getObjectsAtPath:urlString success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            _requestedObject = result.array.firstObject;
+            _requestedObject = [PBObject objectFromDict:responseObject[@"response"]];
             [_cache setObject:_requestedObject forKey:urlString];
             [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"requestedObjectLoaded" object:nil]];
-        } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
             [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"requestObjectFailed" object:nil]];
             _requestedObject = nil;
-//            [self alertWithError:error];
+            [self alertWithError:error];
 #ifdef DEBUG
             NSLog(@"%@", [error localizedDescription]);
 #endif
@@ -218,11 +223,15 @@
 - (void)requestTagsList
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [[RKObjectManager sharedManager] getObjectsAtPath:@"/tagsList" parameters:nil success:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
+    [PBNetworkRequest getObjectsAtPath:@"/tagsList" success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [_tagsList removeAllObjects];
-        [_tagsList addObjectsFromArray:result.array];
-    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        
+        for (NSDictionary *dict in responseObject[@"response"]) {
+            PBSubscribeTag *tag = [PBSubscribeTag tagFromDict:dict];
+            [_tagsList addObject:tag];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [self alertWithError:error];
 #ifdef DEBUG
@@ -250,11 +259,10 @@
             data[@"action"] = @"remove";
         }
         [data setObject:[_subscribedTags allObjects] forKey:@"tags"];
-        NSMutableURLRequest *request = [[RKObjectManager sharedManager] requestWithObject:nil method:RKRequestMethodPOST path:@"/push" parameters:@{@"data": data}];
-        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:nil failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        
+        [PBNetworkRequest postDictionary:@{@"data": data} path:@"/push" success:nil failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [self alertWithError:error];
         }];
-        [operation start];
     }
 }
 
@@ -304,47 +312,47 @@
      * Before we set up mappings, add a String <--> Date transformer that interprets string dates
      *  lacking timezone info to be in the user's local time zone
      */
-    [RKObjectMapping class];    // Message the RKObjectMapping class (+ subclasses) so +initialize is
-    [RKEntityMapping class];    //  called to work around RK bug, see GH issue #1631
-    NSDateFormatter *localOffsetDateFormatter = [[NSDateFormatter alloc] init];
-    [localOffsetDateFormatter setLocale:[NSLocale currentLocale]];
-    [localOffsetDateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    [localOffsetDateFormatter setTimeZone:[NSTimeZone localTimeZone]];
-    [[RKValueTransformer defaultValueTransformer] insertValueTransformer:localOffsetDateFormatter atIndex:0];
-    
-    RKObjectMapping *indexMapping = [RKObjectMapping mappingForClass:[PBIndexObject class]];
-    RKObjectMapping *tagMapping = [RKObjectMapping mappingForClass:[PBSubscribeTag class]];
-    RKObjectMapping *objectMapping = [RKObjectMapping mappingForClass:[PBObject class]];
-
-    [indexMapping addAttributeMappingsFromDictionary:@{@"title": @"title",
-                                                        @"date": @"date",
-                                                        @"link": @"urlString",
-                                                        @"tags": @"tags"
-                                                        }];
-    [tagMapping addAttributeMappingsFromDictionary:@{@"name": @"name",
-                                                     @"value": @"value"
-                                                     }];
-    
-    [tagMapping addRelationshipMappingWithSourceKeyPath:@"children" mapping:tagMapping];
-    
-    [objectMapping addAttributeMappingsFromDictionary:@{@"title": @"title",
-                                                        @"link": @"urlString",
-                                                        @"date": @"date",
-                                                        @"tags": @"tags",
-                                                        @"content": @"content",
-                                                        @"imgs": @"imgs"
-                                                        }];
-    
-    RKResponseDescriptor *indexDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:indexMapping method:RKRequestMethodPOST pathPattern:@"/newsList" keyPath:@"response" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    RKResponseDescriptor *tagDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:tagMapping method:RKRequestMethodGET pathPattern:@"/tagsList" keyPath:@"response" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    RKResponseDescriptor *objectDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:objectMapping method:RKRequestMethodGET pathPattern:@"/:catalogue/:objectID.json" keyPath:@"response" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
-    
-    AFHTTPClient *client = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kHost]];
-    RKObjectManager *objectManager = [[RKObjectManager alloc] initWithHTTPClient:client];
-    
-    [objectManager addResponseDescriptorsFromArray:@[indexDescriptor, tagDescriptor, objectDescriptor]];
-    
-    [RKObjectManager setSharedManager:objectManager];
+//    [RKObjectMapping class];    // Message the RKObjectMapping class (+ subclasses) so +initialize is
+//    [RKEntityMapping class];    //  called to work around RK bug, see GH issue #1631
+//    NSDateFormatter *localOffsetDateFormatter = [[NSDateFormatter alloc] init];
+//    [localOffsetDateFormatter setLocale:[NSLocale currentLocale]];
+//    [localOffsetDateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//    [localOffsetDateFormatter setTimeZone:[NSTimeZone localTimeZone]];
+//    [[RKValueTransformer defaultValueTransformer] insertValueTransformer:localOffsetDateFormatter atIndex:0];
+//    
+//    RKObjectMapping *indexMapping = [RKObjectMapping mappingForClass:[PBIndexObject class]];
+//    RKObjectMapping *tagMapping = [RKObjectMapping mappingForClass:[PBSubscribeTag class]];
+//    RKObjectMapping *objectMapping = [RKObjectMapping mappingForClass:[PBObject class]];
+//
+//    [indexMapping addAttributeMappingsFromDictionary:@{@"title": @"title",
+//                                                        @"date": @"date",
+//                                                        @"link": @"urlString",
+//                                                        @"tags": @"tags"
+//                                                        }];
+//    [tagMapping addAttributeMappingsFromDictionary:@{@"name": @"name",
+//                                                     @"value": @"value"
+//                                                     }];
+//    
+//    [tagMapping addRelationshipMappingWithSourceKeyPath:@"children" mapping:tagMapping];
+//    
+//    [objectMapping addAttributeMappingsFromDictionary:@{@"title": @"title",
+//                                                        @"link": @"urlString",
+//                                                        @"date": @"date",
+//                                                        @"tags": @"tags",
+//                                                        @"content": @"content",
+//                                                        @"imgs": @"imgs"
+//                                                        }];
+//    
+//    RKResponseDescriptor *indexDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:indexMapping method:RKRequestMethodPOST pathPattern:@"/newsList" keyPath:@"response" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+//    RKResponseDescriptor *tagDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:tagMapping method:RKRequestMethodGET pathPattern:@"/tagsList" keyPath:@"response" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+//    RKResponseDescriptor *objectDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:objectMapping method:RKRequestMethodGET pathPattern:@"/:catalogue/:objectID.json" keyPath:@"response" statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+//    
+//    AFHTTPClient *client = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kHost]];
+//    RKObjectManager *objectManager = [[RKObjectManager alloc] initWithHTTPClient:client];
+//    
+//    [objectManager addResponseDescriptorsFromArray:@[indexDescriptor, tagDescriptor, objectDescriptor]];
+//    
+//    [RKObjectManager setSharedManager:objectManager];
 }
 
 #pragma mark -

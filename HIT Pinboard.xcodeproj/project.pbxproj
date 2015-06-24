@@ -29,6 +29,8 @@
 		8F310DBC1A186666003F3518 /* PBTagCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F310DBA1A186666003F3518 /* PBTagCollectionViewCell.m */; };
 		8F310DBD1A186666003F3518 /* PBTagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F310DBB1A186666003F3518 /* PBTagCollectionViewCell.xib */; };
 		8F310DC01A186805003F3518 /* PBTagSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F310DBF1A186805003F3518 /* PBTagSelectViewController.m */; };
+		8F5317991AB52E3500926A83 /* PBNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5317981AB52E3500926A83 /* PBNetworkRequest.m */; };
+		8F5317AF1AB591F300926A83 /* PBTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5317AE1AB591F300926A83 /* PBTagView.m */; };
 		8F7A57F91A2D59550006B529 /* airdrop.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A57AC1A2D59550006B529 /* airdrop.png */; };
 		8F7A57FA1A2D59550006B529 /* alarm.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A57AD1A2D59550006B529 /* alarm.png */; };
 		8F7A57FB1A2D59550006B529 /* anchor.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7A57AE1A2D59550006B529 /* anchor.png */; };
@@ -250,6 +252,10 @@
 		8F310DBB1A186666003F3518 /* PBTagCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PBTagCollectionViewCell.xib; path = Controllers/PBTagCollectionViewCell.xib; sourceTree = "<group>"; };
 		8F310DBE1A186805003F3518 /* PBTagSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBTagSelectViewController.h; path = Controllers/PBTagSelectViewController.h; sourceTree = "<group>"; };
 		8F310DBF1A186805003F3518 /* PBTagSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBTagSelectViewController.m; path = Controllers/PBTagSelectViewController.m; sourceTree = "<group>"; };
+		8F5317971AB52E3500926A83 /* PBNetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBNetworkRequest.h; path = Models/PBNetworkRequest.h; sourceTree = "<group>"; };
+		8F5317981AB52E3500926A83 /* PBNetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBNetworkRequest.m; path = Models/PBNetworkRequest.m; sourceTree = "<group>"; };
+		8F5317AD1AB591F300926A83 /* PBTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBTagView.h; path = Controllers/PBTagView.h; sourceTree = "<group>"; };
+		8F5317AE1AB591F300926A83 /* PBTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBTagView.m; path = Controllers/PBTagView.m; sourceTree = "<group>"; };
 		8F7A57AC1A2D59550006B529 /* airdrop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = airdrop.png; path = Images/airdrop.png; sourceTree = "<group>"; };
 		8F7A57AD1A2D59550006B529 /* alarm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = alarm.png; path = Images/alarm.png; sourceTree = "<group>"; };
 		8F7A57AE1A2D59550006B529 /* anchor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = anchor.png; path = Images/anchor.png; sourceTree = "<group>"; };
@@ -526,6 +532,8 @@
 				8F0AAA461A0BB0CA0083497F /* PBIndexObject.m */,
 				8F0AAA4B1A0BBA160083497F /* PBManager.h */,
 				8F0AAA4C1A0BBA160083497F /* PBManager.m */,
+				8F5317971AB52E3500926A83 /* PBNetworkRequest.h */,
+				8F5317981AB52E3500926A83 /* PBNetworkRequest.m */,
 				8F0AAA4E1A0BBC2A0083497F /* PBConstants.h */,
 				8F10DEFF1A0D1311003A9BAE /* PBSubscribeTag.h */,
 				8F10DF001A0D1311003A9BAE /* PBSubscribeTag.m */,
@@ -545,6 +553,8 @@
 				8F0AAA1A1A0BA18F0083497F /* LaunchScreen.xib */,
 				8F0AAA151A0BA18F0083497F /* Main.storyboard */,
 				8F0AAA391A0BADC80083497F /* PBTableViewCell.xib */,
+				8F5317AD1AB591F300926A83 /* PBTagView.h */,
+				8F5317AE1AB591F300926A83 /* PBTagView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1066,12 +1076,14 @@
 				8F0AAA3E1A0BAFCF0083497F /* PBFeatureViewController.m in Sources */,
 				8FA879F91A0F5E0C006FAFBD /* PBSettingsTableViewController.m in Sources */,
 				8F0AAA471A0BB0CA0083497F /* PBIndexObject.m in Sources */,
+				8F5317991AB52E3500926A83 /* PBNetworkRequest.m in Sources */,
 				8F10DF0E1A0D27EF003A9BAE /* NSString+HTML.m in Sources */,
 				8F10DF0D1A0D27EF003A9BAE /* GTMNSString+HTML.m in Sources */,
 				8F0C92161A11DFBE001AACF2 /* NSArray+PBSubscribeTag.m in Sources */,
 				8F0AAA411A0BAFEF0083497F /* PBSubscribedViewController.m in Sources */,
 				8FCFA8A31A0FAA5400C8EAC8 /* PBArrayDataSource.m in Sources */,
 				8F0AAA0E1A0BA18F0083497F /* main.m in Sources */,
+				8F5317AF1AB591F300926A83 /* PBTagView.m in Sources */,
 				8F0AAA441A0BB0470083497F /* PBObject.m in Sources */,
 				8F10DF011A0D1311003A9BAE /* PBSubscribeTag.m in Sources */,
 				8F0AAA3A1A0BADC80083497F /* PBTableViewCell.m in Sources */,

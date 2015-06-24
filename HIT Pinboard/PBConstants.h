@@ -9,11 +9,11 @@
 #ifndef HIT_Pinboard_PBConstants_h
 #define HIT_Pinboard_PBConstants_h
 
-#ifdef DEBUG
-#define kHost       @"http://172.16.128.132:8080"
-#else
-#define kHost       @"http://202.118.250.19:8080"
-#endif
+//#ifdef DEBUG
+//#define kHost       @"http://localhost:8080"
+//#else
+#define kHost       @"http://pinboard.austinchou.com:8080"
+//#endif
 
 #define kCodingTitleKey         @"Title"
 #define kCodingDateKey          @"Date"
@@ -32,12 +32,8 @@
 #define kSettingsNotifications  @"shouldEnableNotifications"
 #define kSettingsSubscribed     @"userSubscribedTags"
 
-#define kAppStoreURL            @"https://itunes.apple.com/us/app/apple-store/id375380948?mt=8"
+#define kAppStoreURL            @"https://itunes.apple.com/us/app/gong-da-tou-tiao/id948650698?mt=8"
 
-
-typedef enum : NSUInteger {
-    PBDataSourceSME,
-    PBDataSourceJWC,
-} PBDataSource;
+#define kResponseSuccess        @200
 
 #endif

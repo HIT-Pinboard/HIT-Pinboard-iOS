@@ -42,6 +42,11 @@
     return self;
 }
 
++ (instancetype)tagFromDict:(NSDictionary *)dict
+{
+    return [[PBSubscribeTag alloc] initFromDict:dict];
+}
+
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     return [[PBSubscribeTag alloc] initFromDict:[aDecoder decodeObjectForKey:kCodingTagsKey]];

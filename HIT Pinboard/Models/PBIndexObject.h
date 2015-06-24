@@ -15,9 +15,8 @@
 @property (strong, nonatomic) NSString *urlString;
 @property (strong, nonatomic) NSArray *tags;
 
-- (instancetype)initWithTitle:(NSString *)aTitle
-                         Date:(NSString *)dateString
-                    URLString:(NSString *)urlString
-                         Tags:(NSArray *)aTags;
+- (instancetype)initFromDict:(NSDictionary *)dict;
+
++ (instancetype)objectFromDict:(NSDictionary *)dict;
 
 @end

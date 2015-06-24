@@ -15,7 +15,9 @@
 @property (strong, nonatomic) NSString *content;
 @property (strong, nonatomic) NSArray *imgs;
 
-- (instancetype)initFromLocalJSON:(NSString *)filePath;
 - (instancetype)initFromDict:(NSDictionary *)dict;
+
++ (instancetype)objectFromDict:(NSDictionary *)dict;
+
 
 @end

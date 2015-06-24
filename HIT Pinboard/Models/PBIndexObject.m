@@ -11,8 +11,6 @@
 
 @implementation PBIndexObject
 
-@synthesize title = _title, date = _date, urlString = _urlString, tags = _tags;
-
 - (instancetype)initWithTitle:(NSString *)aTitle
                          Date:(NSDate *)date
                     URLString:(NSString *)urlString
@@ -49,6 +47,33 @@
         _tags = [aDecoder decodeObjectForKey:kCodingTagsKey];
     }
     return self;
+}
+
+- (instancetype)initFromDict:(NSDictionary *)dict
+{
+    self = [super init];
+    if (self) {
+        
+        NSDateFormatter *ymdFormatter = [[NSDateFormatter alloc] init];
+        NSDateFormatter *ymdhmsFormatter = [[NSDateFormatter alloc] init];
+        
+        ymdFormatter.locale = [NSLocale currentLocale];
+        ymdhmsFormatter.locale = [NSLocale currentLocale];
+        
+        ymdFormatter.dateFormat = @"yyyy-MM-dd";
+        ymdhmsFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+        
+        _title = [dict objectForKey:@"title"];
+        _date = [ymdFormatter dateFromString:[dict objectForKey:@"date"]] ? : [ymdhmsFormatter dateFromString:[dict objectForKey:@"date"]];
+        _urlString = [dict objectForKey:@"link"];
+        _tags = [dict objectForKey:@"tags"];
+    }
+    return self;
+}
+
++ (instancetype)objectFromDict:(NSDictionary *)dict
+{
+    return [[PBIndexObject alloc] initFromDict:dict];
 }
 
 @end

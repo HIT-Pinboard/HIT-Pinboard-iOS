@@ -16,5 +16,6 @@
 
 - (NSDictionary *)objectToDict;
 - (instancetype)initFromDict:(NSDictionary *)dict;
++ (instancetype)tagFromDict:(NSDictionary *)dict;
 
 @end
