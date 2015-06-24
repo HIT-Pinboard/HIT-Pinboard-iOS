@@ -1,5 +1,7 @@
 ## HIT Pinboard
 
+### Deprecated Project. Checking [ComingX](http://www.comingx.com) version.
+
 [![Build Status](https://travis-ci.org/Torii-HITSE-2014/HIT-Pinboard.svg?branch=master)](https://travis-ci.org/Torii-HITSE-2014/HIT-Pinboard)
 
 ### Introduce
@@ -11,9 +13,5 @@ We live in a information soceity. Sometimes we are tired of retrieving informati
 - Well-Formated View for Mobile
 - No Pics Mode
 - Push Notification
-
-### Sources
-
-
 
 ### Made with ♥︎ by [AustinChou](https://github.com/AustinChou)
